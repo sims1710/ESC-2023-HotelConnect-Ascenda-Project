@@ -1,0 +1,108 @@
+body {
+    font-family: "Poppins", sans-serif;
+}
+
+h1 {
+    color: #004080;
+}
+
+.button {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: #004080;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+  
+.button:hover {
+    background-color: #004080;
+}
+  
+.button:active {
+    background-color:#0080ff;
+}
+
+.custom-nav {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 0;
+    background-color: #f5f5f5
+}
+
+.custom-nav ul li {
+    display: inline-block;
+    list-style: none;
+    margin: 10px 10px;
+}
+
+.custom-nav ul li a {
+    text-decoration: none;
+    color: #004080;
+}
+
+.user-profile {
+    text-decoration: none;
+    color: #004080;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    text-align: center;
+    padding: 20px;
+    font-size: 10px;
+}
+  
+#sign-in-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 300px;
+    margin: 20px auto;
+    border: 1px solid #004080;
+    padding: 30px;
+}
+  
+.sign-in-group {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+    align-items: flex-start;
+}
+  
+.sign-in-group label {
+    color: #004080;
+    margin-right: 10px;
+    min-width: 60px;
+    align-items: flex-start;
+}
+  
+.sign-in-group input[type="text"],
+.sign-in-group input[type="password"] {
+    padding: 10px;
+    border: 1px solid #004080;
+    flex-grow: 1;
+    margin-right: 10px;
+}
+  
+#sign-up-nav {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    text-align: center;
+}
+  
+.sign-button {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: #004080;
+    color: white;
+    text-decoration: none;
+} 
