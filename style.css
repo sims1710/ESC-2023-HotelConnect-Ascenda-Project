@@ -1,0 +1,757 @@
+/*Import fonts*/
+@import url('https://fonts.googleapis.com/css?family=Courgette|Open+Sans:400, 800&display=swap');
+
+/*Basic Reset*/
+*,
+*::before
+*::after{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+/*Custom properties*/
+:root{
+    --blue: #004080;
+    --yellow: #FFD700;
+    --blue-light: #006ad4;
+    --yellow-light:  #fff4b5;
+    --gradient-color: linear-gradient(to right, var(--blue-light), var(--yellow-light));
+    --gradient-color-alt: linear-gradient(to right, var(--yellow-light), var(--blue-light));
+    --transparent: #a3d1ff;
+    --light: #f5f5f5;
+    --grey: #b0b0b5;
+}
+
+/*Global styles*/
+html{
+    font-size: 10px;
+}
+
+body {
+    font-family: "Poppins", sans-serif;
+    font-size: 1.6rem;
+    color: var(--blue);
+}
+
+a{
+    text-decoration: none;
+    color: inherit;
+}
+
+ul{
+    list-style: none;
+}
+
+section{
+    padding: 5rem 0;
+}
+
+h1 {
+    color: var(--light);
+}
+
+h2 {
+    color: var(--light);
+}
+
+/* Normal Button styles*/
+.button {
+    display: inline-block;
+    padding: 10px 10px;
+    background-color: var(--blue);
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+}
+  
+.button:hover {
+    background-color: var(--blue);
+}
+  
+.button:active {
+    background-color:#0080ff;
+}
+
+/*Header styles*/
+header{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6rem;
+    display: flex;
+    align-items: center;
+    background-color: var(--grey);
+    z-index: 999;
+    opacity: 80%;
+    
+}
+
+.header.active{
+    height: 6rem;
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo img{
+    max-width: 80%;
+    left: 3rem;
+}
+
+.hamburger-menu {
+    font-size: 2.0rem;
+    color: var(--blue);
+    cursor: pointer;
+    position: fixed;
+    z-index: 1500;
+    right: 3rem;
+}
+
+.hamburger-menu .fa-times{
+    display: none;
+}
+
+.menu-open .hamburger-menu .fa-times{
+    display: block;
+}
+
+.menu-open .hamburger-menu .fa-bars{
+    display: none;
+}
+
+.nav-list {
+    position: fixed;
+    top: 1rem;
+    right: 0;
+    width: 11%;
+    height: 100vh;
+    background-color: #b0b0b5;
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+    justify-content: center;
+    z-index: 1400;
+    opacity: 0;
+    transform: scale(0);
+    transition: opacity .5s;
+}
+
+.menu-open .nav-list{
+    top: 1rem;
+    opacity: 65%;
+    transform: scale(1);
+    
+}
+
+.nav-item:not(:last-child) {
+    margin-bottom: .5rem;
+}
+
+.nav-link{
+    display: block;
+    color: black;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    padding: 1rem;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.nav-link:hover{
+    color: #ffec82;
+}
+
+.user-profile {
+    text-decoration: none;
+    color: #004080;
+}
+ 
+/*Container styles*/
+.container {
+    width: 100% ;
+    max-width: 120rem;
+    padding: 0 1.5rem;
+    margin: 0 auto; 
+}
+
+/*Hero section styles*/
+.hero {
+    width: 100%;
+    height: 100vh;
+    background: url("img/hotel.jpg") center/cover no-repeat;
+    background-size: cover ;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 0;
+}
+
+.hero::before{
+    content: " ";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: inherit;
+    height: inherit;
+    background: var(--gradient-color-alt);
+    z-index: -1;
+    mix-blend-mode: multiply;
+}
+
+.main-heading{
+    color: #fff;
+    line-height: 1;
+    text-shadow: 1px 1px 1rem rgba(0, 0, 0, 0.5);
+    margin-bottom: 2.5rem;
+}
+
+.title{
+    font-size: 4.8rem;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.subtitle{
+    font-size: 3.6rem;
+    font-weight: 300;
+    font-family: sans-serif;
+}
+
+.btn{
+    color: #fff;
+    font-size: 1.3rem;
+    font-weight: bold;
+    padding: .5rem 3.5rem;
+    border: none; 
+    display: inline-flex;
+    align-items: center;
+}
+
+.btn-gradient{
+    background-color: var(--yellow);
+    color: var(--blue);
+}
+
+.btn-gradient:hover{
+    background-color: var(--blue);
+    color:#fff;
+}
+
+.dots{
+    font-size: 2.4rem;
+    margin-left: .5rem;
+    opacity: .75;
+}
+
+/*Booking Section Styles*/
+.booking{
+    background-image: var(--gradient-color-alt);
+}
+
+.input-group{
+    margin-bottom: 1.5rem;
+}
+
+.input-label{
+    display: block;
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.book-form{
+    display: flex;
+    justify-content: space-between;
+}
+
+.book-form .input-group{
+    margin-bottom:0 ;
+}
+
+.book-form .input-group:first-child{
+    flex: 0 0 20%;
+}
+
+.input,
+.options{
+    outline:none;
+    border: none;
+    width: 100%;
+    height: 2rem;
+    padding: 1rem;
+    font-weight: bold;
+    color: #a5a5a5;
+    letter-spacing: 2px;
+    font-family: "Open Sans", sans-serif;
+    min-width: 10rem;
+    resize: none;
+}
+
+.options{
+    height: 4rem;
+}
+
+.form-btn{
+    margin-top: 2.5rem;
+    cursor: pointer;
+}
+
+.btn-yellow{
+    background-color: var(--yellow);
+    color: var(--blue)
+}
+
+.btn-yellow:hover{
+    background-color: var(--blue);
+    color: #fff;
+}
+
+::placeholder{
+    color:inherit;
+}
+
+/*Featured Hotels section styles*/
+.section-head{
+    text-align: center;
+    margin-bottom: 5rem;
+}
+
+.heading{
+    display: block;
+    font-size: 4rem;
+    text-transform: uppercase;
+}
+
+.subheading{
+    font-size: 1.7rem;
+    font-family: sans-serif;
+    font-weight: 800;
+    color:#a5a5a5;
+}
+.grid{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(30rem, 1fr));
+    grid-gap: 2.5rem;
+}
+
+.grid-item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.featured-hotels{
+    height: 35rem;
+    color: #fff;
+    padding: 1rem;
+    position: relative;
+    z-index: 0;
+}
+
+.featured-hotels::before{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: var(--gradient-color-alt);
+    z-index: -1;
+    mix-blend-mode: multiply;
+}
+
+.hotel-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+    top: 0;
+    left:0;
+    z-index: -2;
+}
+
+.hotel-name{
+    font-size: 2.6rem;
+}
+
+.hotel-price{
+    font-size: 1.8rem;
+}
+
+.hotel-rating{
+    margin: 1rem 0 2.5rem;
+}
+
+.rating{
+    color: var(--yellow);
+}
+
+/*Special section styles*/
+.offer {
+    position: relative;
+    background: var(--blue); /* Fallback color */
+    z-index: 0;
+}
+
+.offer::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to right, var(--blue-light), var(--yellow-light));
+    mix-blend-mode: multiply;
+    z-index: -1;
+}
+
+.offer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url("img/lemeridien.webp");
+    background-position: bottom center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+.offer-content{
+    background-color: #fff;
+    text-align: center;
+    padding: 5rem 20rem;
+    position: relative;
+    overflow: hidden;
+    opacity: 80%;
+    max-width: 800px;
+    margin: 0 auto;
+    max-height: 300px;
+}
+
+.discount{
+    background-color: var(--yellow);
+    position: absolute;
+    top:0;
+    left:0;
+    padding: 1rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    outline: 2px solid var(--yellow);
+    outline-offset: .5rem;
+}
+
+.paragraph{
+    color: var(--blue);
+    margin-bottom: 2.5rem;
+}
+
+/*Rooms section styles*/
+.rooms{
+    background-color: var(--light);
+}
+
+.image-wrap{
+    position: relative;
+    height: 25rem;
+    width: 150rem;
+}
+
+.image.wrap::after{
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--blue-light) ;
+}
+
+.room-image{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.room-name{
+    font-size: 2.6rem;
+    background-color: var(--yellow);
+    color:#fff;
+    padding: .5rem 2rem;
+    position: absolute;
+    left: 0;
+    bottom: 2.5rem;
+    z-index: 10;
+}
+
+.room-price{
+    display: block;
+    font-size: 3.6rem;
+    font-weight: bold;
+    color: var(--yellow);
+}
+
+.per-night{
+    color: var(--blue);
+    font-size: 1.4rem;
+    font-weight: 100;
+}
+
+.rooms-btn{
+    color: var(--blue);
+    padding: 0;
+    transition: color .5;
+}
+
+.rooms-btn:hover{
+    color: var(--blue-light);
+}
+
+/*Contact section styles*/
+.contact-content{
+    display: flex;
+    justify-content: center;
+}
+
+.contact-form{
+    width: 100%;
+    background-color: var(--light);
+    padding: 2.5rem;
+    flex: 0 0 50%;
+    align-self: flex-start;
+}
+
+.contact-form .input-contact{
+    display: block;
+    background-color: transparent;
+    color: var(--blue) ;
+    font-weight: normal;
+    border-bottom: 2px solid #fff;
+    padding-left: 0;
+}
+
+.bar{
+    display: block;
+    position: relative;
+}
+
+.bar::after{
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    height: 3px;
+    background-color: var(--blue-light);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transfrom .5s;
+}
+
+.contact-form .input-contact:focus + .bar::after{
+    transform: scaleX(1);
+}
+
+.input-contact{
+    outline:none;
+    border: none;
+    width: 100%;
+    height: 2rem;
+    padding: 1rem;
+    font-weight: bold;
+    color: #a5a5a5;
+    letter-spacing: 2px;
+    font-family: "Open Sans", sans-serif;
+    resize: none;
+}
+
+.traveler-wrap{
+    display: block;
+}
+
+.traveler-wrap img{
+    width: 70%;
+}
+
+/*Footer section style*/
+.footer {
+    padding: 0.5rem 0;
+    background-image: var(--gradient-color);
+    color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 20rem;
+}
+  
+  .footer-content {
+    text-align: center;
+}
+  
+  .footer .paragraph {
+    color: inherit;
+}
+
+  .footer-link{
+    text-transform: uppercase;
+    color: var(--blue);
+    margin-top: 2.5rem;
+}
+  
+/*Sign Up button*/
+.sign-in-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+  
+.btn-sign-up {
+    background-color: var(--yellow);
+    color: var(--blue);
+    margin-top: 2rem; /* Add margin to separate the button from the inputs */
+}
+  
+.btn-sign-up:hover {
+    background-color: var(--blue);
+    color: #fff;
+}
+  
+
+/*Media queries*/
+@media screen and (min-width: 768px){
+    /*Header section style*/
+    .header{
+        height: 10rem;
+    }
+    .header.active{
+        height: 6rem;
+    }
+    /*Hero section style*/
+    .title{
+        font-size: 8rem;
+    }
+    /*Contact section style*/
+    .contact-content{
+        justify-content: center;
+    }
+
+    .traveler-wrap{
+        display: block;
+    }
+
+    .traveler-wrap img{
+        max-width: 70%;
+        align-self: right;
+    }
+
+    .contact-form{
+        flex: 0 0 50%;
+        align-self: flex-start;
+    }
+
+    /*Footer section style*/
+    .footer{
+        overflow-x: hidden;
+    }
+    
+    .footer-content{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .footer .paragraph{
+        margin-top: 2.5rem;
+    }
+
+    .footer-heading{
+        margin-bottom: 5rem;
+    }
+
+    /*Booking section styles*/
+    .book-form{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-form .input-group{
+        margin-bottom:0 ;
+    }
+
+    .book-form .input-group:first-child{
+        flex: 0 0 20%;
+    }
+
+    .input,
+    .options{
+        min-width: 10rem;
+    }
+
+}
+
+@media screen and (min-width: 1000px){
+    section:not(.booking){
+        padding: 10rem 0;
+    }
+
+    /*Hero section styles*/
+    .title{
+        font-size: 12rem;
+    }
+
+    .subtitle{
+        font-size: 4.6rem;
+    }
+
+    /*Booking section styles*/
+    .book-form{
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .book-form .input-group{
+        margin-bottom:0 ;
+    }
+
+    .book-form .input-group:first-child{
+        flex: 0 0 20%;
+    }
+
+    .input,
+    .options{
+        min-width: 10rem;
+    }
+
+    /*Room section styles*/
+    .rooms-grid{
+        grid-template-columns: repeat(auto-fit, minmax(40rem, 1fr));
+        grid-gap: 8rem;
+    }
+
+    .featured-rooms{
+        flex-direction: row;
+        align-items: flex-start;
+    }
+
+    .room-info-wrap{
+        margin-left: 1.5rem;
+    }
+    
+}
+
+@media screen and (min-width: 1200px) {
+    .book-form .input-group:first-child{
+        flex: 0 0 30%;
+    }
+}   
