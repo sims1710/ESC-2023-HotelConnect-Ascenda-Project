@@ -26,6 +26,15 @@
             </nav>
         </div>
     </header>
+    <script>
+        const hotels_destination_url = 'https://hotelapi.loyalty.dev/api/hotels?destination_id=WD0M';
+        async function getHotels(){  
+            const response = await fetch(hotels_destination_url);
+            const data = await response.json();  
+            console.log(data);
+        }
+        getHotels();  
+    </script>
     <main>
         <div class="hero">
             <div class="container">
