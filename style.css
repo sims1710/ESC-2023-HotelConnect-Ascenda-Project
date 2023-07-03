@@ -798,3 +798,25 @@ header{
 .card:hover {
     background-color: lightblue;
 }
+
+#popup-message {
+    position: absolute;
+    top: 121%;
+    left: 83%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    width: 150px;
+    font-size: 14px;
+}
+  
+#popup-message.show {
+    visibility: visible;
+    opacity: 1;
+}
+  

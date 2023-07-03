@@ -1,7 +1,30 @@
 const MAX_MATCHES = 10; // Maximum number of matches to display
 const search = document.getElementById('destination'); //search input box
 const matchls = document.getElementById('scroll-container'); // drop down list
+//add new popup message
+const checkInDate = document.getElementById('check-in');
+const checkOutDate = document.getElementById('check-out');
+const numGuests = document.getElementById('adults');
+const numRooms = document.getElementById('rooms');
 
+const searchForm = document.querySelector('.book-form');
+searchForm.addEventListener('submit', event => {
+  event.preventDefault(); // Prevent form submission
+  // Perform validation
+  if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
+    displayPopupMessage('Please fill in all details!');
+  } else {
+    // go ahead with form submission or other actions
+    searchForm.submit(); // Submit the form
+  }
+});
+
+const displayPopupMessage = message => {
+    const popup = document.getElementById('popup-message');
+    popup.textContent = message;
+    popup.classList.add('show');
+};
+//end pop up message
 //Selectors
 let header = document.querySelector('.header');
 let hamburgerMenu = document.querySelector('.hamburger-menu');
