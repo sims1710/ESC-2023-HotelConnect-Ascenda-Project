@@ -257,6 +257,7 @@ header{
 
 .input-group{
     margin-bottom: 1.5rem;
+    position: relative; /* Add this line to make it a positioned parent */
 }
 
 .input-label{
@@ -771,3 +772,29 @@ header{
         flex: 0 0 30%;
     }
 }   
+
+
+.scroll-container {
+    max-height: 200px; /* Adjust the desired height */
+    width: 380px; /* Adjust the desired width */
+    overflow-y: auto;
+    background-color: white; 
+}
+  
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card {
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s;
+    height: 40px; /* Adjust the height as needed */     
+    line-height: 40px; /* Set line-height to match the height */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    box-sizing: border-box; /* Include padding and border in height */
+}
+  
+.card:hover {
+    background-color: lightblue;
+}

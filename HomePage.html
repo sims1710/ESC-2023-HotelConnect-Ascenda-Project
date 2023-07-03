@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hotel Connect : Home Page</title>
-    <link href="style.css" text="text/css" rel="stylesheet">
+    <link href="style.css" type="text/css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
 <body>
     <header class="header">
@@ -26,15 +26,6 @@
             </nav>
         </div>
     </header>
-    <script>
-        const hotels_destination_url = 'https://hotelapi.loyalty.dev/api/hotels?destination_id=WD0M';
-        async function getHotels(){  
-            const response = await fetch(hotels_destination_url);
-            const data = await response.json();  
-            console.log(data);
-        }
-        getHotels();  
-    </script>
     <main>
         <div class="hero">
             <div class="container">
@@ -53,8 +44,9 @@
                 <form action="" class="book-form">
                     <div class="input-group">
                         <label for="destination" class="input-label">Destination</label>
-                        <input type="text" class="input" id="destination" placeholder="Hotel/Destination">
+                        <input type="text" class="input" id="destination" placeholder="Search for Destination" class="form-control form-control-lg">
                     </div>
+                    <div class="scroll-container" id="scroll-container"></div>
                     <div class="input-group">
                         <label for="check-in" class="input-label">Check In</label>
                         <input type="date" class="input" id="check-in">
@@ -95,10 +87,6 @@
                     <button type="submit" class="btn form-btn btn-yellow">Search 
                         <span class="dots"><i class="fas fa-ellipsis-h"></i></span>
                     </button>
-                    <div class="form-group">
-                        <input type="text" id="search" class="form-control form-control-lg" placeholder="Search for a destination"/>
-                    </div>
-                    <div id="match-list"></div>
                 </form>
             </div>
         </section>
