@@ -8,6 +8,7 @@ const numGuests = document.getElementById('adults');
 const numRooms = document.getElementById('rooms');
 
 const searchForm = document.querySelector('.book-form');
+
 searchForm.addEventListener('submit', event => {
   event.preventDefault(); // Prevent form submission
   // Perform validation

@@ -7,42 +7,59 @@
     <title>Hotel Connect : Sign Up</title>
     <link href="style.css" text="text/css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
-    
-</head>
 <body>
     <header class="header">
         <div id="container">
-            <a class="logo"> <img src="img/logo.png" alt="Website Logo"/></a>
+            <nav class="nav">
+                <a href="HomePage.html" class="logo"> <img src="img/logo.png" alt="Website Logo"/></a>
+                <div class="hamburger-menu">
+                    <i class="fas fa-bars"></i>
+                    <i class="fas fa-times"></i>
+                </div>
+                <ul class="nav-list">
+                    <li class="nav-item"><a href="#Searching" class="nav-link">Search Hotel/Destination</a></li>
+                    <li class="nav-item"><a href="#Booking" class="nav-link">Book Hotel</a></li>
+                    <li class="nav-item"><a href="./UserGuide.html" class="nav-link">About</a></li>
+                    <li class="nav-item"><a class="nav-link"> User Profile </a></li>
+                    <li class="nav-item"><a class="nav-link"> Sign Out</a></li>
+                </ul>      
+            </nav>
         </div>
     </header>
-    <section class="sign-in">
-        <div class="container">
-            <h5 class="section-head">
-                <span class="heading">Sign In</span>
-                <span class="sub-heading">Sign in your account here</span>
-            </h5>
-            <div class="sign-in-content">
-                <form action="" class="form sign-in-form">
-                    <div class="input-group">
-                        <input type="text" class="input-contact" placeholder="Username" required>
-                        <span class="bar"></span>
-                    </div>
-                    <div class="input-group">
-                        <input type="text" class="input-contact" placeholder="Password" required>
-                        <span class="bar"></span>
-                    </div>
-                    <nav>
-                        <a href="/HomePage.html" class="nav-link">
-                            <button type="button" class="btn btn-sign-up">Sign In
-                                <span class="dots"><i class="fas fa-ellipsis-h"></i></span>
-                            </button>
-                        </a>
-                    </nav>
-                </form>
+    <main>
+        <section class="sign-in">
+            <div class="container">
+                <h5 class="section-head">
+                    <span class="heading">Sign In</span>
+                    <span class="sub-heading">Sign in your account here</span>
+                </h5>
+                <div class="sign-in-content">
+                    <form action="" class="form sign-in-form">
+                        <div class="input-group">
+                            <input type="text" id="input-username" placeholder="Username" required>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="input-group">
+                            <input type="text" id="input-password" placeholder="Password" required>
+                            <span class="bar"></span>
+                        </div>
+                        <!-- <nav>
+                            <a href="HomePage.html" class="nav-link">  TODO: change to button instead of navlink -->
+                        <button type="button" id="signInButton">Sign In
+                            <span class="dots"><i class="fas fa-ellipsis-h"></i></span>
+                        </button>
+                            <!-- </a>
+                        </nav> -->
+                    </form>
+                </div>
             </div>
-        </div>
-    </section>
+        </section>
+        <div id="popup-message"></div> <!-- Add new line -->
+    </main>
+    <script src="signUp.js"></script>
 </body>
+
+
 <footer class="footer">
     <div class="container">
         <div class="footer-content">
