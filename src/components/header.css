@@ -1,0 +1,134 @@
+.header{
+    background-color:  rgb(50, 50, 225);
+    color: white;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.headercontainer{
+    width: 100%;
+    max-width: 1024px;
+    margin: 20px 0px 100px 0px;
+    align-items: center;
+}
+
+.headerList{
+    display: flex;
+    gap: 40px;
+    margin-bottom: 50px;
+
+}
+
+.headerListItem{
+    display: flex;
+    align-items:center;
+    gap: 5px;
+}
+
+.headerDesc{
+    margin: 20px 0px;
+}
+
+.headerBtn1{
+    background-color: yellow;
+    color: blue;
+    font-weight: 600;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.headerBtn2{
+    background-color: rgb(50, 50, 225);
+    color: white;
+    font-weight: 600;
+    font-size: medium;
+    border: none;
+    border-radius: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.headerSearchbar{
+    height: 30px;
+    background-color: white;
+    border: 3px solid yellow;
+    display: flex;
+    align-items: center;
+    justify-content: space-around ;
+    padding: 10px 0px;
+    border-radius: 5px;
+    position: absolute;
+    bottom: -25px;
+    width: 100%;
+    max-width: 1024px;
+}
+
+
+.headerIcon{
+    color: darkgrey;
+}
+
+.headerSearchbarItem{
+    font-size: medium;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.Headersearchinput{
+    font-size: medium;
+    color: black;
+    border: none;
+    outline: none;
+}
+
+.HeaderSearchText{
+    color: black;
+    cursor: pointer;
+}
+
+
+.date{
+    position: absolute;
+    top : 50px;
+}
+
+.options{
+    position: absolute;
+    top: 50px;
+    background-color: white;
+    color: gray;
+    border-radius: 5px;
+}
+
+.optionItem{
+    width: 200px;
+    display: flex;
+    justify-content:space-between;
+    margin: 10px;
+
+}
+
+.optionCounter{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: small;
+    color: black;
+}
+
+.optionCounterbtn{
+    width: 30px;
+    height: 30px;
+    border : 1px solid black;
+    color: black;
+    cursor: pointer;
+}
+
+.optionCounterbtn:disabled{
+    cursor: not-allowed;
+}
+
+
