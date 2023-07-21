@@ -134,3 +134,14 @@
 }
 
 
+.scroll-container {
+    position: absolute;
+    max-height: 200px; /* Set a fixed height to limit the container's height and enable scrolling */
+    overflow-y: auto; /* Enable vertical scrolling when the content exceeds the container's height */
+    background-color: white;
+    color: black;
+    z-index: 2;
+    top: 100%; /* Position the scroll container below the input bar */
+    left: 0;
+  }
+
