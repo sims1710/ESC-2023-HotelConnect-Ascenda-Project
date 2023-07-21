@@ -1,7 +1,51 @@
-.homeContainer{
+.homeContainer {
     margin-top: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 30px;
+}
+
+.hometitle {
+    margin-top: 5px;
+    width: 1024px;
+    font-size: 30px;
+}
+
+.Promo {
+    width: 100%;
+    max-width: 1024px;
+    align-items: center;
+}
+
+.Promoitem {
+    position: relative;
+    overflow: hidden;
+}
+
+.Pimg {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    opacity: 0.9;
+}
+
+.PromoT {
+    position: absolute;
+    bottom: 30px;
+    left: 50px;
+}
+
+.PromoT h1 {
+    font-size: 90px;
+    margin-bottom: 5px;
+    color: white;
+    font-weight: 600;
+    text-shadow: -1px -1px 0 rgba(0, 0, 0, 0.848), 1px -1px 0 rgba(54, 34, 34, 0.5), -1px 1px 0 rgba(80, 80, 80, 0.5), 1px 1px 0 rgba(80, 80, 80, 0.5);
+    font-family: Verdana;
+}
+
+
+.mailTitle{
+    font-size: 60px;
 }

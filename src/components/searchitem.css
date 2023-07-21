@@ -1,0 +1,99 @@
+.searchitem {
+    border: 1px solid lightgray;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.sIimg {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.sIdesc{
+    display: flex;
+    flex-direction: column;
+    flex : 2;
+    gap: 1px;
+
+}
+.sItitle{
+    font-size: 40px;
+    color: rgb(50, 50, 225);
+}
+
+.sIdist{
+    font-size: 12px;
+}
+
+.sItaxi{
+    font-size: 12px;
+    background-color: green;
+    color: white;
+    width: max-content;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.sItsub1{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sItsub2{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.sItsub3{
+    font-size: 12px;
+    font-weight: bold;
+}
+
+
+.sIdetails{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sIrating{
+    display: flex;
+    justify-content: space-between;
+}
+.sIrating span{
+    font-weight: 500;
+}
+.sIrating button{
+    background-color: rgb(50, 50, 225);
+    color: white;
+    padding: 5px;
+    font-weight: bold;
+    border: none;
+}
+
+.sIdetailtxt{
+    text-align: right;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.price{font-size: 24px;}
+.tax{font-size:12px ;
+color: gray;}
+
+.sIcheckbtn{
+    background-color: rgb(50, 50, 225);
+    color: white;
+    font-weight: bold;
+    padding: 10px 5px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}

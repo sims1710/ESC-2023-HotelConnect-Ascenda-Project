@@ -8,7 +8,7 @@ export const Content = () => {
             <div className="contentdetails">
                 <h1>Toronto hotel</h1>
                 <h2>From $200/Night</h2>
-                <button>Book now</button>
+                <button>Book now ...</button>
             </div>
         </div>
         <div className="contentItem">
@@ -24,7 +24,7 @@ export const Content = () => {
             <div className="contentdetails">
                 <h1>Le Meridien hotel</h1>
                 <h2>From $300/Night</h2>
-                <button>Book now</button>
+                <button>Book now ...</button>
             </div>
         </div>
     </div>
