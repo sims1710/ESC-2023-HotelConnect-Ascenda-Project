@@ -1,6 +1,23 @@
 const MAX_MATCHES = 10; // Maximum number of matches to display
+const language = 'en_US';
+const money = 'SGD';
+const currentcountry = 'SG';
+const guestnum = 1;
+const partnerId = 1;
+
+//later add the number of rooms
+
 const search = document.getElementById('destination'); //search input box
 const matchls = document.getElementById('scroll-container'); // drop down list
+
+//add new popup message
+const checkInDate = document.getElementById('check-in');
+const checkOutDate = document.getElementById('check-out');
+const numGuests = document.getElementById('adults');
+const numRooms = document.getElementById('rooms');
+
+//var to store selected dest uid
+let selectedDestinationUid = '';
 
 //Selectors
 let header = document.querySelector('.header');
@@ -77,6 +94,10 @@ const outputHtml = matches => {
             card.addEventListener('click', () => {
               const selectedText = card.querySelector('h4').innerText;
               search.value = selectedText;
+              //store the UID in here to retrieve hotel results
+              selectedDestinationUid = matches.find(dest => dest.term === selectedText)?.uid || '';
+              //module.exports = {selectedDestinationUid};
+              console.log(selectedDestinationUid)
               matchls.innerHTML = '';
             });
         });
@@ -96,6 +117,27 @@ const positionMatchList = () => {
     matchls.style.left = searchLeft + 'px';
   };
 
+  const searchForm = document.querySelector('.book-form');
+  searchForm.addEventListener('submit', event => {
+    event.preventDefault(); // Prevent form submission
+    // Perform validation
+    if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
+      displayPopupMessage('Please fill in all details!');
+    } else {
+      //changed to display hotel results
+      //console.log(checkInDate.value);
+      window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${guestnum}&partner_id=${partnerId}`;
+    }
+  });
+  
+  const displayPopupMessage = message => {
+      const popup = document.getElementById('popup-message');
+      popup.textContent = message;
+      popup.classList.add('show');
+  };
+  //end error pop up message
+
+
 search.addEventListener('input', ()=> searchDest(search.value));
 
 // Call the positionMatchList function whenever the window is resized
@@ -103,3 +145,8 @@ window.addEventListener('resize', positionMatchList);
 
 // Call the positionMatchList function when the page finishes loading
 window.addEventListener('load', positionMatchList);
+
+//export
+//module.exports = {selectedDestinationUid};
+//export {selectedDestinationUid};
+//export default selectedDestinationUid;
