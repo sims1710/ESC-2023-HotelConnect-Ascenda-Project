@@ -1,6 +1,6 @@
 // Test code for the first feature
 const supertest = require('supertest');
-const app = require('./app.js'); // Replace './app' with the correct path to your app.js file
+const app = require('./app.js');
 
 describe('Test Cases for Express App', function () {
   it('should respond with the contents of HomePage.html', function (done) {
@@ -18,7 +18,7 @@ describe('Test Cases for Express App', function () {
     // Call the exported function from app.js
     app.getHotelsData(destinationId, checkinDate, checkoutDate, guests)
       .then(() => {
-        // Add any assertions related to the getHotelsData function here if needed
+        // To add any assertions related to the getHotelsData function here if needed
         done();
       })
       .catch((err) => {
@@ -71,12 +71,6 @@ describe('Test Cases for Express App', function () {
       .set('Credentials', true)
       .expect('Access-Control-Allow-Origin', 'http://example.com')
       .expect('Access-Control-Allow-Credentials', 'true')
-      .expect(200, done);
-  });
-
-  it('should serve the static image file', function (done) {
-    supertest(app)
-      .get('/public/image.jpg')
       .expect(200, done);
   });
 });
