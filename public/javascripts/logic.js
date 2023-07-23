@@ -124,8 +124,8 @@ const positionMatchList = () => {
     if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
       displayPopupMessage('Please fill in all details!');
     } else {
-      //changed to display hotel results
-      //console.log(checkInDate.value);
+      //this is where the api is called to the server
+      //console.log(selectedDestinationUid);
       window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${guestnum}&partner_id=${partnerId}`;
     }
   });

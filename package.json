@@ -4,7 +4,11 @@
   "private": true,
   "proxy": "https://hotelapi.loyalty.dev/api/hotels?",
   "scripts": {
-    "start": "nodemon app.js"
+    "start": "nodemon app.js",
+    "test": "jest"
+  },
+  "jest": {
+    "testEnvironment": "node"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
@@ -15,8 +19,14 @@
     "http-errors": "~1.6.3",
     "mongoose": "^7.4.0",
     "morgan": "~1.9.1",
+    "node": "^20.5.0",
+    "node-fetch": "^3.3.1",
     "node-localstorage": "^2.2.1",
     "nodemon": "^3.0.1",
     "store2": "^2.14.2"
+  },
+  "devDependencies": {
+    "jest": "^29.6.1",
+    "supertest": "^6.3.3"
   }
 }

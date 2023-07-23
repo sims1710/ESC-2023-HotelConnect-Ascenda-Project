@@ -819,3 +819,86 @@ header{
     visibility: visible;
     opacity: 1;
 }
+
+
+/*New stuff*/
+/* Styling for the hotel squares */
+.hotelSquare {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+}
+
+.hotelSquare:hover {
+    transform: translateY(-5px);
+}
+
+/* Styling for the hotel image */
+.hotelImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Styling for the hotel name */
+.hotelName {
+    font-weight: bold;
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+/* Styling for the hotel ratings */
+.hotelRating {
+    color: #f90;
+    font-size: 14px;
+}
+
+/* Styling for the hotel price */
+.hotelPrice {
+    color: #09f;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Styling for the select button */
+.selectButton {
+    background-color: #09f;
+    color: #fff;
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.selectButton:hover {
+    background-color: #077ddb;
+}
+
+/* Container for the hotel squares */
+#hotelsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px;
+}
+
+/* Styles for the top bar */
+.topBar {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+.topBarInfo {
+    font-size: 16px;
+}
