@@ -21,6 +21,12 @@ app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'HomePage.html'));
 });
 
+//to open the additional payment HTML file
+app.get('/payment', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'payment.html'));
+});
+
+
 app.get('/api/disphotels', async (req, res) => {
   try {
     const destinationId = req.query.destination_id;
