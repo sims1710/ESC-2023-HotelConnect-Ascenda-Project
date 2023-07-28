@@ -23,8 +23,72 @@ app.get('/', (req, res) => {
 
 //to open the additional payment HTML file
 app.get('/payment', (req, res) => {
-  res.sendFile(path.resolve(__dirname, 'public', 'payment.html'));
+  res.sendFile(path.resolve(__dirname, 'public', 'Payment.html'));
 });
+
+//for mongodb
+var bodyParser = require("body-parser");
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended:true
+}))
+var mongoose = require("mongoose");
+mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites=true&w=majority',{ //the database is called paymentdb
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+}).then(() => {
+  console.log('Connected to MongoDB');
+}).catch((err) => {
+  console.error('Error connecting to MongoDB:', err);
+});
+
+const paymentSchema = new mongoose.Schema({ //schema = define structure for how data will be arranged and stored in collection
+  fullname: String,
+  email: String,
+  specialreq: String,
+  billaddress: String,
+  cardno: String,
+  cvc: String,
+  cardexpM: Number,
+  cardexpY: Number,
+});
+
+app.post('/submit', (req, res) => {
+  const {
+    fullname,
+    email,
+    specialreq,
+    billaddress,
+    cardno,
+    cvc,
+    cardexpM,
+    cardexpY,
+  } = req.body;
+
+  const paymentData = new Payment({
+    fullname,
+    email,
+    specialreq,
+    billaddress,
+    cardno,
+    cvc,
+    cardexpM,
+    cardexpY,
+  });
+
+  paymentData.save()
+    .then(() => {
+      console.log('Data Inserted Successfully');
+      res.redirect('/'); // Redirect after successful submission
+    })
+    .catch((err) => {
+      console.error('Error saving data to the database:', err);
+      res.status(500).send('An error occurred while saving the data.');
+    });
+});
+
+const Payment = mongoose.model('Payment', paymentSchema); //creates Mongoose model named "Payment" based on the paymentSchema
+//model = class of collection, all this is stored in payment collection in mongodb
 
 
 app.get('/api/disphotels', async (req, res) => {

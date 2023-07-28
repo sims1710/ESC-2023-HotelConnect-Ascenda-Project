@@ -13,24 +13,24 @@
 <body>
     <div class="payment_wrapper">
         <h2>Payment form</h2>
-        <form action="" method="post">
+        <form action="/submit" method="POST">
             <!-- account information start -->
             <h4>Account</h4>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="text" placeholder="Full Name" required class="name">
+                    <input type="text" placeholder="Full Name" id="fullname" required class="name">
                     <i class="fa fa-user icon"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="email" placeholder="Email Address" required class="name">
+                    <input type="email" placeholder="Email Address" id="email" required class="name">
                     <i class="fa fa-envelope icon"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <textarea placeholder="Special Requests" class="name"></textarea>
+                    <textarea placeholder="Special Requests" id="specialreq" class="name"></textarea>
                     <i class="fas fa-concierge-bell icon"></i>
                 </div>
             </div>
@@ -76,31 +76,32 @@
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="text" placeholder="Billing Address" required class="name">
+                    <input type="text" placeholder="Billing Address" id="billaddress" required class="name">
                     <i class="fa fa-map-marker icon" aria-hidden="true"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="tel" class="name" placeholder="Card Number 1111-2222-3333-4444" required>
+                    <input type="tel" class="name" placeholder="Card Number 1111-2222-3333-4444" id="cardno"
+                    required>
                     <i class="fas fa-credit-card icon"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="tel" class="name" placeholder="Card CVC 345" required>
+                    <input type="tel" class="name" placeholder="Card CVC 345" id="cvc" required>
                     <i class="fas fa-user icon"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
                     <div class="input_box">
-                        <input type="number" required class="name" placeholder="Expiry Month">
+                        <input type="number" required class="name" id="cardexpM" placeholder="Expiry Month">
                         <i class="fas fa-calendar-alt icon" aria-hidden="true"></i>
                     </div>
                 </div>
                 <div class="input_box">
-                    <input type="number" required class="name" placeholder="Expiry Year">
+                    <input type="number" required class="name" id="cardexpY" placeholder="Expiry Year">
                     <i class="fas fa-calendar icon" aria-hidden="true"></i>
                 </div>
             </div>
@@ -112,6 +113,7 @@
             <!-- payment details end-->
 
         </form>
+        <script src="/javascripts/paymentlogic.js" ></script>
 
     </div>
 
