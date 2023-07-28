@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", async function () {
     //const fs = require('fs').promises;
     const hotelsContainer = document.getElementById("hotelsContainer");
     const topBarInfo = document.querySelector(".topBarInfo");
@@ -8,12 +8,34 @@ document.addEventListener("DOMContentLoaded", function () {
     let hotelpriceData = [];
     let hotelsMap = {};
 
-    // fake data for testing
-    const checkInDate = "25-07-2023";
-    const checkOutDate = "30-07-2023";
-    const guestNum = 2;
-    const roomNum = 1;
-    const destination = "Tokyo, Japan";
+    //getting actual parameters from the url
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    let checkInDate = urlParams.get('checkin');
+    let checkOutDate = urlParams.get('checkout');
+    let guestNum = urlParams.get('guests');
+    let roomNum = urlParams.get('rooms');
+    let destinationUID = urlParams.get('destination_id');
+    const destination = await getDestinationByUid(destinationUID);
+
+    async function getDestinationByUid(uid){
+        let response;
+        let destinationData;
+        try{
+            response = await fetch('../destinations.json');
+            destinationData = await response.json();
+            const destination = destinationData.find((dest) => dest.uid === uid);
+            if(destination){
+                //if dest found, return combined term+state
+                return destination.state ? `${destination.term}, ${destination.state}` : destination.term;
+            } else{
+                return "dest not found";
+            }
+        } catch (error) {
+            console.error('Error fetching destinations data:', error);
+            return "Error fetching destinations.json data.";
+        }
+    }
 
     //read hotel and pricing data from JSON files
     async function readHotelAndPricingData() {
@@ -89,8 +111,8 @@ document.addEventListener("DOMContentLoaded", function () {
         selectButton.classList.add("selectButton");
         selectButton.addEventListener("click", function () {
             // Redirect to a page with more details about the hotel
-            // You can use window.location.href = "/hotel-details?id=" + hotel.id; or any other way you want to handle the navigation
             console.log("Selected Hotel ID:", hotel.id);
+            window.location.href = `/api/disprooms?hotel_id=${hotel.id}&destination_id=${destinationUID}&checkin=${checkInDate}&checkout=${checkOutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}&rooms=${roomNum}`;
         });
         hotelSquare.appendChild(selectButton);
 

@@ -2,7 +2,7 @@ const MAX_MATCHES = 10; // Maximum number of matches to display
 const language = 'en_US';
 const money = 'SGD';
 const currentcountry = 'SG';
-const guestnum = 1;
+let guestnum;
 const partnerId = 1;
 
 //later add the number of rooms
@@ -80,12 +80,11 @@ const outputHtml = matches => {
         <div class="card card-body mb-1">
             <h4>
                 ${match.term} <span class="text-primary">
-                ${match.state ? match.state : ''} </span>
             </h4>
         </div>
         `).join(''); //map returns array from arrya
         matchls.innerHTML = html;
-
+        //Added in line 83 this --> ${match.state ? match.state : ''} </span>
         addCursorPointer(); // Add cursor pointer on hover
 
         // Add click event listener to each result
@@ -95,9 +94,14 @@ const outputHtml = matches => {
               const selectedText = card.querySelector('h4').innerText;
               search.value = selectedText;
               //store the UID in here to retrieve hotel results
-              selectedDestinationUid = matches.find(dest => dest.term === selectedText)?.uid || '';
-              //module.exports = {selectedDestinationUid};
-              console.log(selectedDestinationUid)
+              //selectedDestinationUid = matches.find(dest => dest.term === selectedText)?.uid || '';
+              selectedDestinationUid = matches.find(dest => {
+                const term = dest.term.trim();
+                const state = dest.state ? dest.state.trim() : '';
+                return term === selectedText || state === selectedText;
+              })?.uid || '';
+              console.log('Destination?')
+              console.log(selectedDestinationUid);
               matchls.innerHTML = '';
             });
         });
@@ -124,9 +128,9 @@ const positionMatchList = () => {
     if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
       displayPopupMessage('Please fill in all details!');
     } else {
+      console.log(numRooms.value);
       //this is where the api is called to the server
-      //console.log(selectedDestinationUid);
-      window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${guestnum}&partner_id=${partnerId}`;
+      window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${numGuests.value}&rooms=${numRooms.value}&partner_id=${partnerId}`;
     }
   });
   
@@ -137,6 +141,16 @@ const positionMatchList = () => {
   };
   //end error pop up message
 
+// set the minimum date for the datepicker inputs, greys out the previous dates
+function setMinDate() {
+  const currentDate = new Date();
+  const minDate = currentDate.toISOString().split('T')[0]; // Format to YYYY-MM-DD
+  checkInDate.setAttribute('min', minDate);
+  checkOutDate.setAttribute('min', minDate);
+}
+
+// setMinDate called on page load
+setMinDate();
 
 search.addEventListener('input', ()=> searchDest(search.value));
 
@@ -145,8 +159,3 @@ window.addEventListener('resize', positionMatchList);
 
 // Call the positionMatchList function when the page finishes loading
 window.addEventListener('load', positionMatchList);
-
-//export
-//module.exports = {selectedDestinationUid};
-//export {selectedDestinationUid};
-//export default selectedDestinationUid;

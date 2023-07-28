@@ -2,19 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs').promises;
-//const fetch = require('node-fetch');
-const cors = require('cors');
 
 const port = 3001;
 const pollingInterval = 3000; // 10 seconds (increase if needed)
 
-const corsOptions = {
-  origin: '*',
-  credentials: true,
-  optionSuccessStatus: 200,
-};
-
-app.use(cors(corsOptions));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', (req, res) => {
@@ -101,6 +92,7 @@ app.get('/api/disphotels', async (req, res) => {
     const country = req.query.country_code;
     const guestNum = req.query.guests;
     const partnerid = req.query.partner_id;
+    const roomNum = req.query.rooms;
 
     console.log(destinationId);
 
@@ -151,7 +143,25 @@ app.get('/api/disphotels', async (req, res) => {
   }
 });
 
+//gets room details for selected hotel
+app.get('/api/disprooms', async (req, res)=>{
+  try{
+    //get query params
+    const hotelId = req.query.hotel_id;
+    const destinationId = req.query.destination_id;
+    const checkinDate = req.query.checkin;
+    const checkoutDate = req.query.checkout;
+    const guestNum = req.query.guests;
+    const roomNum = req.query.rooms; 
+    //need to do polling again to get data from api FML
+    const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
+    //response sends room details page, which redirects user (need to add this line)
+  }catch (error) {
+    console.error("Error while fetching room details.");
+    res.status(500).json({ error: "An error occurred while fetching hotel's room info." });
+  }
+})
+
 app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
-//module.exports(app);
