@@ -1,0 +1,342 @@
+/*Import main css*/
+@import "homepage.css";
+
+/*Updated header styles*/
+nav{
+    margin-bottom: 1rem;
+}
+
+/* Updated styles for booking section */
+.booking__container {
+    display: flex;
+    align-items: center;
+    justify-content: center; /* To center elements horizontally */
+    gap: 2rem;
+    padding: 2rem 2rem 1rem 2rem;
+    border-radius: 2rem;
+    background-color: var(--white);
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, .1);
+    position: relative;
+    margin:auto;
+    margin-bottom: 1.5rem;
+}
+
+.booking__container form {
+    width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 1rem;
+}
+
+.booking__container .input__group {
+    width: 100%;
+    position: relative;
+    transition: transform 0.3s ease; 
+}
+
+.booking__container label {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    font-size: 1.0rem;
+    font-weight: 500;
+    color: var(--text-dark);
+    pointer-events: none;
+    transition: 0.3s;
+}
+
+.booking__container input {
+    width: 100%;
+    padding: 10px 0;
+    font-size: 0.8rem;
+    outline: none;
+    border: none;
+    background-color: white;
+    border-bottom: 1px solid var(--primary-color);
+    color: var(--text-dark);
+}
+
+.booking__container input:focus ~ label {
+    font-size: 1.0rem;
+    top: 0;
+}
+
+.booking__container .btn {
+    padding: 1rem;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.booking__container .btn:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.booking__container label {
+    /* Additional styling for the labels */
+    padding: 0 0.5rem;
+    transform-origin: top left;
+    transition: transform 0.3s;
+}
+
+.booking__container .input__group:not(:focus-within) label {
+    transform: translateY(-150%);
+}
+    
+/*TopBar styles*/
+/* Styles for the top bar */
+.topbar__container {
+    background-color: var(--primary-color-dark);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 0rem;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.topbar__container .topBarInfo{
+    font-size: 16px;
+}
+
+.topbar__container:hover{
+    background-color: var(--primary-color);
+    transition: 0.2s;
+}
+
+.section__container .topbar__container{
+    padding: 0rem 1rem;
+}
+
+/*Filter Section*/
+.filter-bar{
+    display: flex;
+    align-items: center;
+    justify-content: center; /* To center elements horizontally */
+    padding: 1rem 2rem 1rem 2rem;
+    border-radius: 2rem;
+    background-color: white;
+    box-shadow: 5px 5px 30px rgba(0, 0, 0, .1);
+    position: relative;
+    margin-bottom: 0rem;
+    width: 55rem;
+    margin: auto;
+}
+
+.filter-bar form {
+    width: 100%;
+    flex: 1;
+    display: grid;
+    grid-template-columns: 4.7rem 14rem 8.5rem 20em 4rem;
+    align-items: center;
+    gap: 1rem;
+}
+
+.filter__item {
+    display: flex;
+    align-items: center;
+}
+
+.filter__item label {
+    font-weight: bold;
+}
+
+.filter-bar .btn{
+    padding: 1rem;
+    outline: none;
+    border: none;
+    font-size: 1.5rem;
+    color: var(--white);
+    background-color: var(--primary-color);
+    border-radius: 100%;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.filter-bar .btn:hover{
+    background-color: var(--primary-color-dark);
+}
+
+/* Dropdown Styles */
+.dropdown .amenities-wrapper {
+    max-width: 13rem;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+.dropdown {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 8px;
+    border-radius: 8px;
+    position: relative;
+    max-height: 1.5rem;
+}
+
+.dropdown-content {
+    position: absolute;
+    background-color: #fff;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    display: none;
+    width:max-content;
+}
+
+.dropdown-content ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content li {
+    padding: 8px;
+    cursor: pointer;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+  
+/*Hotel styles*/
+
+/* Styling for the hotel squares */
+.section__container .hotel__container{
+    margin-top: 0rem;
+    padding: 0rem 2rem 0rem 2rem;
+}
+
+#hotelsContainer .hotelSquare {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin: 10px;
+    width: 250px;
+    height: 300px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    border-radius: 8px;
+    transition: transform 0.2s ease-in-out;
+    display: flex; /* Add this line to use flexbox */
+    flex-direction: column; /* Stack the elements vertically */
+    justify-content: space-between; /* Add space between elements */
+}
+
+#hotelsContainer .hotelSquare:hover {
+    transform: translateY(-5px);
+}
+
+/* Styling for the hotel image */
+#hotelsContainer .hotelImage {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 8px 8px 0 0;
+}
+
+/* Styling for the hotel name */
+#hotelsContainer .hotelName {
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 10px 0 5px;
+    font-size: 18px;
+}
+
+/* Styling for the hotel ratings */
+#hotelsContainer .hotelRating {
+    color: #f90;
+    font-size: 16px;
+}
+
+/* Styling for the hotel price */
+#hotelsContainer .hotelPrice {
+    color: var(--primary-color-dark);
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Styling for the select button */
+#hotelsContainer .selectButton {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 8px 16px 10px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+    margin: auto; /* Center the button horizontally and vertically */
+    display: block; /* Remove default button inline behavior */
+    margin-top: 15px;
+}
+
+#hotelsContainer .selectButton:hover {
+    background-color: var(--primary-color-dark);
+}
+
+/* Container for the hotel squares */
+#hotelsContainer {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    padding: 20px;
+    grid-template-columns: repeat(5, 0.3fr);
+    gap: 0.5rem;
+}
+
+.hotel-result {
+    border: 1px solid #ccc;
+    padding: 10px;
+    background-color: #f9f9f9;
+}
+  
+/*Page styles*/
+.section__container .page__container {
+    display: flex;
+    justify-content: center; /* Center the content horizontally */
+    align-items: center; /* Center the content vertically */
+    margin-top: 1rem; /* Add any additional margin if needed */
+    padding: 0;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+}
+
+.pagination {
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    text-decoration: none;
+    border: 1px solid #ccc;
+    color: #333;
+    background-color: var(--white);
+    transition: background-color 0.2s ease-in-out;
+}
+
+.pagination a.active {
+    background-color: var(--extra-light);
+    color:var(--primary-color-dark);
+}
+
+.pagination a:hover{
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+/*Footer Styles*/
+.logo_bottom img{
+    max-width: 8%;
+    margin: auto;
+}

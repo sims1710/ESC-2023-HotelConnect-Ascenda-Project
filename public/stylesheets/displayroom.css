@@ -1,0 +1,311 @@
+@import "homepage.css";
+@import "displayhotels.css";
+
+body {
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+}
+
+.hotel p{
+    font-size: 0.9rem;
+    transition: color 0.3s ease-in-out;
+}
+
+.hotel p:hover{
+    color: var(--text-light);
+}
+
+/*Room Image Styles*/
+.room-image {
+    max-width: 80%;
+    border-radius: 15px;
+    height: auto;
+    margin: auto;
+    margin-bottom: 1rem;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    overflow: hidden; /* Ensure caption doesn't overflow */
+}
+
+.room-image img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s;
+}
+
+.room-image .caption {
+    position: absolute;
+    bottom: 0; /* Adjust as needed */
+    left: 0;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.7); /* Using rgba for transparency */
+    color: var(--text-dark);
+    padding: 10px;
+    text-align: center;
+    transform: translateY(100%); /* Initially hidden below the image */
+    transition: transform 0.3s;
+    font-size: 0.9rem;
+}
+
+.room-image:hover img {
+    transform: scale(1.1); /* Zoom effect on hover */
+}
+
+.room-image:hover .caption {
+    transform: translateY(0); /* Slide-in caption on hover */
+}
+
+/*Header Styles*/
+.hotel {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.hotel-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 0;
+    color: var(--primary-color);
+    transition: color 0.3s ease-in-out;
+}
+
+.hotel-title:hover{
+    color: var(--primary-color-dark);
+}
+
+.address {
+    font-size: 16px;
+    color: var(--text-light);
+    margin: 0;
+    transition: color 0.3s ease-in-out;
+}
+
+.address:hover{
+    color: var(--text-dark);
+}
+
+.rating {
+    color: gold;
+    transition: color 0.3s ease-in-out;
+}
+
+.rating:hover{
+    color: rgb(178, 151, 0);
+}
+
+.rating .stars {
+    font-size: 20px;
+}
+
+.description {
+    margin-bottom: 20px;
+}
+
+/*Amenities Styles*/
+.amenities {
+    text-align: center; /* Center the text within the container */
+}
+
+.amenities h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    text-align: left;
+    transition: color 0.3s ease-in-out;
+}
+
+.amenities h3:hover{
+    color: var(--primary-color-dark);
+}
+
+.amenity-box {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border-radius: 5px;
+    transition: transform 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+.amenity-box:hover{
+    transform: translateY(-5px);
+    transition: 0.1s;
+}
+
+/*Hotel Description Styles*/
+.hotel-description h3 {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: var(--primary-color);
+    transition: color 0.3s ease-in-out;
+}
+
+.hotel-description h3:hover{
+    color: var(--primary-color-dark);
+}
+
+/*Map Styles*/
+.map-location {
+    width: 30rem;
+    height: 20rem;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+  
+.map-location iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+}
+
+/*Table Styles*/
+.room-table {
+    margin-top: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+th {
+    text-align: center;
+    color: var(--primary-color);
+    transition: color 0.3s ease-in-out;
+}
+
+th:hover{
+    color: var(--primary-color-dark);
+}
+
+td {
+    text-align: center;
+    font-size: 0.9rem;
+    transition: color 0.3s ease-in-out;
+}
+
+td:hover{
+    color:var(--text-light);
+}
+
+.room-table td.left-align {
+  text-align: left; /* Align the first column to the left */
+}
+
+button {
+    padding: 6px 16px 8px 16px;
+    border: none;
+    background-color: var(--primary-color);
+    color: var(--white);
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.table-image {
+    max-width: 100px; /* Adjust this value to your desired image width */
+    max-height: 80px; /* Adjust this value to your desired image height */
+    border-radius: 5px;
+    margin: auto;
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease; /* Add transition for smooth hover effect */
+}
+
+.table-image:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+}
+
+/*Select Single/Double Styles*/
+td select {
+    font-size: 0.8rem;
+    width: 55px; /* Adjust the width as per your preference */
+    padding: 5px;
+    cursor: pointer;
+    appearance: none; /* Remove default arrow */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #f5f5f5;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    text-align: center; /* Center the text within the select box */
+    transition: all 0.3s; /* Add transition for smooth hover effect */
+    position: relative; /* Required for positioning the dropdown options */
+    z-index: 1; /* Ensure the select box is above the dropdown options */
+}
+  
+  /* Style the select dropdown options */
+td select option {
+    font-size: 0.8rem;
+    background-color: #f5f5f5;
+}
+  
+  /* Style the select dropdown when hovering over the parent td element */
+td:hover select {
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    z-index: 2; /* Bring the select box above other content on hover */
+}
+  
+  /* Position and style the select dropdown options */
+td select:hover option {
+    display: block;
+}
+  
+td select option {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid #ccc;
+    border-top: none; /* Remove top border for better appearance */
+    background-color: #f5f5f5;
+}
+  
+  /* Hide the first option (blank/default option) */
+td select option:first-child {
+    display: none;
+}
+   
+
+/*Confirmation Button Styles*/
+button:hover {
+    background-color: var(--primary-color-dark);
+}
+
+.selectButton {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 8px 16px 10px 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    margin-top: 15px;
+    font-size: 14px;
+    transition: background-color 0.2s ease-in-out;
+    margin: auto; /* Center the button horizontally and vertically */
+    display: block; /* Remove default button inline behavior */
+    margin-bottom: 15px;
+}
+
+.selectButton:hover {
+    background-color: var(--primary-color-dark);
+}
+
+/*Footer Styles*/
+.logo_bottom img{
+    max-width: 8%;
+    margin: auto;
+}

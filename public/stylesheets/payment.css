@@ -1,14 +1,13 @@
+@import "homepage.css";
+@import "displayhotels.css";
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    background-color: #80bfff;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
+/*Payment Styles*/
 .payment_wrapper {
     background-color: #fff;
     width: 500px;
@@ -20,17 +19,17 @@ body {
 
 .payment_wrapper h2 {
     background-color: #fcfcfc;
-    color: #0080ff;
+    color: var(--primary-color);
     font-size: 24px;
     padding: 10px;
     margin-bottom: 8px;
     text-align: center;
-    border: 1px dashed #0080ff;
+    border: 1px dashed var(--primary-color-dark);
 }
 
 .payment_wrapper h4 {
     padding-bottom: 5px;
-    color: #0080ff;
+    color: var(--primary-color)f;
 }
 
 .input_grp {
@@ -65,10 +64,10 @@ body {
 }
 
 .input_box .name:focus, .dob:focus {
-    -webkit-box-shadow: 0 0 2px 1px #0080ff;
-    -moz-box-shadow: 0 0 2px 1px #0080ff;
-    box-shadow: 0 0 2px 1px #0080ff;
-    border: 1px solid #0080ff;
+    -webkit-box-shadow: 0 0 2px 1px var(--primary-color-dark);
+    -moz-box-shadow: 0 0 2px 1px var(--primary-color-dark);
+    box-shadow: 0 0 2px 1px var(--primary-color-dark);
+    border: 1px solid var(--primary-color-dark);
 }
 
 .input_box textarea {
@@ -95,9 +94,9 @@ body {
 }
 
 .name:focus+.icon {
-    background-color: #0080ff;
+    background-color: var(--primary-color-dark);
     color: #fff;
-    border-right: 1px solid #0080ff;
+    border-right: 1px solid var(--primary-color-dark);
     border: none;
     transition: 1s;
 }
@@ -139,14 +138,14 @@ body {
 }
 
 .radio:checked+label {
-    background-color: #0080ff;
+    background-color: var(--primary-color-dark);
     color: #fff;
     transition: 0.5s;
 }
 
 .input_box button {
     width: 100%;
-    background-color: #0080ff;
+    background-color: var(--primary-color-dark);
     border: none;
     color: #fff;
     padding: 15px;
@@ -158,6 +157,114 @@ body {
 
 .input_box button:hover {
     cursor: pointer;
-    background-color: #0080ff;
+    background-color: var(--primary-color);
 }
-        
+
+/* Existing styles for input boxes */
+.input_grp {
+    /* ... other styles ... */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.input_box {
+    /* ... other styles ... */
+    flex: 1; /* Distribute available space evenly among input boxes */
+}
+
+.name {
+    /* ... other styles ... */
+    font-size: 16px; /* Change font size if needed */
+}
+
+.dob {
+    /* ... other styles ... */
+    font-size: 16px; /* Change font size if needed */
+}
+
+/* Styles for select boxes */
+.select-box {
+    /* Apply the same styles as the other input boxes */
+    width: 100%;
+    padding: 14px 10px 14px 50px;
+    background-color: #fcfcfc;
+    border: 1px solid #0003;
+    outline: none;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border-radius: 3px;
+    color: #333;
+}
+
+/* Existing styles for input boxes */
+.input_grp {
+    /* ... other styles ... */
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Align items vertically in the center */
+}
+
+.input_box {
+    /* ... other styles ... */
+    flex: 1; /* Distribute available space evenly among input boxes */
+}
+
+.name {
+    /* ... other styles ... */
+    font-size: 16px; /* Change font size if needed */
+}
+
+/* Styles for select boxes */
+.select-box {
+    /* Apply the same styles as the other input boxes */
+    flex: 1;
+    padding: 14px 10px 14px 50px;
+    background-color: #fff;
+    border: 1px solid #0003;
+    outline: none;
+    letter-spacing: 1px;
+    transition: 0.3s;
+    border-radius: 3px;
+    color: #333;
+}
+
+/* Adjust the height to match the other input boxes */
+.select-box {
+    height: 54px;
+}
+
+/* Additional styles for the "DD MM YYYY" container */
+.dob-container {
+    display: flex;
+    gap: 0.4rem; /* Add a 0.1rem gap between DD, MM, and YYYY */
+}
+
+/* Adjust the widths for DD and MM */
+#dayDropdown,
+#monthDropdown {
+    flex: 1.2; /* Equal width for DD and MM */
+}
+
+/* Increase the width of YYYY */
+#yearDropdown {
+    flex: 1.7; /* Double the width of YYYY compared to DD and MM */
+}
+
+/* Apply styles on hover individually */
+#dayDropdown:hover,
+#monthDropdown:hover,
+#yearDropdown:hover {
+    border-color: var(--primary-color);
+}
+ 
+/*Footer Styles*/
+.footer {
+    color: #fff;
+    text-align: center;
+    margin-top: 30px; /* Add margin to create separation */
+}
+  
+.logo_bottom img {
+    margin: auto;
+}
