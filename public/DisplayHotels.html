@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hotel Search Results</title>
+  <link href="/stylesheets/displayhotels.css" type="text/css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+</head>
+<body>
+    <!--Header Section-->
+    <nav>
+        <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/HomePage.html">Home</a></li>
+            <li class="nav-item"><a href="/DisplayHotels.html">Book</a></li>
+            <li class="nav-item"><a href="#">Profile</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>      
+    </nav>
+    <!--Search Bar Section-->
+    <section class= "section__container booking__container" id="Searching">
+        <form>
+            <div class="form__group">
+                <div class="input__group">
+                    <input type="text" placeholder="e.g. Singapore">
+                    <label>Location</label>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="input__group">
+                    <input type="date" class="input" id="check-in">
+                    <label>Check In</label>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="input__group">
+                    <input type="date" class="input" id="check-out">
+                    <label>Check Out</label>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="input__group">
+                    <input type="text" class="input" placeholder="e.g. 2">
+                    <label>Guests</label>
+                </div>
+            </div>
+            <div class="form__group">
+                <div class="input__group">
+                    <input type="text" class="input" placeholder="e.g. 2">
+                    <label>Rooms</label>
+                </div>
+            </div>
+        </form>
+        <button class="btn"><i class="ri-search-line"></i></button>
+    </section>
+    <!--TopBar Section-->
+    <section class="section__container topbar__container">
+        <div class="topBar">
+            <div class="topBarInfo">
+                Destination: <span id="destination"></span>|
+                Check-in: <span id="checkInDate"></span> |
+                Check-out: <span id="checkOutDate"></span> |
+                Guests: <span id="guestNum"></span> |
+                Rooms: <span id="roomNum"></span>           
+            </div>
+        </div>
+    </section>
+    <!--Filter Section-->
+    <section class="section__container filter__container">     
+        <div class="filter-bar">
+            <form>
+                <div class="filter__item title">
+                    <label for="title">Filter by:</label>
+                </div>
+                <!-- Input fields for price range and rating -->
+                <div class="filter__item price">
+                    <label for="price">Price Range:</label>
+                    <div class="dropdown" onclick="toggleDropdown('priceDropdown')" >
+                        <span id="selectedPrice"></span>
+                        <div id="priceDropdown" class="dropdown-content">
+                            <ul>
+                                <li onclick="selectPrice('$0 - $100')"> $0 - $100</li>
+                                <li onclick="selectPrice('$100 - $250')"> $100 - $250</li>
+                                <li onclick="selectPrice('$250 - $400')"> $250 - $400</li>
+                                <li onclick="selectPrice('$400 - $550')"> $400 - $550</li>
+                                <li onclick="selectPrice('$550+')"> $550+</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter__item rating">
+                    <label for="rating">Rating:</label>
+                    <div class="dropdown" onclick="toggleDropdown('ratingDropdown')">
+                        <span id="selectedRating"></span>
+                        <div id="ratingDropdown" class="dropdown-content">
+                            <ul>
+                                <li onclick="selectRating('5 stars')">5 stars</li>
+                                <li onclick="selectRating('4 stars')">4 stars</li>
+                                <li onclick="selectRating('3 stars')">3 stars</li>
+                                <li onclick="selectRating('2 stars')">2 stars</li>
+                                <li onclick="selectRating('1 star')">1 star</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter__item amenities">
+                    <label for="amenities">Amenities:</label>
+                    <div class="dropdown amenities" onclick="toggleDropdown('amenitiesDropdown')">
+                        <div class="amenities-wrapper">
+                            <span id="selectedAmenities"></span>
+                        </div>
+                        <div id="amenitiesDropdown" class="dropdown-content">
+                            <ul>
+                                <li onclick="toggleAmenity('Gym')">Gym</li>
+                                <li onclick="toggleAmenity('Pool')">Pool</li>
+                                <li onclick="toggleAmenity('AC Room')">Air Conditioned Room</li>
+                                <li onclick="toggleAmenity('Night Club')">Night Club</li>
+                                <li onclick="toggleAmenity('Restaurant')">Restaurant</li>
+                                <li onclick="toggleAmenity('Complimentary Food')">Complimentary Food</li>
+                                <li onclick="toggleAmenity('Private Beach')">Private Beach</li>
+                                <li onclick="toggleAmenity('Outdoor Sport')">Outdoor Sport Space</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="filter__item circle">
+                    <button class="btn"><i class="ri-filter-3-line"></i></button>
+                </div>
+            </form>
+        </div>                
+    </section>
+    <!--Hotel Section-->
+    <section class="section__container hotel__container">
+        <div id="hotelsContainer">
+            <!-- Permanent example hotel results -->
+            <div class="hotelSquare">
+                <img src="/images/atlantis.webp" alt="Hotel 1" class="hotelImage">
+                <div class="hotelName">Example Hotel 1</div>
+                <div class="hotelRating">Rating: 4.5 stars</div>
+                <div class="hotelPrice">Price: $200</div>
+                <a href="/DisplayRoom.html"><button class="selectButton">Select Hotel</button></a>
+            </div>
+
+            <div class="hotelSquare">
+                <img src="/images/lemeridien.webp" alt="Hotel 2" class="hotelImage">
+                <div class="hotelName">Example Hotel 2</div>
+                <div class="hotelRating">Rating: 4 stars</div>
+                <div class="hotelPrice">Price: $150</div>
+                <a href="/DisplayRoom.html"><button class="selectButton">Select Hotel</button></a>
+            </div>
+            <!-- Add more hotel squares here for more example results -->
+        </div>
+    </section>
+    <!--Page Section-->
+    <section class="section__container page__container">
+        <div class="page">
+            <div class="pagination">
+                <!-- Number of pages will be dynamically generated using JavaScript -->
+            </div>
+        </div>
+    </section>
+    <script src="/javascripts/displayHotels.js"></script>
+    <script>
+        // Sample data for the top bar (replace with actual data as needed)
+        document.getElementById('checkInDate').textContent = '2023-07-28';
+        document.getElementById('checkOutDate').textContent = '2023-07-30';
+        document.getElementById('guestNum').textContent = '2';
+        document.getElementById('roomNum').textContent = '1';
+        document.getElementById('destination').textContent = 'New York, USA';
+
+        // Sample data: You can replace this with actual data from your backend or API
+        const totalResults = 37; // Total number of search results
+        const resultsPerPage = 4; //  // Maximum number of results to display per page (updated to 4)
+        let currentPage = 1; // Current page
+
+        // Function to generate pagination links
+        function generatePaginationLinks(totalPages) {
+        let paginationHTML = '';
+        for (let page = 1; page <= totalPages; page++) {
+            paginationHTML += `<a href="#" class="${page === currentPage ? 'active' : ''}" onclick="changePage(${page})">${page}</a>`;
+        }
+        return paginationHTML;
+        }
+
+        // Function to update the pagination and display relevant page results
+        function updatePagination() {
+        const totalPages = Math.ceil(totalResults / resultsPerPage);
+
+        // Display all pages if there are less than 5 pages
+        if (totalPages <= 5) {
+            document.querySelector('.pagination').innerHTML = generatePaginationLinks(totalPages);
+        } else {
+            let paginationHTML = '';
+            if (currentPage > 2) {
+            paginationHTML += `<a href="#" onclick="changePage(1)">1</a>`;
+            paginationHTML += `<span>...</span>`;
+            }
+            for (let page = currentPage - 1; page <= currentPage + 1; page++) {
+            if (page > 0 && page <= totalPages) {
+                paginationHTML += `<a href="#" class="${page === currentPage ? 'active' : ''}" onclick="changePage(${page})">${page}</a>`;
+            }
+            }
+            if (currentPage < totalPages - 1) {
+            paginationHTML += `<span>...</span>`;
+            paginationHTML += `<a href="#" onclick="changePage(${totalPages})">${totalPages}</a>`;
+            }
+            document.querySelector('.pagination').innerHTML = paginationHTML;
+        }
+
+        // Display the relevant page results (you can use an API call here to fetch the data based on currentPage)
+        // For this example, we'll just display a message with the current page and results range
+        const startResult = (currentPage - 1) * resultsPerPage + 1;
+        let endResult = currentPage * resultsPerPage;
+        if (endResult > totalResults) {
+            endResult = totalResults;
+        }
+        const resultMessage = `Displaying results ${startResult} to ${endResult} of ${totalResults}`;
+        document.querySelector('.result-box').innerHTML = `<p>${resultMessage}</p>`;
+
+        // Logic to display only the relevant hotel squares for the current page
+        const hotelSquares = document.querySelectorAll('#hotelsContainer .hotelSquare');
+        hotelSquares.forEach((square, index) => {
+            if (index >= startResult - 1 && index < endResult) {
+                square.style.display = 'block';
+            } else {
+                square.style.display = 'none';
+            }
+        });
+        }
+
+        function toggleDropdown(id) {
+            const dropdown = document.getElementById(id);
+            dropdown.classList.toggle('show');
+        }
+        
+        function selectPrice(price) {
+            document.getElementById('selectedPrice').textContent = price;
+        }
+        
+        function selectRating(rating) {
+            document.getElementById('selectedRating').textContent = rating;
+        }
+        
+        let selectedAmenities = [];
+        
+        function toggleAmenity(amenity) {
+            const index = selectedAmenities.indexOf(amenity);
+            if (index > -1) {
+                selectedAmenities.splice(index, 1);
+            } else {
+                selectedAmenities.push(amenity);
+            }
+            document.getElementById('selectedAmenities').textContent = selectedAmenities.join(', ');
+        }        
+
+        // Function to handle page change
+        function changePage(page) {
+        currentPage = page;
+        updatePagination();
+        }
+
+        // Initial call to update the pagination and display the first page results
+        updatePagination();
+  </script>
+</body>
+<footer class="footer">
+    <nav>
+        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo"/></a>
+    </nav>
+</footer>
+</html>

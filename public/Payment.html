@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/stylesheets/payment.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" crossorigin="anonymous"
+        rel="stylesheet">
+    <title>Payment form</title>
+</head>
+<body>
+    <!--Header Section-->
+    <nav>
+        <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        <ul class="nav-list">
+            <li class="nav-item"><a href="/HomePage.html">Home</a></li>
+            <li class="nav-item"><a href="/DisplayHotels.html">Book</a></li>
+            <li class="nav-item"><a href="#">Profile</a></li>
+            <li class="nav-item"><a href="#">Help</a></li>
+        </ul>      
+    </nav>
+    <div class="payment_wrapper">
+        <h2>Payment form</h2>
+        <form action="" method="post">
+            <!-- account information start -->
+            <h4>Account</h4>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="text" placeholder="Full Name" required class="name">
+                    <i class="fa fa-user icon"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="email" placeholder="Email Address" required class="name">
+                    <i class="fa fa-envelope icon"></i>
+                </div>
+            </div>
+            <!-- account information ends -->
+
+            <!-- DOB and gender start -->
+            <div class="input_grp">
+                <div class="input_box">
+                    <h4>Date Of Birth</h4>
+                    <div class="dob-container">
+                        <select name="day" required class="dob select-box" id="dayDropdown">
+                            <option value="" disabled selected>DD</option>
+                            <!-- Add day options here -->
+                        </select>
+                        <select name="month" required class="dob select-box" id="monthDropdown">
+                            <option value="" disabled selected>MM</option>
+                            <!-- Add month options here -->
+                        </select>
+                        <select name="year" required class="dob select-box" id="yearDropdown">
+                            <option value="" disabled selected>YYYY</option>
+                            <!-- Add year options here -->
+                        </select>
+                    </div>
+                </div>                                             
+                <div class="input_box">
+                    <h4>Gender</h4>
+                    <input type="radio" name="gender" class="radio" id="b1" checked>
+                    <label for="b1">Male</label>
+                    <input type="radio" name="gender" class="radio" id="b2" checked>
+                    <label for="b2">Female</label>
+                </div>
+            </div>
+            <!-- DOB and gender end -->
+
+            <!-- payment details start-->
+            <div class="input_grp">
+                <div class="input_box">
+                    <h4>Payment Details</h4>
+                    <input type="radio" name="pay" class="radio" id="bc1" checked>
+                    <label for="bc1"><span>
+                            <i class="fab fa-cc-visa"></i>Credit Card
+                        </span></label>
+                    <input type="radio" name="pay" class="radio" id="bc2" checked>
+                    <label for="bc2"><span>
+                            <i class="fab fa-cc-paypal"></i>Paypal
+                        </span></label>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="text" placeholder="Name On Card" required class="name">
+                    <i class="fa fa-user icon"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="text" placeholder="Billing Address" required class="name">
+                    <i class="fa fa-map-marker icon" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="tel" class="name" placeholder="Card Number 1111-2222-3333-4444" required>
+                    <i class="fas fa-credit-card icon"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="tel" class="name" placeholder="Card CVC 345" required>
+                    <i class="fas fa-user icon"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <div class="input_box">
+                        <input type="date" required class="name" placeholder="Expiry Month">
+                        <i class="fas fa-calendar-alt icon" aria-hidden="true"></i>
+                    </div>
+                </div>
+                <div class="input_box">
+                    <input type="date" required class="name" placeholder="Expiry Year">
+                    <i class="fas fa-calendar icon" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <button type="submit">Pay Now</button>
+                </div>
+            </div>
+            <!-- payment details end-->
+
+        </form>
+
+    </div>
+    <script>
+        // Function to generate day options
+        function generateDays() {
+            const dayDropdown = document.getElementById('dayDropdown');
+            for (let day = 1; day <= 31; day++) {
+                const option = document.createElement('option');
+                option.value = day.toString().padStart(2, '0');
+                option.textContent = day.toString().padStart(2, '0');
+                dayDropdown.appendChild(option);
+            }
+        }
+
+        // Function to generate month options
+        function generateMonths() {
+            const monthDropdown = document.getElementById('monthDropdown');
+            for (let month = 1; month <= 12; month++) {
+                const option = document.createElement('option');
+                option.value = month.toString().padStart(2, '0');
+                option.textContent = month.toString().padStart(2, '0');
+                monthDropdown.appendChild(option);
+            }
+        }
+
+        // Function to generate year options
+        function generateYears(startYear, endYear) {
+            const yearDropdown = document.getElementById('yearDropdown');
+            for (let year = startYear; year <= endYear; year++) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearDropdown.appendChild(option);
+            }
+        }
+
+        // Call the functions to generate options
+        generateDays();
+        generateMonths();
+        generateYears(1900, new Date().getFullYear());
+    </script>
+</body>
+<footer class="footer">
+    <nav>
+        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo"/></a>
+    </nav>
+</footer>
+</html>
