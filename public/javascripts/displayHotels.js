@@ -179,6 +179,20 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("roomNum").textContent = roomNum;
         document.getElementById("destination").textContent = destination;
     }
+
+    function toggleDropdown(id) {
+        const dropdown = document.getElementById(id);
+        const isDropdownVisible = dropdown.classList.contains('show');
+        if (isDropdownVisible) {
+        // If the dropdown is already visible, hide it
+        dropdown.classList.remove('show');
+        } else {
+        // If the dropdown is not visible, show it
+        dropdown.classList.add('show');
+        dropdown.style.display = 'block'; // Make the dropdown visible
+        }
+    }  
+
     //call function
     readHotelAndPricingData();
 });

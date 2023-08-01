@@ -19,7 +19,7 @@
         </ul>      
     </nav>
     <!--Search Bar Section-->
-    <section class= "section__container booking__container" id="Searching">
+    <section class="section__container booking__container" id="Searching">
         <form>
             <div class="form__group">
                 <div class="input__group">
@@ -162,111 +162,31 @@
     </section>
     <script src="/javascripts/displayHotels.js"></script>
     <script>
-        // Sample data for the top bar (replace with actual data as needed)
-        document.getElementById('checkInDate').textContent = '2023-07-28';
-        document.getElementById('checkOutDate').textContent = '2023-07-30';
-        document.getElementById('guestNum').textContent = '2';
-        document.getElementById('roomNum').textContent = '1';
-        document.getElementById('destination').textContent = 'New York, USA';
+        // Wrap the JavaScript code in a DOMContentLoaded event listener
+        document.addEventListener("DOMContentLoaded", function() {
+            // Sample data for the top bar (replace with actual data as needed)
+            document.getElementById('checkInDate').textContent = '2023-07-28';
+            document.getElementById('checkOutDate').textContent = '2023-07-30';
+            document.getElementById('guestNum').textContent = '2';
+            document.getElementById('roomNum').textContent = '1';
+            document.getElementById('destination').textContent = 'New York, USA';
 
-        // Sample data: You can replace this with actual data from your backend or API
-        const totalResults = 37; // Total number of search results
-        const resultsPerPage = 4; //  // Maximum number of results to display per page (updated to 4)
-        let currentPage = 1; // Current page
+            // Sample data: You can replace this with actual data from your backend or API
+            const totalResults = 37; // Total number of search results
+            const resultsPerPage = 4; // Maximum number of results to display per page (updated to 4)
+            let currentPage = 1; // Current page
 
-        // Function to generate pagination links
-        function generatePaginationLinks(totalPages) {
-        let paginationHTML = '';
-        for (let page = 1; page <= totalPages; page++) {
-            paginationHTML += `<a href="#" class="${page === currentPage ? 'active' : ''}" onclick="changePage(${page})">${page}</a>`;
-        }
-        return paginationHTML;
-        }
+            // Rest of your JavaScript code for pagination and handling filters goes here
+            // ...
 
-        // Function to update the pagination and display relevant page results
-        function updatePagination() {
-        const totalPages = Math.ceil(totalResults / resultsPerPage);
-
-        // Display all pages if there are less than 5 pages
-        if (totalPages <= 5) {
-            document.querySelector('.pagination').innerHTML = generatePaginationLinks(totalPages);
-        } else {
-            let paginationHTML = '';
-            if (currentPage > 2) {
-            paginationHTML += `<a href="#" onclick="changePage(1)">1</a>`;
-            paginationHTML += `<span>...</span>`;
-            }
-            for (let page = currentPage - 1; page <= currentPage + 1; page++) {
-            if (page > 0 && page <= totalPages) {
-                paginationHTML += `<a href="#" class="${page === currentPage ? 'active' : ''}" onclick="changePage(${page})">${page}</a>`;
-            }
-            }
-            if (currentPage < totalPages - 1) {
-            paginationHTML += `<span>...</span>`;
-            paginationHTML += `<a href="#" onclick="changePage(${totalPages})">${totalPages}</a>`;
-            }
-            document.querySelector('.pagination').innerHTML = paginationHTML;
-        }
-
-        // Display the relevant page results (you can use an API call here to fetch the data based on currentPage)
-        // For this example, we'll just display a message with the current page and results range
-        const startResult = (currentPage - 1) * resultsPerPage + 1;
-        let endResult = currentPage * resultsPerPage;
-        if (endResult > totalResults) {
-            endResult = totalResults;
-        }
-        const resultMessage = `Displaying results ${startResult} to ${endResult} of ${totalResults}`;
-        document.querySelector('.result-box').innerHTML = `<p>${resultMessage}</p>`;
-
-        // Logic to display only the relevant hotel squares for the current page
-        const hotelSquares = document.querySelectorAll('#hotelsContainer .hotelSquare');
-        hotelSquares.forEach((square, index) => {
-            if (index >= startResult - 1 && index < endResult) {
-                square.style.display = 'block';
-            } else {
-                square.style.display = 'none';
-            }
+            // Initial call to update the pagination and display the first page results
+            // updatePagination();
         });
-        }
-
-        function toggleDropdown(id) {
-            const dropdown = document.getElementById(id);
-            dropdown.classList.toggle('show');
-        }
-        
-        function selectPrice(price) {
-            document.getElementById('selectedPrice').textContent = price;
-        }
-        
-        function selectRating(rating) {
-            document.getElementById('selectedRating').textContent = rating;
-        }
-        
-        let selectedAmenities = [];
-        
-        function toggleAmenity(amenity) {
-            const index = selectedAmenities.indexOf(amenity);
-            if (index > -1) {
-                selectedAmenities.splice(index, 1);
-            } else {
-                selectedAmenities.push(amenity);
-            }
-            document.getElementById('selectedAmenities').textContent = selectedAmenities.join(', ');
-        }        
-
-        // Function to handle page change
-        function changePage(page) {
-        currentPage = page;
-        updatePagination();
-        }
-
-        // Initial call to update the pagination and display the first page results
-        updatePagination();
-  </script>
+    </script>
+    <footer class="footer">
+        <nav>
+            <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        </nav>
+    </footer>
 </body>
-<footer class="footer">
-    <nav>
-        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo"/></a>
-    </nav>
-</footer>
 </html>
