@@ -27,14 +27,15 @@
                     <p>Book the hotel of your dreams at the best price!</p>
                 </div>
                 <div class="booking__container" id="Searching">
-                    <form>
+                    <form action="" class="book-form">
                         <div class="form__group">
                             <div class="input__group">
-                                <input type="text" placeholder="e.g. Singapore">
+                                <input type="text" placeholder="e.g. Singapore" id="destination">
                                 <label>Location</label>
                             </div>
                             <p>Where are you going?</p>
                         </div>
+                        <div class="scroll-container" id="scroll-container"></div>
                         <div class="form__group">
                             <div class="input__group">
                                 <input type="date" class="input" id="check-in">
@@ -51,20 +52,20 @@
                         </div>
                         <div class="form__group">
                             <div class="input__group">
-                                <input type="text" class="input" placeholder="e.g. 2">
+                                <input type="text" class="input" placeholder="e.g. 2" id="guests">
                                 <label>Guests</label>
                             </div>
                             <p>Add guests</p>
                         </div>
                         <div class="form__group">
                             <div class="input__group">
-                                <input type="text" class="input" placeholder="e.g. 2">
+                                <input type="text" class="input" placeholder="e.g. 2" id="rooms">
                                 <label>Rooms</label>
                             </div>
                             <p>Add rooms</p>
                         </div>
                     </form>
-                    <button class="btn"><i class="ri-search-line"></i></button>
+                    <button type="submit" class="btn"><i class="ri-search-line"></i></button>
                 </div>
             </div>
         </header>
@@ -160,38 +161,7 @@
             </div>
         </section>
         <!--Script Section-->
-        <script>
-        // JavaScript to handle form submission and reposition labels
-        const form = document.querySelector("form");
-        const inputGroups = document.querySelectorAll(".input__group");
-
-        form.addEventListener("submit", (event) => {
-            event.preventDefault();
-
-            // Check if any of the input fields have a value
-            const hasInput = Array.from(inputGroups).some(
-                (inputGroup) => inputGroup.querySelector("input").value.trim() !== ""
-            );
-
-            if (hasInput) {
-                // Move labels to the top
-                inputGroups.forEach((inputGroup) => {
-                    const label = inputGroup.querySelector("label");
-                    const input = inputGroup.querySelector("input");
-                    if (input.value.trim() !== "") {
-                        label.style.transform = "translateY(-100%)";
-                    }
-                });
-            }
-
-            // Submit the form or handle the search logic here
-            // For demonstration purposes, we'll just log the values to the console
-            const formData = new FormData(form);
-            for (const pair of formData.entries()) {
-                console.log(pair[0] + ": " + pair[1]);
-            }
-        });
-    </script>
+        <script src="/javascripts/logic.js"></script>
     <!--Footer Section-->
     <footer class="footer">
         <div class="section__container footer__container">

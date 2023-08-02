@@ -38,7 +38,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-    padding: 5px 0;
+    padding: 5px 0; 
 }
 
 .input_box {
@@ -267,4 +267,37 @@
   
 .logo_bottom img {
     margin: auto;
+}
+
+.hotelrm{
+    font-size: 25px;
+    font-weight: 550;
+}
+
+
+#Cdate{
+    font-weight: 550;
+}
+
+#total{
+    font-weight: 550;
+}
+
+.hotelcontainer {
+    color: #333;
+    background-color: #fcfcfc;
+    padding: 2px;
+    margin-bottom: 8px;
+    border: 1px  solid #0003;
+}
+
+#right{
+    display: flex;
+    justify-content: right;
+    padding-right: 10px;
+
+}
+
+.input_box span,p {
+    padding-left: 10px;
 }

@@ -13,24 +13,11 @@ const matchls = document.getElementById('scroll-container'); // drop down list
 //add new popup message
 const checkInDate = document.getElementById('check-in');
 const checkOutDate = document.getElementById('check-out');
-const numGuests = document.getElementById('adults');
+const numGuests = document.getElementById('guests');
 const numRooms = document.getElementById('rooms');
 
 //var to store selected dest uid
 let selectedDestinationUid = '';
-
-//Selectors
-let header = document.querySelector('.header');
-let hamburgerMenu = document.querySelector('.hamburger-menu');
-
-window.addEventListener('scroll', function(){
-    let windowPosition = window.scrollY > 0;
-    header.classList.toggle('active', windowPosition)
-});
-
-hamburgerMenu.addEventListener('click', function (){
-    header.classList.toggle('menu-open');
-})
 
 //search states.json and filter it
 const searchDest = async searchText =>{
@@ -111,35 +98,18 @@ const outputHtml = matches => {
     }
 }
 
-const positionMatchList = () => {
-    const searchRect = search.getBoundingClientRect();
-    const searchTop = searchRect.top + window.scrollY;
-    const searchLeft = searchRect.left + window.scrollX;
-  
-    matchls.style.position = 'absolute';
-    matchls.style.top = searchTop + search.offsetHeight + 'px';
-    matchls.style.left = searchLeft + 'px';
-  };
-
-  const searchForm = document.querySelector('.book-form');
-  searchForm.addEventListener('submit', event => {
-    event.preventDefault(); // Prevent form submission
-    // Perform validation
-    if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
-      displayPopupMessage('Please fill in all details!');
-    } else {
-      console.log(numRooms.value);
-      //this is where the api is called to the server
-      window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${numGuests.value}&rooms=${numRooms.value}&partner_id=${partnerId}`;
-    }
-  });
-  
-  const displayPopupMessage = message => {
-      const popup = document.getElementById('popup-message');
-      popup.textContent = message;
-      popup.classList.add('show');
-  };
-  //end error pop up message
+const submitButton = document.querySelector('.btn');
+const handleFormSubmit = event => {
+  event.preventDefault(); // Prevent form submission
+  // Perform validation
+  if (destination.value.trim() === '' || checkInDate.value.trim() === '' || checkOutDate.value.trim() === '' || numGuests.value === '0' || numRooms.value === '0') {
+    alert('Please fill in all details!');
+  } else {
+    console.log(numRooms.value);
+    //this is where the api is called to the server
+    window.location.href = `/api/disphotels?destination_id=${selectedDestinationUid}&checkin=${checkInDate.value}&checkout=${checkOutDate.value}&lang=${language}&currency=${money}&country_code=${currentcountry}&guests=${numGuests.value}&rooms=${numRooms.value}&partner_id=${partnerId}`;
+  }
+}
 
 // set the minimum date for the datepicker inputs, greys out the previous dates
 function setMinDate() {
@@ -148,14 +118,32 @@ function setMinDate() {
   checkInDate.setAttribute('min', minDate);
   checkOutDate.setAttribute('min', minDate);
 }
-
 // setMinDate called on page load
 setMinDate();
 
-search.addEventListener('input', ()=> searchDest(search.value));
+// Function to show/hide the scroll container based on input
+const toggleScrollContainer = () => {
+  const searchText = search.value.trim();
+  if (searchText === '') {
+    // If the input is empty, hide the scroll container
+    matchls.innerHTML = '';
+    matchls.style.display = 'none';
+  } else {
+    // If there is input, show the scroll container and perform search
+    matchls.style.display = 'block';
+    searchDest(searchText);
+  }
+};
 
-// Call the positionMatchList function whenever the window is resized
-window.addEventListener('resize', positionMatchList);
+//search.addEventListener('input', ()=> searchDest(search.value));
+search.addEventListener('input', toggleScrollContainer);
 
-// Call the positionMatchList function when the page finishes loading
-window.addEventListener('load', positionMatchList);
+// Function to close the scroll container when clicking outside the input
+document.addEventListener('click', (event) => {
+  const isInputClicked = search.contains(event.target);
+  if (!isInputClicked) {
+    matchls.style.display = 'none';
+  }
+});
+
+submitButton.addEventListener('click', handleFormSubmit);

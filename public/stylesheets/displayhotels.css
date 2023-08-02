@@ -163,6 +163,64 @@ nav{
     background-color: var(--primary-color-dark);
 }
 
+/* New filter rating slider */
+.filter-bar .filter__item.rating {
+    flex: 1;
+    align-items: center;
+    margin-left: 1rem;
+}
+
+.filter-bar .filter__item.rating label {
+    font-weight: bold;
+    margin-right: 1rem;
+}
+
+.rating-slider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.rating-slider input[type="range"] {
+    width: 150px;
+    margin-right: 1rem;
+    height: 8px;
+    background-color: #ccc;
+    border-radius: 8px;
+    outline: none;
+}
+
+.rating-slider input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none; /* Remove default styles */
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -7px;
+}
+
+.rating-slider input[type="range"]::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -7px; 
+}
+
+.rating-slider input[type="range"]::-ms-thumb {
+    width: 20px;
+    height: 20px;
+    background-color: var(--primary-color);
+    border: 2px solid #fff;
+    border-radius: 50%;
+    cursor: pointer;
+    margin-top: -7px; 
+}
+
 /* Dropdown Styles */
 .dropdown .amenities-wrapper {
     max-width: 13rem;
@@ -297,24 +355,15 @@ nav{
 }
   
 /*Page styles*/
-.section__container .page__container {
-    display: flex;
-    justify-content: center; /* Center the content horizontally */
-    align-items: center; /* Center the content vertically */
-    margin-top: 1rem; /* Add any additional margin if needed */
-    padding: 0;
-}
-
-.page {
+/* Styles for the pagination container */
+.paginationContainer {
     display: flex;
     justify-content: center;
-}
-
-.pagination {
     margin-top: 20px;
 }
 
-.pagination a {
+/* Styles for the pagination buttons */
+.paginationButton {
     display: inline-block;
     padding: 5px 10px;
     margin-right: 5px;
@@ -325,14 +374,25 @@ nav{
     transition: background-color 0.2s ease-in-out;
 }
 
-.pagination a.active {
+.paginationButton.active {
     background-color: var(--extra-light);
-    color:var(--primary-color-dark);
+    color: var(--primary-color-dark);
 }
 
-.pagination a:hover{
+.paginationButton:hover {
     background-color: var(--primary-color);
     color: var(--white);
+}
+
+/* Styles for the ellipsis */
+.paginationEllipsis {
+    padding: 5px 0;
+    margin-right: 5px;
+}
+
+/* Optional: Adjust the appearance of the ellipsis (you can change the dots to something else) */
+.paginationEllipsis::before {
+    content: "...";
 }
 
 /*Footer Styles*/

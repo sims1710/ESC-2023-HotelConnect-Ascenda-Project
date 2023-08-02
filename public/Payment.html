@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,32 +10,90 @@
         rel="stylesheet">
     <title>Payment form</title>
 </head>
+
 <body>
     <!--Header Section-->
     <nav>
-        <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo" /></a>
         <ul class="nav-list">
             <li class="nav-item"><a href="/HomePage.html">Home</a></li>
             <li class="nav-item"><a href="/DisplayHotels.html">Book</a></li>
             <li class="nav-item"><a href="#">Profile</a></li>
             <li class="nav-item"><a href="#">Help</a></li>
-        </ul>      
+        </ul>
     </nav>
     <div class="payment_wrapper">
-        <h2>Payment form</h2>
-        <form action="" method="post">
+        <h2>Booking Details</h2>
+        <form action="/submit" method="POST">
+
+            <!-- booking summary start -->
+            <h4>Confirm Your Booking Details</h4>
+            <div class="hotelcontainer">
+                <div class="input_grp">
+                    <div class="input_box">
+                        <span class="hotelrm">Japanese hotel</span>
+                        <p class="rmtype">deluxe room</p>
+                    </div>
+                    <div class="input_box" id="right">
+                        <span>2 guests</span>
+                    </div>
+                </div>
+                <div class="input_grp">
+                    <div class="input_box" id="Cdate">
+                        <span>Check-In Date</span>
+                    </div>
+                    <div class="input_box" id="right">
+                        <span>20 August 2023</span>
+                    </div>
+                </div>
+                <div class="input_grp">
+                    <div class="input_box" id="Cdate">
+                        <span>Check-In Date</span>
+                    </div>
+                    <div class="input_box" id="right">
+                        <span>20 August 2023</span>
+                    </div>
+                </div>
+                <div class="input_grp" id="total">
+                    <div class="input_box">
+                        <span>Total amount</span>
+                    </div>
+                    <div class="input_box"id="right">
+                        <span>$4000</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- booking summary end -->
+
+
+
+
+
             <!-- account information start -->
             <h4>Account</h4>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="text" placeholder="Full Name" required class="name">
+                    <input type="text" placeholder="Full Name" required class="name" id="fullname">
                     <i class="fa fa-user icon"></i>
                 </div>
             </div>
             <div class="input_grp">
                 <div class="input_box">
-                    <input type="email" placeholder="Email Address" required class="name">
+                    <input type="email" placeholder="Email Address" required class="name" id="email">
                     <i class="fa fa-envelope icon"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="text" placeholder="Billing Address" required class="name" id="billaddress">
+                    <i class="fa fa-map-marker icon" aria-hidden="true"></i>
+                </div>
+            </div>
+            <div class="input_grp">
+                <div class="input_box">
+                    <input type="tel" placeholder="Phone Number" required class="name" id="telphone">
+                    <i class="fas fa-phone-volume icon" aria-hidden="true"></i>
                 </div>
             </div>
             <!-- account information ends -->
@@ -57,7 +116,7 @@
                             <!-- Add year options here -->
                         </select>
                     </div>
-                </div>                                             
+                </div>
                 <div class="input_box">
                     <h4>Gender</h4>
                     <input type="radio" name="gender" class="radio" id="b1" checked>
@@ -66,68 +125,26 @@
                     <label for="b2">Female</label>
                 </div>
             </div>
+            <div class="input_grp regular">
+                <div class="input_box ">
+                    <i class="fas fa-concierge-bell icon"></i>
+                    <textarea placeholder="Special Requests" id="specialreq" class="name"></textarea>
+                </div>
+            </div>
             <!-- DOB and gender end -->
 
-            <!-- payment details start-->
+            <!-- button start-->
             <div class="input_grp">
                 <div class="input_box">
-                    <h4>Payment Details</h4>
-                    <input type="radio" name="pay" class="radio" id="bc1" checked>
-                    <label for="bc1"><span>
-                            <i class="fab fa-cc-visa"></i>Credit Card
-                        </span></label>
-                    <input type="radio" name="pay" class="radio" id="bc2" checked>
-                    <label for="bc2"><span>
-                            <i class="fab fa-cc-paypal"></i>Paypal
-                        </span></label>
+                    <button type="submit">Next</button>
                 </div>
             </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <input type="text" placeholder="Name On Card" required class="name">
-                    <i class="fa fa-user icon"></i>
-                </div>
-            </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <input type="text" placeholder="Billing Address" required class="name">
-                    <i class="fa fa-map-marker icon" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <input type="tel" class="name" placeholder="Card Number 1111-2222-3333-4444" required>
-                    <i class="fas fa-credit-card icon"></i>
-                </div>
-            </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <input type="tel" class="name" placeholder="Card CVC 345" required>
-                    <i class="fas fa-user icon"></i>
-                </div>
-            </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <div class="input_box">
-                        <input type="date" required class="name" placeholder="Expiry Month">
-                        <i class="fas fa-calendar-alt icon" aria-hidden="true"></i>
-                    </div>
-                </div>
-                <div class="input_box">
-                    <input type="date" required class="name" placeholder="Expiry Year">
-                    <i class="fas fa-calendar icon" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="input_grp">
-                <div class="input_box">
-                    <button type="submit">Pay Now</button>
-                </div>
-            </div>
-            <!-- payment details end-->
+            <!-- button end-->
 
         </form>
-
+        <script src="/javascripts/paymentlogic.js"></script>
     </div>
+
     <script>
         // Function to generate day options
         function generateDays() {
@@ -170,7 +187,8 @@
 </body>
 <footer class="footer">
     <nav>
-        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo" /></a>
     </nav>
 </footer>
+
 </html>

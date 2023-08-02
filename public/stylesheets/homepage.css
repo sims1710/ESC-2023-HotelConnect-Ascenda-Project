@@ -338,3 +338,55 @@ nav{
     color: var(--text-dark)
 }
 
+/* New stuff  */
+.scroll-container {
+    max-height: 200px; /* Adjust the desired height */
+    width: 380px; /* Adjust the desired width */
+    overflow-y: auto;
+    background-color: white;
+    position: absolute;
+    z-index: 1; /* Make sure it appears above other elements */
+    display: none; /* Hide it by default */
+    border: 1px solid #ccc; /* Optional: Add a border to match the design */
+    margin-top: 50px; /* Adjust the distance from the input box */
+    margin-right: 5px; /* Adjust the distance from the left side */
+  }  
+  
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.card {
+    border-bottom: 1px solid #ccc;
+    transition: background-color 0.3s;
+    height: 40px; /* Adjust the height as needed */     
+    line-height: 40px; /* Set line-height to match the height */
+    margin: 0; /* Remove margin */
+    padding: 0; /* Remove padding */
+    box-sizing: border-box; /* Include padding and border in height */
+}
+  
+.card:hover {
+    background-color: lightblue;
+}
+
+#popup-message {
+    position: absolute;
+    top: 121%;
+    left: 83%;
+    transform: translate(-50%, -50%);
+    padding: 10px;
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.3s;
+    width: 150px;
+    font-size: 14px;
+}
+  
+#popup-message.show {
+    visibility: visible;
+    opacity: 1;
+}

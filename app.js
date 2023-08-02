@@ -153,9 +153,48 @@ app.get('/api/disprooms', async (req, res)=>{
     const checkoutDate = req.query.checkout;
     const guestNum = req.query.guests;
     const roomNum = req.query.rooms; 
+
+    console.log(hotelId);
+    console.log(destinationId);
+    console.log(checkinDate);
+    console.log(checkoutDate);
+    console.log(guestNum);
     //need to do polling again to get data from api FML
     const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
+    console.log(roomapi);
+    const filePath = './public/hotelroom_details.json';
+    
     //response sends room details page, which redirects user (need to add this line)
+    const wait = function (ms = 1000) {
+      return new Promise(resolve => {
+        setTimeout(resolve, ms);
+      });
+    };
+    
+    async function fetchAPI() {
+      const raw = await fetch(roomapi);
+      const res = await raw.json();
+      return res;
+    }
+    
+    async function testing() {
+      try{
+        console.log("fetching room details!");
+        let roomResponseData = await fetchAPI();
+        while (!roomResponseData.completed) {
+          await wait(3000);
+          roomResponseData = await fetchAPI();
+          console.log("fetch");
+        }
+        //console.log(roomResponseData);
+        await fs.writeFile(filePath, JSON.stringify(roomResponseData));
+        console.log("finished writing room details")
+        res.sendFile(path.resolve(__dirname, 'public', 'DisplayRoom.html')); //send the html file
+      } catch (error) {
+        console.log(error.message);
+      }
+    }
+    testing();
   }catch (error) {
     console.error("Error while fetching room details.");
     res.status(500).json({ error: "An error occurred while fetching hotel's room info." });

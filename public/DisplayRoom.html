@@ -22,7 +22,6 @@
     <div class="hotel">
         <div class="room-image">
             <!-- Placeholder image, replace with actual room image -->
-            <img src="/images/marinabay.jpg" alt="Room Image">
             <div class="caption">Fake Hotel Name</div>
         </div>
         <div class="header">
@@ -32,14 +31,9 @@
                 <div class="rating">
                     <span class="stars">★★★★★</span>
                 </div>
-                <p class="description">This is a fake hotel description. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam quis neque et massa congue dignissim a nec nunc. Integer venenatis ipsum id dui mattis aliquam.</p>
                 <div class="amenities">
                     <h3>Room Amenities:</h3>
-                    <div class="amenity-box">AC</div>
-                    <div class="amenity-box">Balcony</div>
-                    <div class="amenity-box">Free WiFi</div>
-                    <div class="amenity-box">Shower</div>
-                    <div class="amenity-box">Toiletries</div>
+                    <div class="amenity-box-container"></div>
                 </div>
             </div>
         </div>
@@ -50,7 +44,7 @@
 
         <div class="map-location">
             <!-- Embedded Google Map with the location of Marina Bay Sands -->
-            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3988.725227137848!2d103.96113292525771!3d1.3412186486460784!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31da3cd899f260cb%3A0x99becabc6d025518!2sSingapore%20University%20of%20Technology%20and%20Design%20(SUTD)!5e0!3m2!1sen!2suk!4v1690626907786!5m2!1sen!2suk" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            <iframe class="map-iframe" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
         </div>               
         <div class="room-table">
             <table>
@@ -58,57 +52,28 @@
                     <tr>
                         <th>Type of Room</th>
                         <th>Image of Room</th>
-                        <th>Bed Preference</th>
+                        <th>Bed Type</th>
                         <th>Price per Night</th>
                         <th>Reserve</th>
-                        <th>Add to Cart</th>
+                       <!-- <th>Add to Cart</th>-->
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="roomTableBody">
+                    <!--Dynamically add the room data in the table-->
                     <tr>
-                        <td class="left-align">Standard Room</td>
-                        <td><img src="/images/room1.webp" alt="Standard Room" class="table-image"></td>
-                        <td>
-                            <select>
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
-                            </select>
-                        </td>
-                        <td>$100</td>
-                        <td><button>Reserve</button></td>
-                        <td><button>Add to Cart</button></td>
-                    </tr>
-                    <tr>
-                        <td class="left-align">Deluxe Room</td>
-                        <td><img src="/images/room4.jpg" alt="Deluxe Room" class="table-image"></td>
-                        <td>
-                            <select>
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
-                            </select>
-                        </td>
-                        <td>$200</td>
-                        <td><button>Reserve</button></td>
-                        <td><button>Add to Cart</button></td>
-                    </tr>
-                    <tr>
-                        <td class="left-align">Suite</td>
-                        <td><img src="/images/room3.png" alt="Suite" class="table-image"></td>
-                        <td>
-                            <select>
-                                <option value="single">Single</option>
-                                <option value="double">Double</option>
-                            </select>
-                        </td>
-                        <td>$300</td>
-                        <td><button>Reserve</button></td>
-                        <td><button>Add to Cart</button></td>
+                        <td class="room-type"></td>
+                        <td class="room-image"></td>
+                        <td class="bed-type"></td>
+                        <td class="price"></td>
+                        <td><button class="reserve-button">Reserve</button></td>
+                        <!--<td><button class="add-to-cart-button">Add to Cart</button></td>-->
                     </tr>
                 </tbody>
             </table>
         </div>
     </div>
     <a href="/Payment.html"><button class="selectButton">Confirm Purchase</button></a>
+    <script src="/javascripts/displayRoom.js"></script>
 </body>
 <footer class="footer">
     <nav>

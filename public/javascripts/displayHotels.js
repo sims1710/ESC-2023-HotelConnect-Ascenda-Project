@@ -5,8 +5,6 @@ document.addEventListener("DOMContentLoaded", async function () {
     const hotelsPerPage = 10;
     let currentPage = 1;
     let hotelsData = [];
-    let hotelpriceData = [];
-    let hotelsMap = {};
 
     //getting actual parameters from the url
     const queryString = window.location.search;
@@ -40,20 +38,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     //read hotel and pricing data from JSON files
     async function readHotelAndPricingData() {
         try {
-            //const hotelsDataFilePath = './hotels_data.json';
-            //const pricesDataFilePath = './public/hotelPrices_data.json';
-
             // read hotel data from file
             const hotelsDataResponse = await fetch('../hotels_data.json');
             hotelsData = await hotelsDataResponse.json();
-
-            // read pricing data from file
-            //const pricesDataResponse = await fetch(pricesDataFilePath);
-            //const pricesData = await pricesDataResponse.json();
-            //hotelpriceData = pricesData.hotels;
-
-            // mapping of hotels with their corresponding price information
-            //hotelsMap = createHotelsMap(hotelpriceData);
 
             // render the hotel results nicely
             createTopBar();
@@ -61,15 +48,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         } catch (error) {
             console.error('Error reading hotel and pricing data:', error);
         }
-    }
-
-    // map of hotels with their corresponding price information
-    function createHotelsMap(pricesData) {
-        const map = {};
-        pricesData.forEach((price) => {
-            map[price.id] = price;
-        });
-        return map;
     }
 
     //create HTML elements for each hotel
@@ -98,14 +76,6 @@ document.addEventListener("DOMContentLoaded", async function () {
         hotelRating.classList.add("hotelRating");
         hotelSquare.appendChild(hotelRating);
 
-        const price = hotelsMap[hotel.id]; // Get the corresponding price for the hotel
-        if (price) {
-            const hotelPrice = document.createElement("div");
-            hotelPrice.textContent = `Price: $${price.converted_price}`;
-            hotelPrice.classList.add("hotelPrice");
-            hotelSquare.appendChild(hotelPrice);
-        }
-
         const selectButton = document.createElement("button");
         selectButton.textContent = "Select";
         selectButton.classList.add("selectButton");
@@ -120,7 +90,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     }
 
     // render hotels on the current page
-    function renderHotels(pageNumber) {
+    function renderHotels(pageNumber, filteredHotels) {
         // clear the existing hotels in the container
         hotelsContainer.innerHTML = '';
 
@@ -128,11 +98,15 @@ document.addEventListener("DOMContentLoaded", async function () {
         const startIndex = (pageNumber - 1) * hotelsPerPage;
         const endIndex = startIndex + hotelsPerPage;
 
-        // sort the hotels based on their searchRank in descending order (higher rank first)
-        const sortedHotels = hotelsData.sort((a, b) => b.searchRank - a.searchRank);
+        let hotelsForPage;
 
-        // slice the sorted hotels array to get the hotels for the current page
-        const hotelsForPage = sortedHotels.slice(startIndex, endIndex);
+        if (filteredHotels) {
+            // If filteredHotels is provided (slider used), use the filtered hotels
+            hotelsForPage = filteredHotels.slice(startIndex, endIndex);
+        } else {
+            // If filteredHotels is not provided (initial load), use all hotels
+            hotelsForPage = hotelsData.slice(startIndex, endIndex);
+        }
 
         // create and append hotel squares to the container
         hotelsForPage.forEach((hotel) => {
@@ -141,32 +115,82 @@ document.addEventListener("DOMContentLoaded", async function () {
         });
 
         //calls to create pagination buttons
-        createPaginationButtons(sortedHotels.length, pageNumber);
+        createPaginationButtons(hotelsData.length, pageNumber);
     }
 
     //create pagination buttons
     function createPaginationButtons(totalHotels, currentPage) {
         const totalPages = Math.ceil(totalHotels / hotelsPerPage);
+        const maxVisibleButtons = 5;
         const paginationContainer = document.createElement("div");
         paginationContainer.classList.add("paginationContainer");
 
-        for (let i = 1; i <= totalPages; i++) {
-            const paginationButton = document.createElement("button");
-            paginationButton.textContent = i;
-            paginationButton.classList.add("paginationButton");
-
-            // highlight the current page button
-            if (i === currentPage) {
-                paginationButton.classList.add("active");
-            }
-
-            paginationButton.addEventListener("click", function () {
-                currentPage = i;
-                renderHotels(currentPage);
-            });
-
-            paginationContainer.appendChild(paginationButton);
+       // Helper function to add a pagination button
+    function addPaginationButton(text, page) {
+        const paginationButton = document.createElement("button");
+        paginationButton.textContent = text;
+        paginationButton.classList.add("paginationButton");
+        
+        if (page === currentPage) {
+            paginationButton.classList.add("active");
         }
+
+        paginationButton.addEventListener("click", function () {
+            currentPage = page;
+            renderHotels(currentPage);
+        });
+
+        paginationContainer.appendChild(paginationButton);
+    }
+
+    if (totalPages <= maxVisibleButtons) {
+        // If there are fewer pages than the maximum visible buttons, show all buttons without ellipsis
+        for (let i = 1; i <= totalPages; i++) {
+            addPaginationButton(i, i);
+        }
+    } else {
+        const halfVisibleButtons = Math.floor((maxVisibleButtons - 1) / 2);
+        if (currentPage <= halfVisibleButtons) {
+            // Show first few buttons without ellipsis
+            for (let i = 1; i <= maxVisibleButtons - 1; i++) {
+                addPaginationButton(i, i);
+            }
+            // Add ellipsis
+            const ellipsisButton = document.createElement("span");
+            ellipsisButton.textContent = "...";
+            paginationContainer.appendChild(ellipsisButton);
+            // Show last button
+            addPaginationButton(totalPages, totalPages);
+        } else if (currentPage >= totalPages - halfVisibleButtons) {
+            // Show first button
+            addPaginationButton(1, 1);
+            // Add ellipsis
+            const ellipsisButton = document.createElement("span");
+            ellipsisButton.textContent = "...";
+            paginationContainer.appendChild(ellipsisButton);
+            // Show last few buttons without ellipsis
+            for (let i = totalPages - maxVisibleButtons + 2; i <= totalPages; i++) {
+                addPaginationButton(i, i);
+            }
+        } else {
+            // Show first button
+            addPaginationButton(1, 1);
+            // Add ellipsis
+            const ellipsisButton1 = document.createElement("span");
+            ellipsisButton1.textContent = "...";
+            paginationContainer.appendChild(ellipsisButton1);
+            // Show current page and its neighbors
+            for (let i = currentPage - halfVisibleButtons; i <= currentPage + halfVisibleButtons; i++) {
+                addPaginationButton(i, i);
+            }
+            // Add ellipsis
+            const ellipsisButton2 = document.createElement("span");
+            ellipsisButton2.textContent = "...";
+            paginationContainer.appendChild(ellipsisButton2);
+            // Show last button
+            addPaginationButton(totalPages, totalPages);
+        }
+    }
 
         hotelsContainer.appendChild(paginationContainer);
     }
@@ -179,6 +203,35 @@ document.addEventListener("DOMContentLoaded", async function () {
         document.getElementById("roomNum").textContent = roomNum;
         document.getElementById("destination").textContent = destination;
     }
+
+    //update selected rating range and filter hotels accordingly
+    function updateRatingRange() {
+        const ratingRangeInput = document.getElementById("ratingRange");
+        const selectedRatingRangeDisplay = document.getElementById("selectedRatingRange");
+
+        const ratingRangeValue = ratingRangeInput.value;
+        selectedRatingRangeDisplay.textContent = `0 - ${ratingRangeValue}`;
+
+        // Get the maximum rating value (5 in this case)
+        const maxRatingValue = 5;
+
+        // Filter the hotels based on the selected rating range
+        const filteredHotels = hotelsData.filter(
+            (hotel) => hotel.rating >= 0 && hotel.rating <= ratingRangeValue
+            //(hotel) => hotel.rating >= ratingRangeValue && hotel.rating <= maxRatingValue
+        );
+
+        // Sort the filtered hotels based on the rating in descending order (highest to lowest)
+        filteredHotels.sort((a, b) => b.rating - a.rating);
+
+        // Update the current page if it exceeds the new filtered hotels' page count
+        currentPage = Math.min(currentPage, Math.ceil(filteredHotels.length / hotelsPerPage));
+
+        // Render the hotels with the updated filter
+        renderHotels(currentPage, filteredHotels);
+    }
     //call function
     readHotelAndPricingData();
+
+    document.getElementById("ratingRange").addEventListener("input", updateRatingRange);
 });
