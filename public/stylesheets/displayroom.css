@@ -346,3 +346,8 @@ button:hover {
 .next-arrow {
     right: 10px;
 }
+
+.no-more-rooms {
+    background-color: #f0f0f0;
+    cursor: not-allowed;
+}
