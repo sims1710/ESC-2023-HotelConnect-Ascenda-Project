@@ -31,35 +31,35 @@
             <div class="hotelcontainer">
                 <div class="input_grp">
                     <div class="input_box">
-                        <span class="hotelrm">Japanese hotel</span>
-                        <p class="rmtype">deluxe room</p>
+                        <span class="hotelrm"></span>
+                        <p class="rmtype"></p>
                     </div>
-                    <div class="input_box" id="right">
-                        <span>2 guests</span>
-                    </div>
-                </div>
-                <div class="input_grp">
-                    <div class="input_box" id="Cdate">
-                        <span>Check-In Date</span>
-                    </div>
-                    <div class="input_box" id="right">
-                        <span>20 August 2023</span>
+                    <div class="input_box" id="guest">
+                        <span> </span>
                     </div>
                 </div>
                 <div class="input_grp">
                     <div class="input_box" id="Cdate">
                         <span>Check-In Date</span>
                     </div>
-                    <div class="input_box" id="right">
-                        <span>20 August 2023</span>
+                    <div class="input_box" id="inDate">
+                        <span> </span>
+                    </div>
+                </div>
+                <div class="input_grp">
+                    <div class="input_box" id="Cdate">
+                        <span>Check-In Date</span>
+                    </div>
+                    <div class="input_box" id="outDate">
+                        <span> </span>
                     </div>
                 </div>
                 <div class="input_grp" id="total">
                     <div class="input_box">
                         <span>Total amount</span>
                     </div>
-                    <div class="input_box"id="right">
-                        <span>$4000</span>
+                    <div class="input_box"id="price">
+                        <span> </span>
                     </div>
                 </div>
             </div>
@@ -144,46 +144,6 @@
         </form>
         <script src="/javascripts/paymentlogic.js"></script>
     </div>
-
-    <script>
-        // Function to generate day options
-        function generateDays() {
-            const dayDropdown = document.getElementById('dayDropdown');
-            for (let day = 1; day <= 31; day++) {
-                const option = document.createElement('option');
-                option.value = day.toString().padStart(2, '0');
-                option.textContent = day.toString().padStart(2, '0');
-                dayDropdown.appendChild(option);
-            }
-        }
-
-        // Function to generate month options
-        function generateMonths() {
-            const monthDropdown = document.getElementById('monthDropdown');
-            for (let month = 1; month <= 12; month++) {
-                const option = document.createElement('option');
-                option.value = month.toString().padStart(2, '0');
-                option.textContent = month.toString().padStart(2, '0');
-                monthDropdown.appendChild(option);
-            }
-        }
-
-        // Function to generate year options
-        function generateYears(startYear, endYear) {
-            const yearDropdown = document.getElementById('yearDropdown');
-            for (let year = startYear; year <= endYear; year++) {
-                const option = document.createElement('option');
-                option.value = year;
-                option.textContent = year;
-                yearDropdown.appendChild(option);
-            }
-        }
-
-        // Call the functions to generate options
-        generateDays();
-        generateMonths();
-        generateYears(1900, new Date().getFullYear());
-    </script>
 </body>
 <footer class="footer">
     <nav>

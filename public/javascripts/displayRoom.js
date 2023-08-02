@@ -3,7 +3,9 @@ document.addEventListener("DOMContentLoaded", async function () {
     let noMoreRoomsAvailable = false; //flag to check 
     let roomLength;
     let count = 0;
-
+    let hotelName;
+    let roomType;
+    let total;
     //getting actual parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -162,6 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
             const roomTypeCell = document.createElement('td');
             roomTypeCell.textContent = room.description;
+            roomType = roomTypeCell.textContent;
             newRow.appendChild(roomTypeCell);
     
             const roomImageCell = document.createElement('td');
@@ -218,6 +221,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             const pricePerNight = calculatePricePerNight(room.price, checkInDate, checkOutDate);
             const priceCell = document.createElement('td');
             priceCell.textContent = `$${pricePerNight.toFixed(2)} per night`;
+            total = room.price.toFixed(2); //get total price
             //priceCell.textContent = `$${room.price.toFixed(2)}`;
             newRow.appendChild(priceCell);
     
@@ -230,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             //add event listener
             reserveButton.addEventListener('click', () => {
                 // Replace 'your-reservation-page.html' with the URL of your reservation page
-                window.location.href = '/payment';
+                window.location.href = `/payment?hotel=${hotelName}&checkin=${checkInDate}&checkout=${checkOutDate}&guests=${guestNum}&room=${roomType}&price=${total}`;
             });
     
             roomTableBody.appendChild(newRow);
@@ -246,6 +250,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Update hotel name
         const hotelTitle = document.querySelector('.hotel-title');
         hotelTitle.textContent = hotel.name;
+        hotelName = hotelTitle.textContent;
 
         // Update rating stars
         const starsElement = document.querySelector('.stars');
