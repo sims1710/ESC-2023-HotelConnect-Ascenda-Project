@@ -7,6 +7,31 @@
     box-sizing: border-box;
 }
 
+/*Hotel Container*/
+.hotelcontainer {
+    color: #333;
+    background-color: #fcfcfc;
+    padding: 2px;
+    margin-bottom: 8px;
+    border: 1px  solid #0003;
+}
+
+.hotelrm {
+    font-size: 25px;
+    font-weight: 550;
+    overflow-x: auto; /* Hide overflow content */
+    white-space: nowrap; /* Prevent line breaks */
+    text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+}
+
+#Cdate{
+    font-weight: 550;
+}
+
+#total{
+    font-weight: 550;
+}
+
 /*Payment Styles*/
 .payment_wrapper {
     background-color: #fff;
@@ -221,6 +246,10 @@
     font-size: 16px; /* Change font size if needed */
 }
 
+.input_box span,p {
+    padding-left: 10px;
+}
+
 /* Styles for select boxes */
 .select-box {
     /* Apply the same styles as the other input boxes */
@@ -273,35 +302,8 @@
 }
 
 /*Additional Styles*/
-
-.hotelrm{
-    font-size: 25px;
-    font-weight: 550;
-}
-
-#Cdate{
-    font-weight: 550;
-}
-
-#total{
-    font-weight: 550;
-}
-
-.hotelcontainer {
-    color: #333;
-    background-color: #fcfcfc;
-    padding: 2px;
-    margin-bottom: 8px;
-    border: 1px  solid #0003;
-}
-
 #right{
     display: flex;
     justify-content: right;
     padding-right: 10px;
-
-}
-
-.input_box span,p {
-    padding-left: 10px;
 }
