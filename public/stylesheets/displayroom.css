@@ -18,7 +18,7 @@ body {
 
 /*Room Image Styles*/
 .room-image {
-    max-width: 80%;
+    max-width: 35rem;
     border-radius: 15px;
     height: auto;
     margin: auto;
@@ -34,26 +34,8 @@ body {
     transition: transform 0.3s;
 }
 
-.room-image .caption {
-    position: absolute;
-    bottom: 0; /* Adjust as needed */
-    left: 0;
-    width: 100%;
-   /* background-color: rgba(255, 255, 255, 0.7); /* Using rgba for transparency */
-    color: var(--text-dark);
-    padding: 10px;
-    text-align: center;
-    transform: translateY(100%); /* Initially hidden below the image */
-    transition: transform 0.3s;
-    font-size: 0.9rem;
-}
-
 .room-image:hover img {
     transform: scale(1.1); /* Zoom effect on hover */
-}
-
-.room-image:hover .caption {
-    transform: translateY(0); /* Slide-in caption on hover */
 }
 
 /*Header Styles*/

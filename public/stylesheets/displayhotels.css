@@ -125,7 +125,7 @@ nav{
     box-shadow: 5px 5px 30px rgba(0, 0, 0, .1);
     position: relative;
     margin-bottom: 0rem;
-    width: 23rem;
+    width: 24rem;
     margin: auto;
 }
 
@@ -303,6 +303,9 @@ nav{
     color: var(--primary-color);
     margin: 10px 0 5px;
     font-size: 18px;
+    overflow-x: auto; /* Hide overflow content */
+    white-space: nowrap; /* Prevent line breaks */
+    text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
 }
 
 /* Styling for the hotel ratings */
