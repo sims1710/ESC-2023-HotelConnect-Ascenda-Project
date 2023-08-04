@@ -305,7 +305,6 @@ nav{
     font-size: 18px;
     overflow-x: auto; /* Hide overflow content */
     white-space: nowrap; /* Prevent line breaks */
-    text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
 }
 
 /* Styling for the hotel ratings */
