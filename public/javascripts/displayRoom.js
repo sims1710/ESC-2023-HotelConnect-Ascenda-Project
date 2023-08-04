@@ -1,8 +1,16 @@
 document.addEventListener("DOMContentLoaded", async function () {
+    let previousScrollPosition = 0;
+    let noMoreRoomsAvailable = false; //flag to check 
+    let roomLength;
+    let count = 0;
+    let hotelName;
+    let roomType;
+    let total;
     //getting actual parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     let hotelId = urlParams.get('hotel_id');
+    let destId = urlParams.get('destination_id');
     let checkInDate = urlParams.get('checkin');
     let checkOutDate = urlParams.get('checkout');
     let guestNum = urlParams.get('guests');
@@ -37,19 +45,58 @@ document.addEventListener("DOMContentLoaded", async function () {
         return filledStars + emptyStars;
     }
 
-
     //room stuff
     async function getHotelRoomData() {
         try {
-            const response = await fetch('../hotelroom_details.json');
-            const hotelRoomData = await response.json();
-            console.log(hotelRoomData.rooms);
-            return hotelRoomData;
+            const response = await fetch('/api/getroomdetails'); // Request to server's endpoint
+            const roomResponseData = await response.json();
+            console.log(roomResponseData);
+            return roomResponseData;
         } catch (error) {
             console.error('Error fetching hotel room data:', error);
             return null;
         }
+        
     }
+
+    const loadMoreButton = document.querySelector('.selectButton');
+
+    // Listen for "Load more rooms" button click
+    loadMoreButton.addEventListener('click', async () => {
+        if (noMoreRoomsAvailable) {
+            return; // If no more rooms are available, don't proceed
+        }
+        // Store the current scroll position
+        previousScrollPosition = window.scrollY;
+
+        //clear table data
+        const roomTableBody = document.getElementById('roomTableBody');
+        roomTableBody.innerHTML = '';
+
+        // Load more room data
+        const additionalRoomData = await getHotelRoomData();
+        console.log(roomLength);
+        // If no more new rooms are available, disable the button and set the flag
+        if (additionalRoomData.rooms.length === roomLength && count === 0) {
+            noMoreRoomsAvailable = true;
+            loadMoreButton.classList.add('no-more-rooms');
+            loadMoreButton.title = 'No more rooms available. Check again later!';
+        } else if (additionalRoomData.rooms.length === roomLength && count > 0) {
+            noMoreRoomsAvailable = true;
+            //count = count+1;
+            //roomLength = additionalRoomData.rooms.length;
+            loadMoreButton.classList.add('no-more-rooms');
+            loadMoreButton.title = 'No more rooms available. Check again later!';
+        }
+        roomLength = additionalRoomData.rooms.length;
+        count = count+1;
+
+        // Populate the table with additional room data
+        populateRoomTable(additionalRoomData.rooms);
+
+        // Restore the previous scroll position
+        window.scrollTo(0, previousScrollPosition);
+    });
 
     // Function to display images in the room-image section
     function displayImages(imageDetails) {
@@ -117,6 +164,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
             const roomTypeCell = document.createElement('td');
             roomTypeCell.textContent = room.description;
+            roomType = roomTypeCell.textContent;
             newRow.appendChild(roomTypeCell);
     
             const roomImageCell = document.createElement('td');
@@ -165,13 +213,15 @@ document.addEventListener("DOMContentLoaded", async function () {
     
             const bedTypeCell = document.createElement('td');
             const bedTypeRegex = /<strong>(.*?)<\/strong>/; // Regular expression to extract the bed type
-            const bedTypeMatch = room.long_description.match(bedTypeRegex);
+            const bedTypeMatch = room.long_description ? room.long_description.match(bedTypeRegex) : null;
+            //const bedTypeMatch = room.long_description.match(bedTypeRegex);
             bedTypeCell.textContent = bedTypeMatch ? bedTypeMatch[1] : '';
             newRow.appendChild(bedTypeCell);
     
             const pricePerNight = calculatePricePerNight(room.price, checkInDate, checkOutDate);
             const priceCell = document.createElement('td');
             priceCell.textContent = `$${pricePerNight.toFixed(2)} per night`;
+            total = room.price.toFixed(2); //get total price
             //priceCell.textContent = `$${room.price.toFixed(2)}`;
             newRow.appendChild(priceCell);
     
@@ -184,7 +234,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             //add event listener
             reserveButton.addEventListener('click', () => {
                 // Replace 'your-reservation-page.html' with the URL of your reservation page
-                window.location.href = '/payment';
+                window.location.href = `/payment?hotel=${hotelName}&checkin=${checkInDate}&checkout=${checkOutDate}&guests=${guestNum}&room=${roomType}&price=${total}`;
             });
     
             roomTableBody.appendChild(newRow);
@@ -200,6 +250,7 @@ document.addEventListener("DOMContentLoaded", async function () {
         // Update hotel name
         const hotelTitle = document.querySelector('.hotel-title');
         hotelTitle.textContent = hotel.name;
+        hotelName = hotelTitle.textContent;
 
         // Update rating stars
         const starsElement = document.querySelector('.stars');
@@ -231,6 +282,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
         const roomData = await getHotelRoomData();
+        roomLength = roomData.rooms.length;
         populateRoomTable(roomData.rooms);
     }
 
