@@ -15,6 +15,7 @@
     "cookie-parser": "~1.4.4",
     "cors": "^2.8.5",
     "debug": "~2.6.9",
+    "dotenv": "^16.3.1",
     "ejs": "^3.1.9",
     "express": "^4.18.2",
     "http-errors": "~1.6.3",
@@ -24,7 +25,8 @@
     "node-fetch": "^3.3.1",
     "node-localstorage": "^2.2.1",
     "nodemon": "^3.0.1",
-    "store2": "^2.14.2"
+    "store2": "^2.14.2",
+    "stripe": "^12.16.0"
   },
   "devDependencies": {
     "jest": "^29.6.1",

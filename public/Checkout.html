@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Checkout</title>
+    <link rel="stylesheet" href="payment.css">
+    <script src="https://js.stripe.com/v3/"></script>
+  </head>
+
+
+  <body>
+    <section>
+      <form action="/create-checkout-session" method="POST">
+        <button type="submit" id="checkout-button" class="checkout-button">Checkout</button>
+      </form>
+    </section>
+  </body>
+</html>
+

@@ -1,7 +1,13 @@
+
+
+
 const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs').promises;
+// const stripePK = require('stripe')('pk_test_51NYm3RLqzJj2zPxp5oejR9AwkKGQplOQs8DNfgn4BynmeQsmpgpTwj76WdzvhA0E4yZh20NX5NPjyqe7Ufm9IFkG00MnupLbmU')
+const stripe = require('stripe')('sk_test_51NYm3RLqzJj2zPxpXeYHtRBUzWlquc68Yk3fqFEX6kzQveB2Bpvg19G1kDFrTdwJsaVQVOdMmoviAiyxfVsVzVbU00yiJp03yT');
+
 
 const port = 3001;
 const pollingInterval = 3000; // 10 seconds (increase if needed)
@@ -11,6 +17,52 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.get('/', (req, res) => {
   res.sendFile(path.resolve(__dirname, 'public', 'HomePage.html'));
 });
+
+// stripe section start
+
+
+app.post('/create-checkout-session', async (req, res) => {
+
+
+    const hotelPrice = 444
+
+    const price = await stripe.prices.create({
+      product: "prod_ONhMmONRJXwXcC",
+      unit_amount: hotelPrice,
+      currency: 'sgd',
+
+    });
+
+
+  
+
+    const session = await stripe.checkout.sessions.create({
+      line_items: [
+        {
+          // Provide the exact Price ID (for example, pr_1234) of the product you want to sell
+          price: price.id,
+          quantity: 1,
+        },
+      ],
+      mode: 'payment',
+      success_url: `http://127.0.1.1:3001/success.html`,
+      cancel_url: `http://127.0.1.1:3001/cancel.html`,
+    });
+
+
+  res.redirect(303, session.url);
+});
+
+
+app.get('/paymentstripe', (req, res) => {
+  res.sendFile(path.resolve(__dirname, 'public', 'Checkout.html'));
+});
+
+
+
+
+// stripe section end
+
 
 //to open the additional payment HTML file
 app.get('/payment', (req, res) => {
@@ -70,7 +122,7 @@ app.post('/submit', (req, res) => {
   paymentData.save()
     .then(() => {
       console.log('Data Inserted Successfully');
-      res.redirect('/'); // Redirect after successful submission
+      res.redirect('/paymentstripe'); // Redirect after successful submission // WHY U NO WORK
     })
     .catch((err) => {
       console.error('Error saving data to the database:', err);
