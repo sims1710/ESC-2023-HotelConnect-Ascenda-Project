@@ -246,15 +246,17 @@
     gap: 0.4rem; /* Add a 0.1rem gap between DD, MM, and YYYY */
 }
 
-/* Adjust the widths for DD and MM */
-#dayDropdown,
-#monthDropdown {
-    flex: 1.2; /* Equal width for DD and MM */
+/* Adjust the widths for DD, MM and YYYY */
+#dayDropdown{
+    flex: 1.2; /* width for DD */
 }
 
-/* Increase the width of YYYY */
+#monthDropdown {
+    flex: 1.3; /* width for MM */
+}
+
 #yearDropdown {
-    flex: 1.7; /* Double the width of YYYY compared to DD and MM */
+    flex: 1.5; /* width for YYYY */
 }
 
 /* Apply styles on hover individually */
