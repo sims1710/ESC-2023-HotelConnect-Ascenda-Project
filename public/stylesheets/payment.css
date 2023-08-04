@@ -15,6 +15,7 @@
     margin: 25px auto 0;
     box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
     border-radius: 10px;
+    margin-bottom: 2rem;
 }
 
 .payment_wrapper h2 {
@@ -264,21 +265,17 @@
 }
  
 /*Footer Styles*/
-.footer {
-    color: #fff;
-    text-align: center;
-    margin-top: 30px; /* Add margin to create separation */
-}
-  
-.logo_bottom img {
+.logo_bottom img{
+    max-width: 8%;
     margin: auto;
 }
+
+/*Additional Styles*/
 
 .hotelrm{
     font-size: 25px;
     font-weight: 550;
 }
-
 
 #Cdate{
     font-weight: 550;
