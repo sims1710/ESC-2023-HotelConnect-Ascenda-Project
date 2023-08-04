@@ -56,7 +56,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 app.get('/paymentstripe', (req, res) => {
-  actualprice = req.query.price;
+  actualprice = Math.round(req.query.price)*100; //convert to cents
   res.sendFile(path.resolve(__dirname, 'public', 'Checkout.html'));
 });
 
