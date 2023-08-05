@@ -1,16 +1,46 @@
 <!DOCTYPE html>
 <html>
-
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment Fail</title>
+    <link rel="icon" href="/images/Icon.png" type="image/png">
+    <link href="/stylesheets/fail.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
+</head>
 <body>
-  <section>
-    <label>
-      Payment Failed.
-    </label>
+  <header class="header">
+    <!--Header Section-->
     <nav>
-      <form action="/" method="GET">
-        <button class="logo_bottom">Click Here To Return</button>
-      </form>
-    </nav>
-  </section>
+      <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo"/></a>
+      <ul class="nav-list">
+        <li class="nav-item"><a href="/HomePage.html">Home</a></li>
+        <li class="nav-item"><a href="/DisplayHotels.html">Book</a></li>
+        <li class="nav-item"><a href="#">Profile</a></li>
+        <li class="nav-item"><a href="#">Help</a></li>
+    </ul>         
+  </nav>
+  </header>
+  <!--Box Section-->
+  <div class="payment_wrapper">
+    <section>
+      <h3>Payment Fail!</h3>
+      <p>Oops, something went wrong during the payment process. Please return to the homepage to re-start the purchase.</p>
+      <div class="img">
+        <img src="/images/fail.png" alt="Fail"/>
+      </div>     
+      <nav>
+        <form action="/" method="GET">
+          <button class="selectButton">Click Here To Return</button>
+        </form>
+      </nav>
+    </section>
+  </div>
 </body>
+<footer class="footer">
+  <nav>
+      <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo" /></a>
+  </nav>
+</footer>
 </html>
