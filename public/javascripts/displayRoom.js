@@ -244,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // Function to display hotel details
     async function displayHotelDetails(hotel) {
-        const apikey = 'AIzaSyByyX0tdd-efstrhuPqx1ySt5qKPB5hs9Y';
+        const apikey = 'hello';
         // Update room images
         displayImages(hotel.image_details);
 
