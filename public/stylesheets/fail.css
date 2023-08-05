@@ -1,0 +1,14 @@
+@import "success.css";
+
+.img {
+    animation: flicker 0.4s infinite; /* Add flickering animation */
+}
+
+@keyframes flicker {
+    0%, 100% {
+        opacity: 0.8; /* Make the image slightly less visible */
+    }
+    50% {
+        opacity: 1; /* Make the image fully visible */
+    }
+}
