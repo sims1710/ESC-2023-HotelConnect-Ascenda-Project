@@ -364,6 +364,17 @@ nav{
 }
 
 /* Styles for the pagination buttons */
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+    position: sticky; /* Make the container sticky */
+    bottom: 20px; /* Adjust the distance from the bottom as needed */
+    background-color: var(--white); /* Set a background color */
+    padding: 10px 0; /* Add some padding for better spacing */
+    z-index: 1; /* Ensure the pagination is on top of other content */
+}
+
 .paginationButton {
     display: inline-block;
     padding: 5px 10px;

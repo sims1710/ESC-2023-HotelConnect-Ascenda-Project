@@ -19,7 +19,7 @@
 .hotelrm {
     font-size: 25px;
     font-weight: 550;
-    overflow-x: auto; /* Hide overflow content */
+    overflow-x: hidden; /* Hide overflow content */
     white-space: nowrap; /* Prevent line breaks */
 }
 

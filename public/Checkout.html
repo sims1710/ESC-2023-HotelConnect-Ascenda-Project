@@ -1,18 +1,47 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkout</title>
     <link type="text/css" rel="stylesheet" href="/stylesheets/payment.css">
+    <link rel="icon" href="/images/Icon.png" type="image/png">
+    <link href="/stylesheets/checkout.css" type="text/css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet">
     <script src="https://js.stripe.com/v3/"></script>
   </head>
-
-
   <body>
-    <section>
-      <form action="/create-checkout-session" method="POST">
-        <button type="submit" id="checkout-button" class="checkout-button">Checkout</button>
-      </form>
-    </section>
+    <header class="header">
+      <nav>
+        <a href="/HomePage.html" class="logo"> <img src="/images/logo.png" alt="Website Logo"/></a>
+        <ul class="nav-list">
+          <li class="nav-item"><a href="/HomePage.html">Home</a></li>
+          <li class="nav-item"><a href="/DisplayHotels.html">Book</a></li>
+          <li class="nav-item"><a href="#">Profile</a></li>
+          <li class="nav-item"><a href="#">Help</a></li>
+        </ul>         
+      </nav>
+    </header>
+    <div class="payment_wrapper">
+      <section>
+        <h3>Checkout</h3>
+        <p>
+          You can either continue to proceed to check out if you're done with choice or you can go back to change/update your choice.
+        </p>
+        <div class="img">
+          <img src="/images/shopping.png" alt="Shopping"/>
+        </div>   
+        <form action="/create-checkout-session" method="POST">
+          <button type="submit" id="checkout-button" class="checkout-button">Checkout</button>
+          <button type="submit" id="checkout-button" class="goback-button">Go back</button>
+        </form>
+      </section>
+    </div>
   </body>
+  <footer class="footer">
+    <nav>
+        <a href="/HomePage.html" class="logo_bottom"> <img src="/images/logo.png" alt="Website Logo" /></a>
+    </nav>
+  </footer>
 </html>
-

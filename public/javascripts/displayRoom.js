@@ -221,20 +221,21 @@ document.addEventListener("DOMContentLoaded", async function () {
             const pricePerNight = calculatePricePerNight(room.price, checkInDate, checkOutDate);
             const priceCell = document.createElement('td');
             priceCell.textContent = `$${pricePerNight.toFixed(2)} per night`;
-            total = room.price.toFixed(2); //get total price
+            //total = room.price.toFixed(2); //get total price
             //priceCell.textContent = `$${room.price.toFixed(2)}`;
             newRow.appendChild(priceCell);
     
             const reserveButtonCell = document.createElement('td');
             const reserveButton = document.createElement('button');
             reserveButton.textContent = 'Reserve';
+            reserveButton.setAttribute('data-room-price', room.price.toFixed(2)); //save price
             reserveButtonCell.appendChild(reserveButton);
             newRow.appendChild(reserveButtonCell);
 
             //add event listener
             reserveButton.addEventListener('click', () => {
-                // Replace 'your-reservation-page.html' with the URL of your reservation page
-                window.location.href = `/payment?hotel=${hotelName}&checkin=${checkInDate}&checkout=${checkOutDate}&guests=${guestNum}&room=${roomType}&price=${total}`;
+                const selectedRoomPrice = event.currentTarget.getAttribute('data-room-price');
+                window.location.href = `/payment?hotel=${hotelName}&checkin=${checkInDate}&checkout=${checkOutDate}&guests=${guestNum}&room=${roomType}&price=${selectedRoomPrice}`;
             });
     
             roomTableBody.appendChild(newRow);
@@ -243,7 +244,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // Function to display hotel details
     async function displayHotelDetails(hotel) {
-        const apikey = 'AIzaSyByyX0tdd-efstrhuPqx1ySt5qKPB5hs9Y';
+        const apikey = 'hello';
         // Update room images
         displayImages(hotel.image_details);
 
