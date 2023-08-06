@@ -3,6 +3,9 @@ const { app, server } = require('../app');
 const request = require('supertest');
 const Payment = require('../app.js');
 
+
+//#
+
 describe('MongoDB Functionality Test Suite', () => {
   beforeAll(async () => {
     await mongoose.connect('mongodb://localhost:27017/test-paymentdb', {
@@ -12,17 +15,16 @@ describe('MongoDB Functionality Test Suite', () => {
   });
 
   afterAll(async () => {
-    // Close the database connection and stop the Express server
     await mongoose.connection.close();
     server.close();
   });
 
-  beforeEach(async () => {
-    // Clear the test database before each test
-    await Payment.deleteMany({});
+  afterEach(async () => {
+    // Clean up the database after each test
+    await mongoose.connection.dropDatabase();
   });
 
-  test('should save payment data to the database', async () => {
+  it('should save payment data to the database', async () => {
     const paymentData = {
       fullname: 'John Doe',
       email: 'john@example.com',
@@ -36,17 +38,19 @@ describe('MongoDB Functionality Test Suite', () => {
     expect(savedPayment.email).toBe('john@example.com');
   });
 
-  test('should retrieve payment data from the database', async () => {
-    const samplePayment = new Payment({
-      fullname: 'Jane Smith',
+  it('should return 500 if an error occurs while saving data', async () => {
+    jest.spyOn(mongoose.Model.prototype, 'save').mockRejectedValue(new Error('Database error'));
+
+    const paymentData = {
+      fullname: 'Jane Doe',
       email: 'jane@example.com',
-    });
-    await samplePayment.save();
+    };
 
-    const res = await request(app).get('/api/get-payment');
-    expect(res.status).toBe(200);
-    expect(res.body.fullname).toBe('Jane Smith');
-    expect(res.body.email).toBe('jane@example.com');
+    const res = await request(app)
+      .post('/submit')
+      .send(paymentData);
+
+    expect(res.status).toBe(500);
+    expect(res.body).toEqual({ error: 'An error occurred while saving the data.' });
   });
-
 });

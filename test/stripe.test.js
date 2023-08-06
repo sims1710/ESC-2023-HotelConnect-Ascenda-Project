@@ -3,6 +3,8 @@ const { response } = require('express');
 const { app, server } = require('../app');
 const request = require('supertest');
 
+//# TODO: edit stripe mock variables
+
 describe('Stripe API Integration Test Suite', () => {
   beforeAll((done) => {
     process.env.PORT = 3003;

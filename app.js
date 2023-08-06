@@ -16,7 +16,7 @@ let checkoutDate;
 let guestNum;
 let actualprice;
 
-function containsOnlyNumbers(str) {
+function isValidNumber(str) {
   return /^[0-9]+$/.test(str);
 }
 
@@ -25,8 +25,14 @@ function containsSpecialChars(str) {
   return specialChars.test(str);
 }
 
+function isValidDate(dateString) {
+  // Regular expression to match YYYY-MM-DD format
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  return dateRegex.test(dateString);
+}
+
 function isValidID(id) {
-  return !containsOnlyNumbers(id) && !containsSpecialChars(id) && id.length === 4;
+  return !isValidNumber(id) && !containsSpecialChars(id) && id.length === 4;
 }
 
 app.use(express.static(path.join(__dirname, 'public')));
@@ -101,7 +107,7 @@ mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites
 }).then(() => {
   //console.log('Connected to MongoDB');
 }).catch((err) => {
-  //console.error('Error connecting to MongoDB:', err);
+  console.error('Error connecting to MongoDB:', err);
 });
 
 const paymentSchema = new mongoose.Schema({ //schema = define structure for how data will be arranged and stored in collection
@@ -165,15 +171,25 @@ app.get('/api/disphotels', async (req, res) => {
   const partnerid = req.query.partner_id;
   const roomNum = req.query.rooms;
 
-  
   //checks for missing query parameters
   if (destinationId == null || checkinDate == null || checkoutDate == null || guestNum == null){
     res.status(400).send("Missing query parameters");
   }
   else{
-    if (isValidID(destinationId) || containsOnlyNumbers(checkinDate) || containsOnlyNumbers(checkoutDate) || containsOnlyNumbers(guestNum)){
-    res.status(400).send("Incorrect Data type");
+    //invalid input handling
+    if (!isValidID(destinationId)) {
+      console.log("Invalid destinationId:", destinationId);
+      res.status(400).send("Invalid destination ID");
     }
+    if (!isValidDate(checkinDate) || !isValidDate(checkoutDate)) {
+      console.log("Invalid data type:", checkinDate, checkoutDate);
+      res.status(400).send("Incorrect Data type");
+    }
+    if (!isValidNumber(guestNum)){
+      console.log("Invalid guest type:", guestNum);
+      res.status(400).send("Incorrect Data type");
+    }
+
     else{
       try {
         //console.log(destinationId);
@@ -209,7 +225,7 @@ app.get('/api/disprooms', async (req, res)=>{
   const checkoutDate = req.query.checkout;
   const guestNum = req.query.guests;
   const roomNum = req.query.rooms; 
-  if (isValidID(hotelId) || containsOnlyNumbers(checkinDate) || containsOnlyNumbers(checkoutDate) || containsOnlyNumbers(guestNum)){
+  if (!isValidID(hotelId) || !isValidDate(checkinDate) || !isValidDate(checkoutDate) || !isValidNumber(guestNum)){
     res.status(400).send("Incorrect Data type");
   try{
     
@@ -243,5 +259,7 @@ app.get('/api/getroomdetails', async (req, res)=>{
 const server = app.listen(port, () => {
   //console.log(`Server is listening on port ${port}`);
 });
+
+
 
 module.exports = { app, server };
