@@ -5,7 +5,7 @@ const fs = require('fs').promises;
 const stripe = require('stripe')('sk_test_51NYm3RLqzJj2zPxpXeYHtRBUzWlquc68Yk3fqFEX6kzQveB2Bpvg19G1kDFrTdwJsaVQVOdMmoviAiyxfVsVzVbU00yiJp03yT');
 
 
-const port = 3001;
+const port = process.env.port || 3001;
 const pollingInterval = 3000; // 10 seconds (increase if needed)
 
 //global variables
@@ -15,6 +15,19 @@ let checkinDate;
 let checkoutDate;
 let guestNum;
 let actualprice;
+
+function containsOnlyNumbers(str) {
+  return /^[0-9]+$/.test(str);
+}
+
+function containsSpecialChars(str) {
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  return specialChars.test(str);
+}
+
+function isValidID(id) {
+  return !containsOnlyNumbers(id) && !containsSpecialChars(id) && id.length === 4;
+}
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -86,9 +99,9 @@ mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites
     useNewUrlParser: true,
     useUnifiedTopology: true
 }).then(() => {
-  console.log('Connected to MongoDB');
+  //console.log('Connected to MongoDB');
 }).catch((err) => {
-  console.error('Error connecting to MongoDB:', err);
+  //console.error('Error connecting to MongoDB:', err);
 });
 
 const paymentSchema = new mongoose.Schema({ //schema = define structure for how data will be arranged and stored in collection
@@ -142,48 +155,73 @@ const Payment = mongoose.model('Payment', paymentSchema); //creates Mongoose mod
 
 
 app.get('/api/disphotels', async (req, res) => {
-  try {
-    const destinationId = req.query.destination_id;
-    const language = req.query.lang;
-    const money = req.query.currency;
-    const checkinDate = req.query.checkin;
-    const checkoutDate = req.query.checkout;
-    const country = req.query.country_code;
-    const guestNum = req.query.guests;
-    const partnerid = req.query.partner_id;
-    const roomNum = req.query.rooms;
+  const destinationId = req.query.destination_id;
+  const language = req.query.lang;
+  const money = req.query.currency;
+  const checkinDate = req.query.checkin;
+  const checkoutDate = req.query.checkout;
+  const country = req.query.country_code;
+  const guestNum = req.query.guests;
+  const partnerid = req.query.partner_id;
+  const roomNum = req.query.rooms;
 
-    const hotelsapi = `https://hotelapi.loyalty.dev/api/hotels?destination_id=${destinationId}`;
-    const hotelResponse = await fetch(hotelsapi);
-    if (!hotelResponse.ok) {
-      throw new Error("Error fetching hotel data");
+  
+  //checks for missing query parameters
+  if (destinationId == null || checkinDate == null || checkoutDate == null || guestNum == null){
+    res.status(400).send("Missing query parameters");
+  }
+  else{
+    if (isValidID(destinationId) || containsOnlyNumbers(checkinDate) || containsOnlyNumbers(checkoutDate) || containsOnlyNumbers(guestNum)){
+    res.status(400).send("Incorrect Data type");
     }
-    const hotelResponseData = await hotelResponse.json();
-    //console.log("hotel data ok");
-
-    const filePath = './public/hotels_data.json';
-    await fs.writeFile(filePath, JSON.stringify(hotelResponseData));
-    res.sendFile(path.resolve(__dirname, 'public', 'DisplayHotels.html'));
-
-    const hotelpriceapi = `https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&country_code=SG&guests=${guestNum}&partner_id=1`;
-
-  } catch (error) {
-    console.error("Error while fetching hotels info:", error);
-    res.status(500).json({ error: "An error occurred while fetching hotels info." });
+    else{
+      try {
+        //console.log(destinationId);
+        const hotelsapi = `https://hotelapi.loyalty.dev/api/hotels?destination_id=${destinationId}`;
+        const hotelResponse = await fetch(hotelsapi);
+        if (!hotelResponse.ok) {
+          throw new Error("Error fetching hotel data");
+        }
+        const hotelResponseData = await hotelResponse.json();
+        //console.log("hotel data ok");
+    
+        const filePath = './public/hotels_data.json';
+        await fs.writeFile(filePath, JSON.stringify(hotelResponseData));
+        res.sendFile(path.resolve(__dirname, 'public', 'DisplayHotels.html'));
+    
+        const hotelpriceapi = `https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&country_code=SG&guests=${guestNum}&partner_id=1`;
+    
+        
+      } catch (error) {
+        console.error("Error while fetching hotels info:", error);
+        res.status(500).json({ error: "An error occurred while fetching hotels info." });
+      }
+    }
   }
 });
 
 //gets room details for selected hotel
 app.get('/api/disprooms', async (req, res)=>{
-  //set global variables
-  hotelId = req.query.hotel_id;
-  destinationId = req.query.destination_id;
-  checkinDate = req.query.checkin;
-  checkoutDate = req.query.checkout;
-  guestNum = req.query.guests;
-
-  res.sendFile(path.resolve(__dirname, 'public', 'DisplayRoom.html')); //send the html file
-});
+  //get query params
+  const hotelId = req.query.hotel_id;
+  const destinationId = req.query.destination_id;
+  const checkinDate = req.query.checkin;
+  const checkoutDate = req.query.checkout;
+  const guestNum = req.query.guests;
+  const roomNum = req.query.rooms; 
+  if (isValidID(hotelId) || containsOnlyNumbers(checkinDate) || containsOnlyNumbers(checkoutDate) || containsOnlyNumbers(guestNum)){
+    res.status(400).send("Incorrect Data type");
+  try{
+    
+    //need to do polling again to get data from api FML
+    const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
+    //response sends room details page, which redirects user (need to add this line)
+  }catch (error) {
+    console.error("Error while fetching room details.");
+    res.status(500).json({ error: "An error occurred while fetching hotel's room info." });
+  } 
+  }
+});;
 
 app.get('/api/getroomdetails', async (req, res)=>{
   const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
@@ -202,6 +240,8 @@ app.get('/api/getroomdetails', async (req, res)=>{
   } 
 });
 
-app.listen(port, () => {
-  console.log(`Server is listening on port ${port}`);
+const server = app.listen(port, () => {
+  //console.log(`Server is listening on port ${port}`);
 });
+
+module.exports = { app, server };
