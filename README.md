@@ -1,4 +1,4 @@
-# HOTELCONNECT (ESC 2023 Ascenda Project)
+# HotelConnect (ESC 2023 Ascenda Project)
 ###### *Hotel Booking Website* 
 
 ### Description
@@ -83,10 +83,10 @@ You could just call 999 should you run into errors because the developers are bu
 Just kidding, please contact Singapore University of Technology and Design (SUTD) if you have any queries.
 
 ### Roadmap
-<p>Most pages are implemented alrdy.</p>
-<p>Stripe has been integrated with the code.</p>
-<p>Need to update testing. Need to generate fuzzer.</p>
-<p>Not much of bugs so far, but need to wait till testing is done.</p>
+- Most pages are already implemented.
+- Stripe has been integrated with the code.
+- Need to update testing. Need to generate fuzzer.
+- Not much of bugs so far, but need to wait till testing is done.
 
 Even though the website is developed, there is room for improvement. The website's design can be optimised, user profiles can be developed to personalise user experience and display homepages customised to their test and preferences, cookies can be used to keep track of user preferences to suggest accommodation suited for the user on their homepage, thus reducing the need to search the page.
 
@@ -101,7 +101,6 @@ The authors are:
 - Vidhi Mahajan
 - Kum Yu Rong
 
-<br></br>
 Special thanks to:
 - SUTD ISTD's coding lessons
 - [Web Design Mastery](https://youtu.be/SVLR5XVTGj0) as reference for the HTML and CSS.
