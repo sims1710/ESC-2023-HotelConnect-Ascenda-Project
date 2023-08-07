@@ -21,18 +21,19 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should respond with hotel data and DisplayRoom.html', async () => {
     const validParams = {
-        hotel_id: 'RsBU',
-        destination_id: 'RsBU',
-        checkin: '2023-09-21',
-        checkout: '2023-10-01',
+        hotel_id: 'diH7',
+        destination_id: 'WD0M',
+        checkin: '2023-10-01',
+        checkout: '2023-10-07',
         guests: '2',
+        rooms:'2',
       };
     
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
       .get('/api/disprooms')
       .query(validParams);
-
+    expect(res.text).toContain("html");
     expect(res.status).toBe(200);
     expect(res.body).toBeDefined();
   });
@@ -48,21 +49,24 @@ describe('Backend test Cases for fetching hotels', () => {
     .get('/api/disprooms')
     .query(missingParams);
     expect(res.status).toBe(400);
+    expect(res.text).toContain("Missing query parameter: destinationId");
   });
 
   it('should respond with an error for incorrect data types', async () => {
     const invalidParams = {
-        hotel_id: '1234',
-        destination_id: '5678',
+        hotel_id: 'ab*7',
+        destination_id: 'RsBu',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',
+        rooms:'2',
       };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
       .get('/api/disprooms')
       .query(invalidParams);
     expect(res.status).toBe(400);
+    expect(res.text).toContain("Invalid query parameter: hotelId");
   });
 
   it('should respond with a 404 error for an invalid route', async () => {
@@ -74,11 +78,12 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should return a 200 code if the parameters entered are correct, but the destination code does not return any hotels', async () => {
     const noHotels = {
-        hotel_id: '',
+        hotel_id: 'diG7',
         destination_id: 'RsBU',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',
+        rooms:'2',
       };
     const res = await request(app)
     .get('/api/disprooms')
