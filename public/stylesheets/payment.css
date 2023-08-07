@@ -21,6 +21,8 @@
     font-weight: 550;
     overflow-x: hidden; /* Hide overflow content */
     white-space: nowrap; /* Prevent line breaks */
+    text-overflow: ellipsis; /* Display ellipsis (...) when text overflows */
+    max-width: 7.5rem;
 }
 
 #Cdate{
