@@ -1,18 +1,9 @@
-const mongoose = require('mongoose');
 const { app, server } = require('../app.js');
 const { connectDB,disconnectDB } = require('../db.js')
 const request = require('supertest');
 const Payment = require('../app.js');
+const mongoose = require("mongoose");
 
-//
-//#MongooseError: Can't call `openUri()` on an active connection with different connection strings. Make sure you aren't calling `mongoose.connect()` multiple 
-//times. See: https://mongoosejs.com/docs/connections.html#multiple_connections
-
-jest.mock('mongoose');
-const MockedModel = {
-  find: jest.fn(),
-
-};
 
 describe('MongoDB Functionality Test Suite', () => {
   beforeAll(async () => {
@@ -20,7 +11,7 @@ describe('MongoDB Functionality Test Suite', () => {
   });
 
   afterAll(async () => {
-    disconnectDB();
+    await disconnectDB();
     server.close();
   });
 
@@ -36,7 +27,7 @@ describe('MongoDB Functionality Test Suite', () => {
     };
 
     const res = await request(app).post('/submit').send(paymentData);
-    expect(res.status).toBe(302);
+    expect(res.status).toBe(200);
 
     const savedPayment = await Payment.findOne({ fullname: 'John Doe' });
     expect(savedPayment).toBeTruthy();  

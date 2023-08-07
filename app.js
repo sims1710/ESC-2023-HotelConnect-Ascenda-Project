@@ -59,7 +59,7 @@ app.post('/create-checkout-session', async (req, res) => {
 
 
 app.get('/paymentstripe', (req, res) => {
-  actualprice = Math.round(req.query.price)*100; //convert to cents
+  actualprice = Math.round(req.query.price)*100;
   res.sendFile(path.resolve(__dirname, 'public', 'Checkout.html'));
 });
 
@@ -124,7 +124,7 @@ app.post('/submit', (req, res) => {
     .then(() => {
       //console.log('Data Inserted Successfully');
       res.json('data saved');
-      //res.redirect('/paymentstripe'); // Redirect after successful submission
+      //res.redirect(302,'/paymentstripe'); // Redirect after successful submission
     })
     .catch((err) => {
       console.error('Error saving data to the database:', err);
