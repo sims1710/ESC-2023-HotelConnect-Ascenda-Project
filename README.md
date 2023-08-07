@@ -2,7 +2,9 @@
 ###### *Hotel Booking Website* 
 
 ### Description
-HotelConnect is a hotel booking website that offers a seamless and convenient way to find and book accommodation worldwide. With a user-friendly interface and a vast slection of hotels, HotelConnect aims to provide a stress-free experience for travellers seeking the perfect stay. Users can search by the destination they want to go to, the planned check-in and check-out dates, the number of rooms and number of guests estimated and book the accommodation online after paying for it through our secure payment portal.
+<p style="text-align: justify;">
+  HotelConnect is a hotel booking website that offers a seamless and convenient way to find and book accommodation worldwide. With a user-friendly interface and a vast slection of hotels, HotelConnect aims to provide a stress-free experience for travellers seeking the perfect stay. Users can search by the destination they want to go to, the planned check-in and check-out dates, the number of rooms and number of guests estimated and book the accommodation online after paying for it through our secure payment portal.
+</p>
 
 ### Elaboration on the different pages
 1. Home Page: This is the first page that a user views upon entering the website. The user gets to enter information to start the search query, view popular destinations and view prior customer feedback.
@@ -22,7 +24,9 @@ HotelConnect is a hotel booking website that offers a seamless and convenient wa
 8. Payment Failure Page: The payment process failed.
 
 ### Installation
-For the HotelConnect hotel booking website, the environment and technologies used for code execution are HTML, CSS, Jest, Supertest, Cypress, JavaScript, MongoDB, Express.js, and Node.js. Python is not required for this setup. For the required libraries and dependencies that the HotelConnect application uses, follow the following instructions:
+<p style="text-align: justify;">
+   For the HotelConnect hotel booking website, the environment and technologies used for code execution are HTML, CSS, Jest, Supertest, Cypress, JavaScript, MongoDB, Express.js, and Node.js. Python is not required for this setup. For the required libraries and dependencies that the HotelConnect application uses, follow the following instructions:
+</p>
 
 1. **HTML and CSS:**
    - No installation required. HTML and CSS are fundamental web technologies and are supported by browsers.
@@ -62,18 +66,22 @@ For the HotelConnect hotel booking website, the environment and technologies use
      ```
    - Install any other required dependencies for your project.
 
-Remember that for MongoDB, Express.js, and Node.js, you'll need to set up your application logic, routes, and database connections as well.
-
-Additionally, make sure to refer to the official documentation of each technology for more detailed installation instructions and guidance on setting up and configuring your specific project needs. The setup and installation of dependencies for the HotelConnect application are managed using npm, making it straightforward to set up and run the project.
-
-Feel free to refer to the official documentation and resources for each technology and library as you build and test the HotelConnect hotel booking website.
+<p style="text-align: justify;">
+   Remember that for MongoDB, Express.js, and Node.js, you'll need to set up your application logic, routes, and database connections as well.
+   
+   Additionally, make sure to refer to the official documentation of each technology for more detailed installation instructions and guidance on setting up and configuring your specific project needs. The setup and installation of dependencies for the HotelConnect application are managed using npm, making it straightforward to set up and run the project.
+   
+   Feel free to refer to the official documentation and resources for each technology and library as you build and test the HotelConnect hotel booking website.
+</p>
 
 ### Usage
-To start the web application, you have to type npm start in the terminal. Then go to your browser and type 127.0.1.1:3001 to access webpage. Ensure that the files are all in the same directory before running the file.  
-
-To edit any parts of the game regarding the design, the codes are mainly located in public directory.
-
-You can use a JavaScript runtime environment like Node.js to run the `app.js` file, or any text editor and terminal of your choice that supports JavaScript.
+<p style="text-align: justify;">
+   To start the web application, you have to type npm start in the terminal. Then go to your browser and type 127.0.1.1:3001 to access webpage. Ensure that the files are all in the same directory before running the file.  
+   
+   To edit any parts of the game regarding the design, the codes are mainly located in public directory.
+   
+   You can use a JavaScript runtime environment like Node.js to run the `app.js` file, or any text editor and terminal of your choice that supports JavaScript.
+</p>
 
 ### Support
 You could just call 999 should you run into errors because the developers are busy with school.  
@@ -86,7 +94,9 @@ Just kidding, please contact Singapore University of Technology and Design (SUTD
 - Need to update testing. Need to generate fuzzer.
 - Not much of bugs so far, but need to wait till testing is done.
 
-Even though the website is developed, there is room for improvement. The website's design can be optimised, user profiles can be developed to personalise user experience and display homepages customised to their test and preferences, cookies can be used to keep track of user preferences to suggest accommodation suited for the user on their homepage, thus reducing the need to search the page.
+<p style="text-align: justify;">
+   Even though the website is developed, there is room for improvement. The website's design can be optimised, user profiles can be developed to personalise user experience and display homepages customised to their test and preferences, cookies can be used to keep track of user preferences to suggest accommodation suited for the user on their homepage, thus reducing the need to search the page.
+</p>
 
 ### Authors and Acknowledgement
 Anivia is developed by Team C3I5 from Cohort Class 03.  
