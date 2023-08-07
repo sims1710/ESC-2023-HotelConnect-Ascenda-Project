@@ -15,6 +15,7 @@ let checkinDate;
 let checkoutDate;
 let guestNum;
 let actualprice;
+let rooms;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -181,12 +182,17 @@ app.get('/api/disprooms', async (req, res)=>{
   checkinDate = req.query.checkin;
   checkoutDate = req.query.checkout;
   guestNum = req.query.guests;
+  rooms = req.query.rooms;
 
   res.sendFile(path.resolve(__dirname, 'public', 'DisplayRoom.html')); //send the html file
 });
 
 app.get('/api/getroomdetails', async (req, res)=>{
-  const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
+  let guests = guestNum;
+  if (rooms>1){
+    guests = guestNum + ("|" + guestNum).repeat(rooms-1);
+  }
+  let roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guests}`;
   console.log(roomapi);
   try{
     let raw = await fetch(roomapi);
