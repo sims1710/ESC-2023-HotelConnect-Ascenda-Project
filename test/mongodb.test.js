@@ -1,9 +1,7 @@
 const mongoose = require('mongoose');
-const { app, server } = require('../app.js');
+const { app, server, connectDB, disconnectDB } = require('../app.js');
 const request = require('supertest');
 const Payment = require('../app.js');
-
-const { connectDB, disconnectDB } = require('./app.js');
 
 //
 //#MongooseError: Can't call `openUri()` on an active connection with different connection strings. Make sure you aren't calling `mongoose.connect()` multiple 

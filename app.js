@@ -218,10 +218,10 @@ function validateQueryParam(param, paramName, validatorFn) {
 }
 
 app.get('/api/disphotels', async (req, res) => {
-  const destinationId = req.query.destination_id;
-  const checkinDate = req.query.checkin;
-  const checkoutDate = req.query.checkout;
-  const guestNum = req.query.guests;
+  destinationId = req.query.destination_id;
+  checkinDate = req.query.checkin;
+  checkoutDate = req.query.checkout;
+  guestNum = req.query.guests;
   const invalidParam = 
     validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||

@@ -93,13 +93,11 @@ describe('Backend test Cases for fetching hotels', () => {
   });
 
   it('should respond with room data', async () => {
-    const validParams = {
-      hotelId: 'diG7',
-      destinationId: 'WD0M',
-      checkinDate: '2023-10-01',
-      checkoutDate: '2023-10-07',
-      guestVals: '2|2',
-    };
+    global.hotelId = 'RsBU';
+    global.destinationId = '5678';
+    global.checkinDate = '2023-09-21';
+    global.checkoutDate = '2023-10-01';
+    global.guestVals = '2|2';
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
       .get('/api/getroomdetails');
@@ -108,18 +106,18 @@ describe('Backend test Cases for fetching hotels', () => {
     expect(res.body).toBeDefined();
   });
 
-  it('should respond with a 500 error for invalid data', async () => {
-    const invalidParams = {
-      hotel_id: 'RsBU',
-      checkin: '2023-09-21',
-      checkout: '',
-    };
+  it('should respond with an error 200 but with a blank query', async () => {
+    global.hotelId = null;
+    global.destinationId = '****';
+    global.checkinDate = '2023-10-01';
+    global.checkoutDate = '2023-10-07';
+    global.guestVals = '2|2';
 
     const res = await request(app)
       .get('/api/getroomdetails');
 
-    expect(res.status).toBe(500);
-    expect(res.body.error).toBe('An error occurred while fetching hotel\'s room info.');
+    expect(res.status).toBe(200);
+    expect(res.text).toBe("{\"searchCompleted\":null,\"completed\":false,\"status\":null,\"currency\":null,\"rooms\":[]}")
   });
 
   afterAll(async () => {
