@@ -15,6 +15,7 @@ let checkinDate;
 let checkoutDate;
 let guestNum;
 let actualprice;
+let rooms;
 
 app.use(express.static(path.join(__dirname, 'public')));
 
@@ -174,7 +175,7 @@ const Payment = mongoose.model('Payment', paymentSchema); //creates Mongoose mod
 
 //checking valid query parameters
 function isValidNumber(str) {
-  return /^[0-9]+$/i.test(str);
+  return /^[0-9]+$/.test(str);
 }
 
 function containsSpecialChars(str) {
@@ -264,14 +265,15 @@ app.get('/api/disprooms', async (req, res)=>{
   const checkinDate = req.query.checkin;
   const checkoutDate = req.query.checkout;
   const guestNum = req.query.guests;
-  //const roomNum = req.query.rooms;
+  const roomNum = req.query.rooms;
+  
   const invalidParam = 
     validateQueryParam(hotelId, "hotelId", isValidHotelID) ||
     validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
-    validateQueryParam(guestNum, "guestNum", isValidGuestNum);
-    //|| validateQueryParam(roomNum, "roomNum", isValidNumber);
+    validateQueryParam(guestNum, "guestNum", isValidGuestNum) ||
+    validateQueryParam(roomNum, "roomNum", isValidNumber);
 
   if (invalidParam) {
     return res.status(invalidParam.statusCode).send(invalidParam.errorMessage);
@@ -287,7 +289,11 @@ app.get('/api/disprooms', async (req, res)=>{
 });;
 
 app.get('/api/getroomdetails', async (req, res)=>{
-  const roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestNum}`;
+  let guests = guestNum;
+  if (rooms>1){
+    guests = guestNum + ("|" + guestNum).repeat(rooms-1);
+  }
+  let roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guests}`;
   console.log(roomapi);
   try{
     let raw = await fetch(roomapi);

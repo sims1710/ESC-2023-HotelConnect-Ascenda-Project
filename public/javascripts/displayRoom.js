@@ -6,6 +6,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     let hotelName;
     let roomType;
     let total;
+    let complete = false;
     //getting actual parameters from the url
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
@@ -48,7 +49,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     //room stuff
     async function getHotelRoomData() {
         try {
-            const response = await fetch('/api/getroomdetails'); // Request to server's endpoint
+            const response = await fetch(`/api/getroomdetails`); // Request to server's endpoint
             const roomResponseData = await response.json();
             console.log(roomResponseData);
             return roomResponseData;
@@ -63,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async function () {
 
     // Listen for "Load more rooms" button click
     loadMoreButton.addEventListener('click', async () => {
-        if (noMoreRoomsAvailable) {
+        if (complete) {
             return; // If no more rooms are available, don't proceed
         }
         // Store the current scroll position
@@ -75,21 +76,12 @@ document.addEventListener("DOMContentLoaded", async function () {
 
         // Load more room data
         const additionalRoomData = await getHotelRoomData();
-        console.log(roomLength);
+        //roomLength = additionalRoomData.rooms.length;
         // If no more new rooms are available, disable the button and set the flag
-        if (additionalRoomData.rooms.length === roomLength && count === 0) {
-            noMoreRoomsAvailable = true;
-            loadMoreButton.classList.add('no-more-rooms');
-            loadMoreButton.title = 'No more rooms available. Check again later!';
-        } else if (additionalRoomData.rooms.length === roomLength && count > 0) {
-            noMoreRoomsAvailable = true;
-            //count = count+1;
-            //roomLength = additionalRoomData.rooms.length;
+        if (additionalRoomData.completed || additionalRoomData.rooms.length === 0 || additionalRoomData.rooms.length === roomLength) {
             loadMoreButton.classList.add('no-more-rooms');
             loadMoreButton.title = 'No more rooms available. Check again later!';
         }
-        roomLength = additionalRoomData.rooms.length;
-        count = count+1;
 
         // Populate the table with additional room data
         populateRoomTable(additionalRoomData.rooms);
@@ -244,7 +236,7 @@ document.addEventListener("DOMContentLoaded", async function () {
     
     // Function to display hotel details
     async function displayHotelDetails(hotel) {
-        const apikey = 'hello';
+        const apikey = 'AIzaSyByyX0tdd-efstrhuPqx1ySt5qKPB5hs9Y';
         // Update room images
         displayImages(hotel.image_details);
 
@@ -283,6 +275,7 @@ document.addEventListener("DOMContentLoaded", async function () {
             }
         }
         const roomData = await getHotelRoomData();
+        complete = roomData.completed; //check completed flag
         roomLength = roomData.rooms.length;
         populateRoomTable(roomData.rooms);
     }

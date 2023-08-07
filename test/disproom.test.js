@@ -26,7 +26,7 @@ describe('Backend test Cases for fetching hotels', () => {
         checkin: '2023-10-01',
         checkout: '2023-10-07',
         guests: '2',
-        //rooms:'2',
+        rooms:'2',
       };
     
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
@@ -59,7 +59,7 @@ describe('Backend test Cases for fetching hotels', () => {
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',
-        //rooms:'2',
+        rooms:'2',
       };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
@@ -83,7 +83,7 @@ describe('Backend test Cases for fetching hotels', () => {
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',
-        //rooms:'2',
+        rooms:'2',
       };
     const res = await request(app)
     .get('/api/disprooms')
