@@ -6,7 +6,7 @@ const stripe = require('stripe')('sk_test_51NYm3RLqzJj2zPxpXeYHtRBUzWlquc68Yk3fq
 
 
 const port = process.env.port || process.env.port || 3001;
-const pollingInterval = 3000; // 10 seconds (increase if needed)
+//const pollingInterval = 3000; // 10 seconds (increase if needed)
 
 //global variables
 let hotelId;
@@ -15,7 +15,6 @@ let checkinDate;
 let checkoutDate;
 let guestNum;
 let actualprice;
-let rooms;
 let rooms;
 
 app.use(express.static(path.join(__dirname, 'public')));
