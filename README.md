@@ -101,7 +101,7 @@ The authors are:
 
 Special thanks to:
 - SUTD ISTD's coding lessons
-- [Web Design Mastery](https://youtu.be/SVLR5XVTGj0) as reference for the HTML and CSS.
+- [Web Design Mastery](https://youtu.be/SVLR5XVTGj0) as reference for the Frontend.
 
 ### Project Status
 Currently, the project is nearing completion.
