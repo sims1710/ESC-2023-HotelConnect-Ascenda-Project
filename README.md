@@ -24,8 +24,6 @@ HotelConnect is a hotel booking website that offers a seamless and convenient wa
 ### Installation
 For the HotelConnect hotel booking website, the environment and technologies used for code execution are HTML, CSS, Jest, Supertest, Cypress, JavaScript, MongoDB, Express.js, and Node.js. Python is not required for this setup. For the required libraries and dependencies that the HotelConnect application uses, follow the following instructions:
 
-Certainly! Here's a basic guide on how to install each technology in your tech stack for the HotelConnect hotel booking website:
-
 1. **HTML and CSS:**
    - No installation required. HTML and CSS are fundamental web technologies and are supported by browsers.
 
