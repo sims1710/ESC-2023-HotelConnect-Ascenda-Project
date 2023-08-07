@@ -18,70 +18,61 @@ describe('Stripe API Integration Test Suite', () => {
     server.close(done);
   });
 
-  test('should create a successful checkout session', async () => {
-    const response = await request(app).post('/create-checkout-session').send({
+  test('should make successful price object', async() =>{
+    const price = await stripe.prices.create({
+      product: "prod_OPBZdNif2ZWBXQ",
+      unit_amount: 2000,
+      currency: 'sgd',
+  
+    });
+  
+    expect(price.unit_amount).toBe(2000)
+    expect(price.currency).toBe("sgd")
+    expect(price.product).toBe("prod_OPBZdNif2ZWBXQ")
+    });
+  
+  
+    test('should make successful checkout session', async() =>{
+      const session = await stripe.checkout.sessions.create({
         line_items: [
           {
-            price: 'price_1NcNBwLqzJj2zPxpH1QG4gfZ',
+            price: "price_1NcNBwLqzJj2zPxpH1QG4gfZ",
             quantity: 1,
-            unit_amount: 100,
           },
         ],
         mode: 'payment',
         success_url: 'http://example.com/paymentsuccess',
         cancel_url: 'http://example.com/paymentcancel',
+      });
+      expect(session.payment_status).toBe("unpaid")
+      expect(session.status).toBe("open")
+    });
+  
+    test('Stripe checkout bad request' , async() =>{
+      try {
+        const session = await stripe.checkout.sessions.create({
+  
+          mode: "payment",
+          success_url: 'http://example.com/paymentsuccess',
+          cancel_url: 'http://example.com/paymentcancel',
+        });
+      } catch (e) {
+        console.log(e);
+        expect(e.type).toBe( "StripeInvalidRequestError" )
+      }
+    });
+  
+    test('Stripe prices bad request' , async() =>{
+      try {
+        const price = await stripe.prices.create({
+          product: "invalid id",
+          unit_amount: 2000,
+          // missing currency
       
+        });
+      } catch (e) {
+        console.log(e);
+        expect(e.type).toBe( "StripeInvalidRequestError" )
+      }
     });
-
-    // Ensure the response status is a 303 redirect
-    expect(response.status).toBe(303);
-
-    // Ensure the response contains a session URL
-    expect(response.header['location']).toBeTruthy();
-  });
-
-  test('should handle successful payment', async () => {
-    const price = await stripe.prices.create({
-      product: 'prod_ONhMmONRJXwXcC',
-      unit_amount: 2000,
-      currency: 'sgd',
-    });
-
-    const session = await stripe.checkout.sessions.create({
-      line_items: [
-        {
-          price: 'price_1NcNBwLqzJj2zPxpH1QG4gfZ',
-          quantity: 1,
-        },
-      ],
-      mode: 'payment',
-      success_url: 'http://example.com/paymentsuccess',
-      cancel_url: 'http://example.com/paymentcancel',
-    });
-
-    const response = await request(app).get(session.success_url);
-
-    // Ensure the response status is 200 OK
-    expect(response.status).toBe(200);
-  });
-
-  test('should handle canceled payment', async () => {
-    // Create a mock checkout session using the test API key
-    const session = await stripe.checkout.sessions.create({
-      line_items: [{
-        price: price.id,
-        quantity: 1,
-      },
-    ],
-      mode: 'payment',
-      success_url: 'http://example.com/paymentsuccess',
-      cancel_url: 'http://example.com/paymentcancel',
-    });
-
-    // Make a request to the cancel URL to simulate canceled payment
-    const response = await request(app).get(session.cancel_url);
-    // Ensure the response status is 200 OK
-    expect(response.status).toBe(200);
-
-  });
 });

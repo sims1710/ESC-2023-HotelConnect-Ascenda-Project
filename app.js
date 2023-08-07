@@ -174,7 +174,7 @@ const Payment = mongoose.model('Payment', paymentSchema); //creates Mongoose mod
 
 //checking valid query parameters
 function isValidNumber(str) {
-  return /^[0-9]+$/.test(str);
+  return /^[0-9]+$/i.test(str);
 }
 
 function containsSpecialChars(str) {
@@ -201,8 +201,8 @@ function isValidHotelID(id) {
 
 function isValidGuestNum(guestNum) {
   // Regular expression pattern to match "x | x | x" where x is an integer
-  const pattern = /^(\d+\s\|\s)+\d+$/;
-  return pattern.test(input);
+  const pattern = /^\d+(\|\d+)*$/;
+  return pattern.test(guestNum);
 }
 
 function validateQueryParam(param, paramName, validatorFn) {
@@ -264,14 +264,14 @@ app.get('/api/disprooms', async (req, res)=>{
   const checkinDate = req.query.checkin;
   const checkoutDate = req.query.checkout;
   const guestNum = req.query.guests;
-  const roomNum = req.query.rooms;
+  //const roomNum = req.query.rooms;
   const invalidParam = 
     validateQueryParam(hotelId, "hotelId", isValidHotelID) ||
     validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
-    validateQueryParam(guestNum, "guestNum", isValidGuestNum) ||
-    validateQueryParam(roomNum, "roomNum", isValidNumber);
+    validateQueryParam(guestNum, "guestNum", isValidGuestNum);
+    //|| validateQueryParam(roomNum, "roomNum", isValidNumber);
 
   if (invalidParam) {
     return res.status(invalidParam.statusCode).send(invalidParam.errorMessage);

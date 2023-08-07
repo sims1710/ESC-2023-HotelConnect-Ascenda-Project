@@ -5,7 +5,7 @@
   "proxy": "https://hotelapi.loyalty.dev/api/hotels?",
   "scripts": {
     "start": "nodemon app.js",
-    "test": "jest"
+    "test": "jest --watch --runInBand --detectOpenHandles"
   },
   "jest": {
     "testEnvironment": "node",
