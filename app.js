@@ -199,6 +199,12 @@ function isValidHotelID(id) {
   return !containsSpecialChars(id) && (id.length === 4 || id.length === 5);
 }
 
+function isValidGuestNum(guestNum) {
+  // Regular expression pattern to match "x | x | x" where x is an integer
+  const pattern = /^(\d+\s\|\s)+\d+$/;
+  return pattern.test(input);
+}
+
 function validateQueryParam(param, paramName, validatorFn) {
   if (param == null) {
     return {
@@ -225,7 +231,7 @@ app.get('/api/disphotels', async (req, res) => {
     validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
-    validateQueryParam(guestNum, "guestNum", isValidNumber);
+    validateQueryParam(guestNum, "guestNum", isValidGuestNum);
 
   if (invalidParam) {
     return res.status(invalidParam.statusCode).send(invalidParam.errorMessage);
@@ -264,7 +270,7 @@ app.get('/api/disprooms', async (req, res)=>{
     validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
-    validateQueryParam(guestNum, "guestNum", isValidNumber) ||
+    validateQueryParam(guestNum, "guestNum", isValidGuestNum) ||
     validateQueryParam(roomNum, "roomNum", isValidNumber);
 
   if (invalidParam) {
