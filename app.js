@@ -2,8 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const fs = require('fs').promises;
-const stripe = require('stripe')('sk_test_51NYm3RLqzJj2zPxpXeYHtRBUzWlquc68Yk3fqFEX6kzQveB2Bpvg19G1kDFrTdwJsaVQVOdMmoviAiyxfVsVzVbU00yiJp03yT');
-
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+const bodyParser = require('body-parser');
+const { connectDB, disconnectDB } = require('./db.js');
+const mongoose = require("mongoose");
 
 const port = process.env.port || process.env.port || 3001;
 //const pollingInterval = 3000; // 10 seconds (increase if needed)
@@ -77,53 +79,12 @@ app.get('/payment', (req, res) => {
 });
 
 //for mongodb
-var bodyParser = require("body-parser");
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
   extended:true
 }))
-var mongoose = require("mongoose");
-/*
-mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites=true&w=majority',{ //the database is called paymentdb
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-}).then(() => {
-  console.log('Connected to MongoDB');
-}).catch((err) => {
-  console.error('Error connecting to MongoDB:', err);
-});
-*/
-const connectDB = async () => {
-  try {
-    let dbUrl = 'mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites=true&w=majority';
-    if (process.env.NODE_ENV === 'test') {
-      mongod = await MongoMemoryServer.create();
-      dbUrl = mongod.getUri();
-    }
 
-    const conn = await mongoose.connect(dbUrl, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-    });
-
-    console.log(`MongoDB connected: ${conn.connection.host}`);
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-};
-
-const disconnectDB = async () => {
-  try {
-    await mongoose.connection.close();
-    if (mongod) {
-      await mongod.stop();
-    }
-  } catch (err) {
-    console.log(err);
-    process.exit(1);
-  }
-};
+connectDB();
 
 const paymentSchema = new mongoose.Schema({ //schema = define structure for how data will be arranged and stored in collection
   fullname: String,
@@ -310,7 +271,8 @@ const server = app.listen(port, () => {
   console.log(`Server is listening on port ${port}`);
 });
 
-process.on('SIGTERM', () => {
+process.on('SIGTERM', async() => {
+  await disconnectDB();
   server.close(() => {
     console.log('Server closed.');
     process.exit(0);
@@ -321,6 +283,4 @@ process.on('SIGTERM', () => {
 module.exports = {
   app,
   server,
-  connectDB,
-  disconnectDB
 };

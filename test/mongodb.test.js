@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const { app, server, connectDB, disconnectDB } = require('../app.js');
+const { app, server } = require('../app.js');
+const { connectDB,disconnectDB } = require('../db.js')
 const request = require('supertest');
 const Payment = require('../app.js');
 
