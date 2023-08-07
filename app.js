@@ -83,6 +83,7 @@ app.use(bodyParser.urlencoded({
   extended:true
 }))
 var mongoose = require("mongoose");
+/*
 mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites=true&w=majority',{ //the database is called paymentdb
     useNewUrlParser: true,
     useUnifiedTopology: true
@@ -91,10 +92,10 @@ mongoose.connect('mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites
 }).catch((err) => {
   console.error('Error connecting to MongoDB:', err);
 });
-
+*/
 const connectDB = async () => {
   try {
-    let dbUrl = 'mongodb://username:password@localhost:27017';
+    let dbUrl = 'mongodb+srv://flo:flo@website.ekqpnqp.mongodb.net/?retryWrites=true&w=majority';
     if (process.env.NODE_ENV === 'test') {
       mongod = await MongoMemoryServer.create();
       dbUrl = mongod.getUri();
@@ -103,7 +104,6 @@ const connectDB = async () => {
     const conn = await mongoose.connect(dbUrl, {
       useNewUrlParser: true,
       useUnifiedTopology: true,
-      useFindAndModify: false,
     });
 
     console.log(`MongoDB connected: ${conn.connection.host}`);
@@ -174,37 +174,84 @@ app.post('/submit', (req, res) => {
 const Payment = mongoose.model('Payment', paymentSchema); //creates Mongoose model named "Payment" based on the paymentSchema
 //model = class of collection, all this is stored in payment collection in mongodb
 
+//checking valid query parameters
+function isValidNumber(str) {
+  return /^[0-9]+$/.test(str);
+}
+
+function containsSpecialChars(str) {
+  const specialChars = /[`!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?~]/;
+  return specialChars.test(str);
+}
+
+function isValidDate(dateString) {
+  // Regular expression to match YYYY-MM-DD format
+  const dateRegex = /^\d{4}-\d{2}-\d{2}$/;
+  return dateRegex.test(dateString);
+}
+
+function containsOnlyNumbers(str) {
+  return /^\d+$/.test(str);
+}
+
+function isValidDestinationID(id) {
+  return !containsOnlyNumbers(id) && !containsSpecialChars(id) && id.length === 4;
+}
+function isValidHotelID(id) {
+  return !containsSpecialChars(id) && (id.length === 4 || id.length === 5);
+}
+
+function validateQueryParam(param, paramName, validatorFn) {
+  if (param == null) {
+    return {
+      statusCode: 400,
+      errorMessage: `Missing query parameter: ${paramName}`,
+    };
+  }
+  if (!validatorFn(param)){
+    return {
+      statusCode: 400,
+      errorMessage: `Invalid query parameter: ${paramName}`,
+    }
+  }
+  return null; // Indicates no error
+}
 
 app.get('/api/disphotels', async (req, res) => {
-  try {
-    const destinationId = req.query.destination_id;
-    const language = req.query.lang;
-    const money = req.query.currency;
-    const checkinDate = req.query.checkin;
-    const checkoutDate = req.query.checkout;
-    const country = req.query.country_code;
-    const guestNum = req.query.guests;
-    const partnerid = req.query.partner_id;
-    const roomNum = req.query.rooms;
+  const destinationId = req.query.destination_id;
+  const checkinDate = req.query.checkin;
+  const checkoutDate = req.query.checkout;
+  const guestNum = req.query.guests;
+  const invalidParam = 
+    validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
+    validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
+    validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
+    validateQueryParam(guestNum, "guestNum", isValidNumber);
 
-    const hotelsapi = `https://hotelapi.loyalty.dev/api/hotels?destination_id=${destinationId}`;
-    const hotelResponse = await fetch(hotelsapi);
-    if (!hotelResponse.ok) {
-      throw new Error("Error fetching hotel data");
-    }
-    const hotelResponseData = await hotelResponse.json();
-    //console.log("hotel data ok");
-
-    const filePath = './public/hotels_data.json';
-    await fs.writeFile(filePath, JSON.stringify(hotelResponseData));
-    res.sendFile(path.resolve(__dirname, 'public', 'DisplayHotels.html'));
-
-    const hotelpriceapi = `https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&country_code=SG&guests=${guestNum}&partner_id=1`;
-
-  } catch (error) {
-    console.error("Error while fetching hotels info:", error);
-    res.status(500).json({ error: "An error occurred while fetching hotels info." });
+  if (invalidParam) {
+    return res.status(invalidParam.statusCode).send(invalidParam.errorMessage);
   }
+  else{
+    try {
+      const hotelsapi = `https://hotelapi.loyalty.dev/api/hotels?destination_id=${destinationId}`;
+      const hotelResponse = await fetch(hotelsapi);
+      if (!hotelResponse.ok) {
+        throw new Error("Error fetching hotel data");
+      }
+      const hotelResponseData = await hotelResponse.json();
+  
+      const filePath = './public/hotels_data.json';
+      await fs.writeFile(filePath, JSON.stringify(hotelResponseData));
+      res.sendFile(path.resolve(__dirname, 'public', 'DisplayHotels.html'));
+  
+      const hotelpriceapi = `https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&country_code=SG&guests=${guestNum}&partner_id=1`;
+  
+    } catch (error) {
+      console.error("Error while fetching hotels info:", error);
+      res.status(500).json({ error: "An error occurred while fetching hotels info." });
+    }
+  }
+  
 });
 
 //gets room details for selected hotel
@@ -215,16 +262,35 @@ app.get('/api/disprooms', async (req, res)=>{
   checkinDate = req.query.checkin;
   checkoutDate = req.query.checkout;
   guestNum = req.query.guests;
+  roomNum = req.query.rooms;
 
-  res.sendFile(path.resolve(__dirname, 'public', 'DisplayRoom.html')); //send the html file
+  const invalidParam = 
+    validateQueryParam(hotelId, "hotelId", isValidHotelID) ||
+    validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
+    validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
+    validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
+    validateQueryParam(guestNum, "guestNum", isValidNumber) ||
+    validateQueryParam(roomNum, "roomNum", isValidNumber);
+
+  if (invalidParam) {
+    return res.status(invalidParam.statusCode).send(invalidParam.errorMessage);
+  }
+  else{
+    try {
+      res.sendFile(path.resolve(__dirname, 'public', 'DisplayRoom.html')); //send the html file
+    } catch (error) {
+      console.error("Error while fetching room details.");
+      res.status(500).json({ error: "An error occurred while fetching hotel's room info." });
+    }
+  }
 });
 
 app.get('/api/getroomdetails', async (req, res)=>{
-  let guests = guestNum;
+  let guestsVal = guestNum;
   if (rooms>1){
-    guests = guestNum + ("|" + guestNum).repeat(rooms-1);
+    guestsVal = guestNum + ("|" + guestNum).repeat(rooms-1);
   }
-  let roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guests}`;
+  let roomapi = `https://hotelapi.loyalty.dev/api/hotels/${hotelId}/price?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=${guestsVal}`;
   console.log(roomapi);
   try{
     let raw = await fetch(roomapi);

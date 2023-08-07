@@ -54,7 +54,7 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should respond with an error for incorrect data types', async () => {
     const invalidParams = {
-        hotel_id: 'ab*7',
+        hotel_id: 'ab*',
         destination_id: 'RsBu',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
@@ -85,10 +85,41 @@ describe('Backend test Cases for fetching hotels', () => {
         guests: '2',
         rooms:'2',
       };
+    await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
     .get('/api/disprooms')
     .query(noHotels);
     expect(res.status).toBe(200);
+  });
+
+  it('should respond with room data', async () => {
+    const validParams = {
+      hotelId: 'diG7',
+      destinationId: 'WD0M',
+      checkinDate: '2023-10-01',
+      checkoutDate: '2023-10-07',
+      guestVals: '2|2',
+    };
+    await new Promise((resolve) => setTimeout(() => resolve(), 500));
+    const res = await request(app)
+      .get('/api/getroomdetails');
+
+    expect(res.status).toBe(200);
+    expect(res.body).toBeDefined();
+  });
+
+  it('should respond with a 500 error for invalid data', async () => {
+    const invalidParams = {
+      hotel_id: 'RsBU',
+      checkin: '2023-09-21',
+      checkout: '',
+    };
+
+    const res = await request(app)
+      .get('/api/getroomdetails');
+
+    expect(res.status).toBe(500);
+    expect(res.body.error).toBe('An error occurred while fetching hotel\'s room info.');
   });
 
   afterAll(async () => {
