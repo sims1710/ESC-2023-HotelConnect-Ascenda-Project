@@ -1,5 +1,6 @@
-const stripe = require('stripe')('sk_test_51NYm3RLqzJj2zPxpXeYHtRBUzWlquc68Yk3fqFEX6kzQveB2Bpvg19G1kDFrTdwJsaVQVOdMmoviAiyxfVsVzVbU00yiJp03yT');
-const { response } = require('express');
+require('dotenv').config();
+const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
+//const { response } = require('express');
 const { app, server } = require('../app');
 const request = require('supertest');
 
@@ -21,8 +22,9 @@ describe('Stripe API Integration Test Suite', () => {
     const response = await request(app).post('/create-checkout-session').send({
         line_items: [
           {
-            price: 'price_12345',
+            price: 'price_1NcNBwLqzJj2zPxpH1QG4gfZ',
             quantity: 1,
+            unit_amount: 100,
           },
         ],
         mode: 'payment',
@@ -48,7 +50,7 @@ describe('Stripe API Integration Test Suite', () => {
     const session = await stripe.checkout.sessions.create({
       line_items: [
         {
-          price: price.id,
+          price: 'price_1NcNBwLqzJj2zPxpH1QG4gfZ',
           quantity: 1,
         },
       ],
@@ -66,7 +68,11 @@ describe('Stripe API Integration Test Suite', () => {
   test('should handle canceled payment', async () => {
     // Create a mock checkout session using the test API key
     const session = await stripe.checkout.sessions.create({
-      line_items: [],
+      line_items: [{
+        price: price.id,
+        quantity: 1,
+      },
+    ],
       mode: 'payment',
       success_url: 'http://example.com/paymentsuccess',
       cancel_url: 'http://example.com/paymentcancel',
@@ -74,7 +80,6 @@ describe('Stripe API Integration Test Suite', () => {
 
     // Make a request to the cancel URL to simulate canceled payment
     const response = await request(app).get(session.cancel_url);
-
     // Ensure the response status is 200 OK
     expect(response.status).toBe(200);
 

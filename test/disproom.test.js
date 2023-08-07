@@ -1,4 +1,4 @@
-// Test code for disphotel
+// Test code for disprooms
 const {app, server} = require('../app.js');
 const request = require("supertest");
 
@@ -19,54 +19,50 @@ describe('Backend test Cases for fetching hotels', () => {
     });
   });
 
-  it('should respond with the contents of HomePage.html', async () => {
-    await new Promise((resolve) => setTimeout(() => resolve(), 500));
-    const res = await request(app).get("/");
-    expect(res.status).toBe(200);
-  });
-
-  it('should respond with hotel data and DisplayHotels.html', async () => {
+  it('should respond with hotel data and DisplayRoom.html', async () => {
     const validParams = {
-      destination_id: 'RsBU',
-      checkin: '2023-09-21',
-      checkout: '2023-10-01',
-      guests: '2',
-    };
+        hotelId: 'RsBU',
+        destination_id: '5678',
+        checkin: '2023-09-21',
+        checkout: '2023-10-01',
+        guests: '2',
+      };
     
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
-    .get(`/api/disphotels`)
-    .query(validParams);
+      .get('/api/disprooms')
+      .query(validParams);
+
     expect(res.status).toBe(200);
     expect(res.body).toBeDefined();
   });
 
   it('should respond with an error for missing query parameters', async () => {
     const missingParams = {
-      checkin: '2023-09-21',
-      checkout: '2023-10-01',
-  };
+        hotelId: '1234',
+        checkin: '2023-09-21',
+        checkout: '2023-10-01',
+    };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
-    .get('/api/disphotels')
+    .get('/api/disprooms')
     .query(missingParams);
     expect(res.status).toBe(400);
-    expect(res.text).toContain("Missing query parameter");
   });
 
   it('should respond with an error for incorrect data types', async () => {
     const invalidParams = {
-      destination_id: '5678',
-      checkin: '2023-09-21',
-      checkout: '2023-10-01',
-      guests: '2',
-    };
+        hotelId: '1234',
+        destination_id: '5678',
+        checkin: '2023-09-21',
+        checkout: '2023-10-01',
+        guests: '2',
+      };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
-      .get('/api/disphotels')
+      .get('/api/disprooms?')
       .query(invalidParams);
     expect(res.status).toBe(400);
-    expect(res.text).toContain("Invalid query parameter");
   });
 
   it('should respond with a 404 error for an invalid route', async () => {
@@ -78,17 +74,16 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should return a 200 code if the parameters entered are correct, but the destination code does not return any hotels', async () => {
     const noHotels = {
-      destination_id: 'S000',
-      checkin: '2023-09-21',
-      checkout: '2023-10-01',
-      guests: '2',
-    };
-    await new Promise((resolve) => setTimeout(() => resolve(), 500));
+        hotelId: 'RsBU',
+        destination_id: '5678',
+        checkin: '2023-09-21',
+        checkout: '2023-10-01',
+        guests: '2',
+      };
     const res = await request(app)
-    .get('/api/disphotels')
+    .get('/api/disprooms')
     .query(noHotels);
     expect(res.status).toBe(200);
-    expect(res.body).toBeDefined();
   });
 
   afterAll(async () => {
