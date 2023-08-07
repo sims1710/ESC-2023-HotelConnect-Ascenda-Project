@@ -90,7 +90,7 @@ Just kidding, please contact Singapore University of Technology and Design (SUTD
 Even though the website is developed, there is room for improvement. The website's design can be optimised, user profiles can be developed to personalise user experience and display homepages customised to their test and preferences, cookies can be used to keep track of user preferences to suggest accommodation suited for the user on their homepage, thus reducing the need to search the page.
 
 ### Authors and Acknowledgement
-Anivia is developed by Team C3I5 from Cohort Class 03.  
+HotelConnect is developed by Team C3I5 from Cohort Class 03.  
 The authors are: 
 - Florence Elizabeth Nguyen Shi Ky
 - Aditya Sudarshan Rajesh Krishnan
