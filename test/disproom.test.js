@@ -21,8 +21,8 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should respond with hotel data and DisplayRoom.html', async () => {
     const validParams = {
-        hotelId: 'RsBU',
-        destination_id: '5678',
+        hotel_id: 'RsBU',
+        destination_id: 'RsBU',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',
@@ -39,9 +39,9 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should respond with an error for missing query parameters', async () => {
     const missingParams = {
-        hotelId: '1234',
-        checkin: '2023-09-21',
-        checkout: '2023-10-01',
+      hotel_id: 'RsBU',
+      checkin: '2023-09-21',
+      checkout: '2023-10-01',
     };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
@@ -52,7 +52,7 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should respond with an error for incorrect data types', async () => {
     const invalidParams = {
-        hotelId: '1234',
+        hotel_id: '1234',
         destination_id: '5678',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
@@ -60,7 +60,7 @@ describe('Backend test Cases for fetching hotels', () => {
       };
     await new Promise((resolve) => setTimeout(() => resolve(), 500));
     const res = await request(app)
-      .get('/api/disprooms?')
+      .get('/api/disprooms')
       .query(invalidParams);
     expect(res.status).toBe(400);
   });
@@ -74,8 +74,8 @@ describe('Backend test Cases for fetching hotels', () => {
 
   it('should return a 200 code if the parameters entered are correct, but the destination code does not return any hotels', async () => {
     const noHotels = {
-        hotelId: 'RsBU',
-        destination_id: '5678',
+        hotel_id: '',
+        destination_id: 'RsBU',
         checkin: '2023-09-21',
         checkout: '2023-10-01',
         guests: '2',

@@ -192,8 +192,11 @@ function containsOnlyNumbers(str) {
   return /^\d+$/.test(str);
 }
 
-function isValidID(id) {
+function isValidDestinationID(id) {
   return !containsOnlyNumbers(id) && !containsSpecialChars(id) && id.length === 4;
+}
+function isValidHotelID(id) {
+  return !containsSpecialChars(id) && (id.length === 4 || id.length === 5);
 }
 
 function validateQueryParam(param, paramName, validatorFn) {
@@ -214,17 +217,12 @@ function validateQueryParam(param, paramName, validatorFn) {
 
 app.get('/api/disphotels', async (req, res) => {
   const destinationId = req.query.destination_id;
-  const language = req.query.lang;
-  const money = req.query.currency;
   const checkinDate = req.query.checkin;
   const checkoutDate = req.query.checkout;
-  const country = req.query.country_code;
   const guestNum = req.query.guests;
-  const partnerid = req.query.partner_id;
-  const roomNum = req.query.rooms;
 
   const invalidParam = 
-    validateQueryParam(destinationId, "destinationId", isValidID) ||
+    validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
     validateQueryParam(guestNum, "guestNum", isValidNumber);
@@ -245,8 +243,6 @@ app.get('/api/disphotels', async (req, res) => {
       const filePath = './public/hotels_data.json';
       await fs.writeFile(filePath, JSON.stringify(hotelResponseData));
       res.sendFile(path.resolve(__dirname, 'public', 'DisplayHotels.html'));
-
-      const hotelpriceapi = `https://hotelapi.loyalty.dev/api/hotels/prices?destination_id=${destinationId}&checkin=${checkinDate}&checkout=${checkoutDate}&lang=en_US&currency=SGD&country_code=SG&guests=${guestNum}&partner_id=1`;
     } catch (error) {
       console.error("Error while fetching hotels info:", error);
       res.status(500).json({ error: "An error occurred while fetching hotels info." });
@@ -264,8 +260,8 @@ app.get('/api/disprooms', async (req, res)=>{
   const guestNum = req.query.guests;
   const roomNum = req.query.rooms;
   const invalidParam = 
-    validateQueryParam(hotelId, "hotelId", isValidID) ||
-    validateQueryParam(destinationId, "destinationId", isValidID) ||
+    validateQueryParam(hotelId, "hotelId", isValidHotelID) ||
+    validateQueryParam(destinationId, "destinationId", isValidDestinationID) ||
     validateQueryParam(checkinDate, "checkinDate", isValidDate) ||
     validateQueryParam(checkoutDate, "checkoutDate", isValidDate) ||
     validateQueryParam(guestNum, "guestNum", isValidNumber) ||
