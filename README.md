@@ -105,4 +105,4 @@ Special thanks to:
 - [Web Design Mastery](https://youtu.be/SVLR5XVTGj0) as reference for the Frontend.
 
 ### Project Status
-Currently, the project is nearing completion.
+Currently, the project is completed, but definitely can be improved to add more features.
