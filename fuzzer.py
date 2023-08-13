@@ -20,8 +20,14 @@ def random_string(length):
 
 # Generate random valid hotel or destination ID
 def random_valid_id():
-    length = 4
-    characters = string.ascii_letters + string.digits
+    length = random.randint(0,6)
+    characters = string.ascii_letters
+    if(random.choice([True,False])):
+        characters += string.digits
+    if(random.choice([True, False])):
+        characters += string.punctuation
+    if(random.choice([True,False])):
+        return " "
     return ''.join(random.choice(characters) for _ in range(length))
 
 # Generate random valid date from today
@@ -29,11 +35,15 @@ def random_valid_date():
     today = datetime.now()
     random_days = random.randint(0, 365)
     random_date = today + timedelta(days=random_days)
-    return random_date.strftime('%Y-%m-%d')
+    if random.choice([True, False]):
+        return random_date.strftime('%Y-%m-%d')
+    else:
+        invalid_formats =  ['%d-%m-%Y', '%m-%d-%Y', '%Y/%m/%d', '%d/%m/%Y']
+        return random_date.strftime(random.choice(invalid_formats))
 
 # Generate random price, guests, and rooms values
 def random_valid_price():
-    return round(random.uniform(10, 1000), 2)
+    return round(random.uniform(-10000, 100000), 2)
 
 def random_valid_integer(min_val, max_val):
     return random.randint(min_val, max_val)
@@ -45,15 +55,16 @@ def run_fuzzer():
     random_destination_id = random_valid_id()
     random_checkin = random_valid_date()
     random_checkout = random_valid_date()
+    random_price = random_valid_price()
 
-    # Your fuzzer logic here
+    # fuzzer logic here
     #gen random URLs 
     url_examples = [
         '/',
         f"/api/disphotels?destination_id={random_destination_id}&checkin={random_checkin}&checkout={random_checkout}&lang=en_US&currency=SGD&country_code=SG&guests=2&rooms=1&partner_id=1",
         f"/api/disprooms?hotel_id={random_hotel_id}&destination_id={random_destination_id}&checkin={random_checkin}&checkout={random_checkout}&lang=en_US&currency=SGD&partner_id=1&country_code=SG&guests=2&rooms=1",
         f"/payment?hotel=Conrad%20Tokyo&checkin={random_checkin}&checkout={random_checkout}&guests=2&room=Royal%20Suite,%201%20King%20Bed&price=5725.96",
-        f"/paymentstripe?price=5725.96"
+        f"/paymentstripe?price={random_price}"
     ]
 
     random_url = random.choice(url_examples)
