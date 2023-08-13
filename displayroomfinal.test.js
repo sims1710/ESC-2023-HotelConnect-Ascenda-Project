@@ -167,6 +167,4 @@ describe('Hotel Room Page', () => {
     const descriptionElement = dom.window.document.querySelector('.hotel-description p');
     expect(descriptionElement).toHaveTextContent(expectedDescription);
   });
-
-  // You can add more test cases for other elements and interactions...
 });

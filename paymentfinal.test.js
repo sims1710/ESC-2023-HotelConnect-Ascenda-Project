@@ -1,7 +1,7 @@
 const { JSDOM } = require('jsdom');
 require('@testing-library/jest-dom/extend-expect');
 
-describe('Home Page', () => {
+describe('Payment Page', () => {
     let dom;
   
     beforeEach(() => {
@@ -176,16 +176,15 @@ afterEach(() => {
 });
 
 
-// Test case to check if account information inputs are rendered:
-test('Account information inputs are rendered', () => {
+test('Account information inputs are displayed correctly', () => {
     const fullNameInput = dom.window.document.querySelector('input[placeholder="Full Name"]');
     const emailInput = dom.window.document.querySelector('input[placeholder="Email Address"]');
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const addressInput = dom.window.document.querySelector('input[placeholder="Billing Address"]');
     const phoneNumberInput = dom.window.document.querySelector('input[placeholder="Phone Number"]');
 
-    phoneNumberInput.value = '12345678'; // Set input value
-    emailInput.value = 'test@example.com'; // Set input value
+    phoneNumberInput.value = '12345678'; // set input value
+    emailInput.value = 'test@example.com'; // set input value
 
     expect(fullNameInput).not.toBeNull();
     expect(emailInput.value).toMatch(emailRegex);
@@ -193,8 +192,7 @@ test('Account information inputs are rendered', () => {
     expect(phoneNumberInput.value.length).toBe(8);
   });
 
-// Test case to check if payment form submit button is rendered:
-test('Submit button is rendered', () => {
+test('Submit button is displayed correctly', () => {
     const submitButton = dom.window.document.querySelector('button[type="submit"]');
     expect(submitButton).not.toBeNull();
 });

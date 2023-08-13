@@ -270,14 +270,14 @@ describe('Home Page', () => {
     const guestsInput = dom.window.document.querySelector('input[placeholder="e.g. 2"]');
     const roomsInput = dom.window.document.querySelector('input[placeholder="e.g. 2"]');
 
-    // Simulate user input
+    // simulate user input
     locationInput.value = 'Singapore';
     checkInInput.value = '2023-08-01';
     checkOutInput.value = '2023-08-05';
     guestsInput.value = '2';
     roomsInput.value = '1';
 
-    // Dispatch the submit event
+    // dispatch the submit event
     form.dispatchEvent(new dom.window.Event('submit'));
 
     const locationLabel = locationInput.closest('.input__group label[for="location"]');
@@ -286,13 +286,11 @@ describe('Home Page', () => {
     const guestsLabel = guestsInput.closest('.input__group label[for="guests"]');
     const roomsLabel = roomsInput.closest('.input__group label[for="guests"]');
 
-    // Ensure the input elements are selected correctly
+    // ensure input elements are selected correctly
     expect(locationInput).not.toBeNull();
     expect(checkInInput).not.toBeNull();
     expect(checkOutInput).not.toBeNull();
     expect(guestsInput).not.toBeNull();
     expect(roomsInput).not.toBeNull();
   });
-
-  // You can add more test cases for other elements and interactions...
 });

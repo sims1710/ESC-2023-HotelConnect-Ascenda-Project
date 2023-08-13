@@ -1,8 +1,8 @@
 const { JSDOM } = require('jsdom');
-require('@testing-library/jest-dom/extend-expect'); // This is important to extend Jest with DOM matchers
+require('@testing-library/jest-dom/extend-expect'); // extend Jest with DOM matchers
 
 test('Top bar information is displayed correctly', () => {
-  // Create a new DOM environment
+  // create new DOM environment
   const dom = new JSDOM(`
   <!DOCTYPE html>
   <html lang="en">
@@ -199,22 +199,22 @@ test('Top bar information is displayed correctly', () => {
   
   `);
 
-  // Set the global `window` and `document` objects to the ones provided by jsdom
+  // set global 'window' and 'document' objects to the ones provided by jsdom
   global.window = dom.window;
   global.document = dom.window.document;
 
-  // Simulate the DOMContentLoaded event
+  // simulate DOMContentLoaded event
   const event = new dom.window.Event('DOMContentLoaded');
   dom.window.document.dispatchEvent(event);
 
-  // Set up sample data for the top bar
+  // set up sample data for the top bar
   const expectedDestination = 'New York, USA';
   const expectedCheckInDate = '2023-07-28';
   const expectedCheckOutDate = '2023-07-30';
   const expectedGuestNum = '2';
   const expectedRoomNum = '1';
 
-  // Modify the content of the top bar elements
+  // modify content of the top bar elements
   const destinationElement = dom.window.document.getElementById('destination');
   const checkInDateElement = dom.window.document.getElementById('checkInDate');
   const checkOutDateElement = dom.window.document.getElementById('checkOutDate');
@@ -227,14 +227,14 @@ test('Top bar information is displayed correctly', () => {
   guestNumElement.textContent = expectedGuestNum;
   roomNumElement.textContent = expectedRoomNum;
 
-  // Verify that the top bar information is displayed correctly
+  // verify that the top bar information is displayed correctly
   expect(destinationElement).toHaveTextContent(expectedDestination);
   expect(checkInDateElement).toHaveTextContent(expectedCheckInDate);
   expect(checkOutDateElement).toHaveTextContent(expectedCheckOutDate);
   expect(guestNumElement).toHaveTextContent(expectedGuestNum);
   expect(roomNumElement).toHaveTextContent(expectedRoomNum);
 
-  // Clean up the global objects to avoid polluting other tests
+  // clean up global objects to avoid polluting other tests
   delete global.window;
   delete global.document;
 });
