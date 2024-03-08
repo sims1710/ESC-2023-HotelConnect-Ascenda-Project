@@ -4,7 +4,7 @@
 
 
 <p align="centre">
-  <img src=https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/65dc6a7f-4bb2-4edb-92be-7d9322ce73d8 />
+  <img src= "https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/65dc6a7f-4bb2-4edb-92be-7d9322ce73d8"/>
 </p>
 
 
