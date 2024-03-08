@@ -7,6 +7,7 @@
   <img src= "https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/65dc6a7f-4bb2-4edb-92be-7d9322ce73d8"/>
 </p>
 
+Click here to see a [demo]() of the website!
 
 ### Description
 HotelConnect is a hotel booking website that offers a seamless and convenient way to find and book accommodation worldwide. With a user-friendly interface and a vast slection of hotels, HotelConnect aims to provide a stress-free experience for travellers seeking the perfect stay. Users can search by the destination they want to go to, the planned check-in and check-out dates, the number of rooms and number of guests estimated and book the accommodation online after paying for it through our secure payment portal.
