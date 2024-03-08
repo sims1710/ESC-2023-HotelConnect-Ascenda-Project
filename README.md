@@ -2,8 +2,9 @@
 
  *Hotel Booking Website* 
 
+
 <p align="centre">
-  <img src="https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/9f2cb20c-13dd-45ac-9f74-95f1cd517618" />
+  <img src=![ESC - Final Video](https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/65dc6a7f-4bb2-4edb-92be-7d9322ce73d8) />
 </p>
 
 
