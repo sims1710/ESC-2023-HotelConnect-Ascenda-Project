@@ -2,7 +2,7 @@
  *Hotel Booking Website* 
 
 <p align="centre">
-  <img src="[https://github.com/sims1710/sims1710/assets/87659722/db2613a4-e318-42bc-90ba-cc63fb7b6f86](https://github.com/sims1710/ESC-2023-HotelConnect-Ascenda-Project/assets/87659722/a683d138-7c36-4d7f-9815-c2785575392c)" />
+  <img src="https://github.com/sims1710/sims1710/assets/87659722/db2613a4-e318-42bc-90ba-cc63fb7b6f86" />
 </p>
 
 ### Description
